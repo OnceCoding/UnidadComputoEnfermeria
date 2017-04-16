@@ -33,6 +33,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     public frmPrincipal() {
         initComponents();
         setLocationRelativeTo(null);
+        cambiarPanel("Inicio", panelInicio); //Agrege esta linea
         
         try {
             manager = MysqlDaoManager.getMysqlDaoManager();
