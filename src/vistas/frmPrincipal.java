@@ -34,7 +34,12 @@ public class frmPrincipal extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         cambiarPanel("Inicio", panelInicio); //Agrege esta linea
-        
+        /*  
+        --> Codigo de centrado
+        DefaultTableCellRenderer modelocentrar = new DefaultTableCellRenderer();
+        modelocentrar.setHorizontalAlignment(SwingConstants.RIGHT);
+        table.getColumnModel().getColumn(col).setCellRenderer(modelocentrar); 
+        */
         try {
             manager = MysqlDaoManager.getMysqlDaoManager();
             lblNombreAdmin.setText(manager.getDaoAdministrador().obtener().getUser());
