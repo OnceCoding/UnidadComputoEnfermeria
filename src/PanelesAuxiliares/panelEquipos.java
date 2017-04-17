@@ -1,5 +1,6 @@
-package vistas;
+package PanelesAuxiliares;
 
+import vistas.*;
 import dao.DaoComputadora;
 import dao.DaoManager;
 import dao.mysql.MysqlDaoManager;
@@ -7,13 +8,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
-import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableModel;
 import modelo.Computadora;
 
 public class panelEquipos extends javax.swing.JPanel {
@@ -29,7 +28,7 @@ public class panelEquipos extends javax.swing.JPanel {
     private DaoManager manager;
     
     private DefaultTableModel model;
-    private DefaultTableCellRenderer cellRenderer;
+    private DefaultTableCellRenderer modelCell;
     
     private List<Computadora> listacomputadoras;
     private Computadora computadora = null;
@@ -44,10 +43,9 @@ public class panelEquipos extends javax.swing.JPanel {
         
         actualizarCantidadcomputadoras();
         
-        cellRenderer = new DefaultTableCellRenderer();
-        cellRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-        tablaEquipos.setDefaultRenderer(Object.class, cellRenderer);
-        //tablaEquipos.getColumnModel().getColumn(0).setCellRenderer(cellRenderer);
+        modelCell = new DefaultTableCellRenderer();
+        //modelocentrar.setHorizontalAlignment(SwingConstants.RIGHT);
+        //table.getColumnModel().getColumn(col).setCellRenderer(modelocentrar);
         
         model = new DefaultTableModel();
         model.addColumn("codigo");
