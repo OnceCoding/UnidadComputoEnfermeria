@@ -389,7 +389,8 @@ public class panelInicio extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNuevaSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaSesionActionPerformed
-
+        dialogNuevaSesion dialog = new dialogNuevaSesion(new java.awt.Frame(), true);
+        dialog.setVisible(true);
     }//GEN-LAST:event_btnNuevaSesionActionPerformed
 /*
     public void cambiarPanel(JPanel panelContenido){
