@@ -1,5 +1,6 @@
 package vistas;
 
+import TablaModel.RendererTablaUsuario;
 import dao.DaoManager;
 import dao.DaoUsuario;
 import dao.mysql.MysqlDaoManager;
@@ -35,6 +36,7 @@ public class panelUser extends javax.swing.JPanel {
     private String caracteresCodigoSeleccionadoValido = "1234567890";
     
     private DefaultTableModel model;
+    private RendererTablaUsuario cellRenderer;
     
     private String buscar;
     
@@ -54,40 +56,28 @@ public class panelUser extends javax.swing.JPanel {
         actualizarContadorUsuario();
         
         
-        //model = new DefaultTableModel();
-        model = new DefaultTableModel() {
-            @Override
-            public Class getColumnClass(int columnIndex) {
-                if (columnIndex == 0) {
-                    return Integer.class;
-                } else {
-                    return Integer.class;
-                }
-            }
-            
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
+        model = new DefaultTableModel();
+
         model.addColumn("CODIGO");
         model.addColumn("NOMBRE");
         model.addColumn("APELLIDO");
         model.addColumn("TIPO");
         model.addColumn("CORREO");
-        //model.addColumn("FECHA REGISTRO");
         
         tablaUsuarios.setRowHeight(25);
         mostrarUltimosUsuariosRegistrados();
         tablaUsuarios.setModel(model);
 
+        cellRenderer = new RendererTablaUsuario();
+        tablaUsuarios.setDefaultRenderer(Object.class, cellRenderer);
+        
+        
         TableColumnModel columnModel = tablaUsuarios.getColumnModel();
         columnModel.getColumn(0).setPreferredWidth(40);
         columnModel.getColumn(1).setPreferredWidth(100);
         columnModel.getColumn(2).setPreferredWidth(100);
         columnModel.getColumn(3).setPreferredWidth(25);
         columnModel.getColumn(4).setPreferredWidth(135);
-        
         
         tablaUsuarios.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
             @Override
@@ -113,6 +103,10 @@ public class panelUser extends javax.swing.JPanel {
                 
             }
         });
+        
+        
+        
+        
     }
 
     @SuppressWarnings("unchecked")
