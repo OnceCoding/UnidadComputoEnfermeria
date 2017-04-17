@@ -49,7 +49,12 @@ public class panelEquipos extends javax.swing.JPanel {
         tablaEquipos.setDefaultRenderer(Object.class, cellRenderer);
         //tablaEquipos.getColumnModel().getColumn(0).setCellRenderer(cellRenderer);
         
-        model = new DefaultTableModel();
+        model = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
         model.addColumn("codigo");
         model.addColumn("Estado");
         

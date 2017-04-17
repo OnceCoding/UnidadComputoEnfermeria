@@ -56,7 +56,12 @@ public class panelUser extends javax.swing.JPanel {
         actualizarContadorUsuario();
         
         
-        model = new DefaultTableModel();
+        model = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
 
         model.addColumn("CODIGO");
         model.addColumn("NOMBRE");
@@ -637,8 +642,7 @@ public class panelUser extends javax.swing.JPanel {
         
     }//GEN-LAST:event_btnBuscarActionPerformed
 
-    
-    
+  
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         
         if(txtCodigoSeleccionado.getText().equals("")){

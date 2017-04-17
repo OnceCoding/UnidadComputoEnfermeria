@@ -1,10 +1,76 @@
 
 package vistas;
 
+import TablaModel.RendererTablaCurso;
+import dao.DaoCurso;
+import dao.DaoManager;
+import dao.mysql.MysqlDaoManager;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
+import modelo.Curso;
+
 public class panelCursos extends javax.swing.JPanel {
 
+    private Curso curso;
+    private List<Curso> listaCursos;
+    
+    private String nombreCurso;
+    private String caracterValidos = "abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMÑOPQRSTUVWXYZ123456789";
+    
+    private DaoManager manager;
+    private DaoCurso daoCurso;
+    
+    private DefaultTableModel model;
+    private RendererTablaCurso renderer;
+    
     public panelCursos() {
         initComponents();
+        
+        model = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+            
+        };
+        model.addColumn("Nombre del Curso");
+        
+        tablaCursos.setRowHeight(25);
+        tablaCursos.setModel(model);
+        
+        renderer = new RendererTablaCurso();
+        tablaCursos.setDefaultRenderer(Object.class, renderer);
+        
+        try {
+            manager = MysqlDaoManager.getMysqlDaoManager();
+        } catch (SQLException ex) {
+            System.out.println("error");
+        }
+        
+        mostrarTodosLosCursos();
+        actualizarLabelCantidadCursos();
+        
+        
+        tablaCursos.getSelectionModel().addListSelectionListener((ListSelectionEvent e) -> {
+            
+            try{
+                int fila = tablaCursos.getSelectedRow();
+                nombreCurso = model.getValueAt(fila,0).toString();
+                
+                txtNombreCursoSeleccionado.setText(nombreCurso);
+                
+            }catch(Exception ex){
+            }
+        
+        });
+    
     }
 
     @SuppressWarnings("unchecked")
@@ -13,7 +79,7 @@ public class panelCursos extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
-        lblCantidadUsuarios = new javax.swing.JLabel();
+        lblCantidadCursos = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
@@ -28,6 +94,8 @@ public class panelCursos extends javax.swing.JPanel {
         btnEliminar = new javax.swing.JButton();
         jLabel24 = new javax.swing.JLabel();
         txtNombreCursoSeleccionado = new javax.swing.JTextField();
+        jLabel25 = new javax.swing.JLabel();
+        txtNombreCursoModificacion = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaCursos = new javax.swing.JTable();
 
@@ -37,9 +105,9 @@ public class panelCursos extends javax.swing.JPanel {
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
         jLabel15.setText("Cantidad de Cursos:");
 
-        lblCantidadUsuarios.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        lblCantidadUsuarios.setForeground(new java.awt.Color(255, 255, 255));
-        lblCantidadUsuarios.setText("##");
+        lblCantidadCursos.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblCantidadCursos.setForeground(new java.awt.Color(255, 255, 255));
+        lblCantidadCursos.setText("##");
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
@@ -78,6 +146,11 @@ public class panelCursos extends javax.swing.JPanel {
         btnGuardar.setText("GUARDAR");
         btnGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnGuardar.setFocusable(false);
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
 
         jPanel4.setBackground(new java.awt.Color(34, 34, 34));
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(java.awt.Color.white), "Curso Seleccionado", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 11), java.awt.Color.white)); // NOI18N
@@ -88,6 +161,11 @@ public class panelCursos extends javax.swing.JPanel {
         btnModificar.setText("MODIFICAR");
         btnModificar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnModificar.setFocusable(false);
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setBackground(new java.awt.Color(34, 70, 135));
         btnEliminar.setFont(new java.awt.Font("Tempus Sans ITC", 0, 12)); // NOI18N
@@ -95,34 +173,52 @@ public class panelCursos extends javax.swing.JPanel {
         btnEliminar.setText("ELIMINAR");
         btnEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEliminar.setFocusable(false);
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         jLabel24.setForeground(new java.awt.Color(255, 255, 255));
         jLabel24.setText("NOMBRE");
 
+        txtNombreCursoSeleccionado.setEditable(false);
         txtNombreCursoSeleccionado.setBackground(new java.awt.Color(34, 34, 34));
         txtNombreCursoSeleccionado.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         txtNombreCursoSeleccionado.setForeground(java.awt.Color.white);
         txtNombreCursoSeleccionado.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtNombreCursoSeleccionado.setBorder(javax.swing.BorderFactory.createLineBorder(java.awt.Color.white));
 
+        jLabel25.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel25.setText("NOMBRE NUEVO");
+
+        txtNombreCursoModificacion.setBackground(new java.awt.Color(34, 34, 34));
+        txtNombreCursoModificacion.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txtNombreCursoModificacion.setForeground(java.awt.Color.white);
+        txtNombreCursoModificacion.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtNombreCursoModificacion.setBorder(javax.swing.BorderFactory.createLineBorder(java.awt.Color.white));
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtNombreCursoSeleccionado)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel24)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap(21, Short.MAX_VALUE)
                 .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(19, 19, 19))
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtNombreCursoSeleccionado)
+                    .addComponent(txtNombreCursoModificacion)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel24)
+                            .addComponent(jLabel25))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -131,24 +227,17 @@ public class panelCursos extends javax.swing.JPanel {
                 .addComponent(jLabel24)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtNombreCursoSeleccionado, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel25)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtNombreCursoModificacion, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(19, 19, 19))
         );
 
-        tablaCursos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
         jScrollPane1.setViewportView(tablaCursos);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -190,7 +279,7 @@ public class panelCursos extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel15)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblCantidadUsuarios))
+                        .addComponent(lblCantidadCursos))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(28, 28, 28)
@@ -223,7 +312,7 @@ public class panelCursos extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblCantidadUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblCantidadCursos, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 469, Short.MAX_VALUE)
@@ -243,7 +332,127 @@ public class panelCursos extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        
+        nombreCurso = txtNombreCurso.getText();
+        
+        if(validar(nombreCurso)){
+            
+            daoCurso = manager.getDaoCurso();
+            curso = daoCurso.obtener(nombreCurso);
+            if(curso == null){
+                daoCurso.insertar(new Curso(null, nombreCurso));
+                txtNombreCurso.setText("");
+                limpiarTabla();
+                mostrarTodosLosCursos();
+                actualizarLabelCantidadCursos();
+            }else{
+                JOptionPane.showMessageDialog(null,"El Curso ya Existe","Curso",JOptionPane.WARNING_MESSAGE);
+            }
 
+        }else{
+            JOptionPane.showMessageDialog(null,"Escriba un Nombre Valido","Curso",JOptionPane.WARNING_MESSAGE);
+        }
+        
+ 
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        
+        if(validar(txtNombreCursoSeleccionado.getText())){
+            
+            Object[] options = {"Eliminar","Cancelar"};
+            int n = JOptionPane.showOptionDialog(null,"Seguro que desea eliminar el curso "+txtNombreCursoSeleccionado.getText()
+                    ,"Eliminar Curso",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE,null, options,null);
+            
+            if(n == 0){
+                daoCurso = manager.getDaoCurso();
+                daoCurso.eliminar(new Curso(null,txtNombreCursoSeleccionado.getText()));
+                limpiarTabla();
+                mostrarTodosLosCursos();
+                actualizarLabelCantidadCursos();
+                limpiarSeleccionados();
+            }
+
+        }else{
+            JOptionPane.showMessageDialog(null,"Seleccione un curso de la Tabla");
+        }
+        
+        
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        
+        if(validar(txtNombreCursoSeleccionado.getText())){
+            if(validar(txtNombreCursoModificacion.getText())){
+                Object[] options = {"Modificar","Cancelar"};
+                int n = JOptionPane.showOptionDialog(null,"Seguro que desea Modificar el curso "+txtNombreCursoSeleccionado.getText()
+                    ,"Modificar Curso",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE,null, options,null);
+            
+                if(n == 0){
+                    daoCurso = manager.getDaoCurso();
+                    daoCurso.actualizar(new Curso(null,txtNombreCursoSeleccionado.getText()),txtNombreCursoModificacion.getText());
+                    limpiarTabla();
+                    mostrarTodosLosCursos();
+                    actualizarLabelCantidadCursos();
+                    limpiarSeleccionados();
+                }
+            }else{
+                JOptionPane.showMessageDialog(null,"Ingrese un Nombre Nuevo Valido");
+            }
+        }else{
+            JOptionPane.showMessageDialog(null,"Seleccione un curso de la Tabla");
+        }
+        
+    }//GEN-LAST:event_btnModificarActionPerformed
+
+    public void limpiarSeleccionados(){
+        txtNombreCursoSeleccionado.setText("");
+        txtNombreCursoModificacion.setText("");
+    }
+    
+    public void actualizarLabelCantidadCursos(){
+        daoCurso = manager.getDaoCurso();
+        lblCantidadCursos.setText(daoCurso.obtenerContadorCursos());
+    }
+    
+    public void mostrarTodosLosCursos(){
+        listaCursos = null;
+        listaCursos = new ArrayList<>();
+        
+        daoCurso = manager.getDaoCurso();
+        listaCursos = daoCurso.obtenerTodos();
+        
+        listaCursos.forEach((cur)->{
+            model.addRow(new String[]{cur.getNombre()});
+        });
+        
+    }
+    
+    public boolean validar(String texto){
+        int i,j;
+        int sizeTexto = texto.length();
+        int sizeCaracteresalidos = caracterValidos.length();
+
+        for(i=0; i< sizeTexto; i++){
+            for(j=0; j<sizeCaracteresalidos; j++){
+                if(texto.charAt(i) == caracterValidos.charAt(j)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
+    public void limpiarTabla(){
+        int cant = tablaCursos.getRowCount();
+        int i;
+        
+        for(i=0; i<cant; i++){
+            model.removeRow(0);
+        }        
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
@@ -255,14 +464,16 @@ public class panelCursos extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JLabel lblCantidadUsuarios;
+    private javax.swing.JLabel lblCantidadCursos;
     private javax.swing.JTable tablaCursos;
     private javax.swing.JTextField txtNombreCurso;
+    private javax.swing.JTextField txtNombreCursoModificacion;
     private javax.swing.JTextField txtNombreCursoSeleccionado;
     // End of variables declaration//GEN-END:variables
 }

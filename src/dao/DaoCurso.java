@@ -5,26 +5,16 @@ import modelo.Curso;
 
 public interface DaoCurso{
 
-    public default void insertar(Curso curso) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public void insertar(Curso curso);
 
-    public default void eliminar(Curso curso) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public void eliminar(Curso curso);
 
-    public default void actualizar(Curso curso) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public void actualizar(Curso curso,String nombreNuevo);
 
-    public default Object obtener(Integer key) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public Curso obtener(String nombre);
 
-    public default List<Curso> obtenerTodos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public List<Curso> obtenerTodos();
     
-    
+    public String obtenerContadorCursos();
     
 }
