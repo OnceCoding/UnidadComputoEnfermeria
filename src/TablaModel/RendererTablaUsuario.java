@@ -11,12 +11,7 @@ public class RendererTablaUsuario extends DefaultTableCellRenderer{
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
 
-        if(column == 0){
-            setHorizontalAlignment(SwingConstants.CENTER);
-        }else{
-            setHorizontalAlignment(CENTER);
-        }
-    
+        setHorizontalAlignment(SwingConstants.CENTER);
         return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
         
     }

@@ -3,14 +3,18 @@ package vistas;
 
 import java.awt.BorderLayout;
 import java.awt.Frame;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 
 public class panelInicio extends javax.swing.JPanel {
-   
-    public panelInicio() {
+    
+    private JFrame frame;
+    
+    public panelInicio(JFrame frame) {
         initComponents();
+        this.frame = frame;
         //Pa saber que si se mezclaron
         spnHora.setEnabled(false); 
         spnMinuto.setEnabled(false);
@@ -389,8 +393,11 @@ public class panelInicio extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNuevaSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaSesionActionPerformed
+        frame.setVisible(false);
         dialogNuevaSesion dialog = new dialogNuevaSesion(new java.awt.Frame(), true);
+        dialog.setLocationRelativeTo(null);
         dialog.setVisible(true);
+        
     }//GEN-LAST:event_btnNuevaSesionActionPerformed
 /*
     public void cambiarPanel(JPanel panelContenido){

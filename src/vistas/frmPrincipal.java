@@ -23,7 +23,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     private int x, y;
     private JPanel panelEquipos = new panelEquipos();
     private JPanel panelCursos= new panelCursos();
-    private JPanel panelInicio = new panelInicio();
+    private JPanel panelInicio = new panelInicio(this);
     private JPanel panelUser = new panelUser();
     
     private DaoManager manager;

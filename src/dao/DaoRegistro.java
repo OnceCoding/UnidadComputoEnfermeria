@@ -18,4 +18,6 @@ public interface DaoRegistro{
     
     public void obtenerListaPorSemestre();
     
+    public Integer obtenerCantidadSesionesActuales();
+    
 }

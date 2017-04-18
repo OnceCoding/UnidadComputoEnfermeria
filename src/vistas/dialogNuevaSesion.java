@@ -1,13 +1,87 @@
 
 package vistas;
 
+import dao.DaoManager;
+import dao.DaoRegistroTemporal;
+import dao.DaoUsuario;
+import dao.mysql.MysqlDaoManager;
+import java.awt.Frame;
+import java.sql.Date;
+import java.sql.SQLException;
+import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import modelo.Computadora;
+import modelo.RegistroTemporal;
+import modelo.Usuario;
+
 public class dialogNuevaSesion extends java.awt.Dialog {
     
     private int x, y;
-
+    private Frame frame;
+    
+    private DaoManager manager;
+    private DaoUsuario daoUsuario;
+    private Usuario usuario;
+    private DaoRegistroTemporal daoRegistroTemporal;
+    private Computadora compu;
+    private List<Computadora> listaEquiposDisponibles;
+    
+    private String codigo;
+    private String codigoPcSeleccionado;
+    private int fila;
+    
+    private String numerosValidos = "1234567890";
+    
+    private DefaultTableModel model;
+    private DefaultTableCellRenderer renderer;
+    
     public dialogNuevaSesion(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.frame = parent;
+        
+        tablaEquipos.setRowHeight(25);
+        model = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; 
+            }
+            
+        };
+        model.addColumn("Codigo Equipo");
+        
+        renderer = new DefaultTableCellRenderer(){
+            @Override
+            public void setHorizontalAlignment(int alignment) {
+                super.setHorizontalAlignment(CENTER); 
+            }   
+        };
+        
+        tablaEquipos.setModel(model);
+        tablaEquipos.setDefaultRenderer(Object.class, renderer);
+        
+        tablaEquipos.getSelectionModel().addListSelectionListener((event)->{
+            try {
+                fila = tablaEquipos.getSelectedRow();
+                codigoPcSeleccionado = model.getValueAt(fila,0).toString();
+            } catch (Exception e) {
+            }
+        });
+        
+        try {
+            manager = MysqlDaoManager.getMysqlDaoManager();
+        } catch (SQLException e) {
+            System.out.println("error");
+        }
+     
+        mostrarEquiposDisponibles();
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -26,12 +100,12 @@ public class dialogNuevaSesion extends java.awt.Dialog {
         jLabel6 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        Iniciar = new javax.swing.JButton();
+        btnIniciar = new javax.swing.JButton();
         txtCodigo = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaEquipos = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         btnAtras = new javax.swing.JButton();
@@ -158,15 +232,15 @@ public class dialogNuevaSesion extends java.awt.Dialog {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("CODIGO");
 
-        Iniciar.setBackground(new java.awt.Color(34, 70, 135));
-        Iniciar.setFont(new java.awt.Font("Tempus Sans ITC", 0, 11)); // NOI18N
-        Iniciar.setForeground(java.awt.Color.white);
-        Iniciar.setText("INICIAR");
-        Iniciar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        Iniciar.setFocusable(false);
-        Iniciar.addActionListener(new java.awt.event.ActionListener() {
+        btnIniciar.setBackground(new java.awt.Color(34, 70, 135));
+        btnIniciar.setFont(new java.awt.Font("Tempus Sans ITC", 0, 11)); // NOI18N
+        btnIniciar.setForeground(java.awt.Color.white);
+        btnIniciar.setText("INICIAR");
+        btnIniciar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnIniciar.setFocusable(false);
+        btnIniciar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                IniciarActionPerformed(evt);
+                btnIniciarActionPerformed(evt);
             }
         });
 
@@ -183,18 +257,7 @@ public class dialogNuevaSesion extends java.awt.Dialog {
         jLabel10.setForeground(new java.awt.Color(184, 207, 229));
         jLabel10.setText("Por favor, complete el formulario correctamente.");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tablaEquipos);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -213,7 +276,7 @@ public class dialogNuevaSesion extends java.awt.Dialog {
                                 .addComponent(jLabel3)
                                 .addComponent(jLabel2)
                                 .addComponent(txtCodigo)
-                                .addComponent(Iniciar, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)))))
+                                .addComponent(btnIniciar, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)))))
                 .addContainerGap(35, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
@@ -230,7 +293,7 @@ public class dialogNuevaSesion extends java.awt.Dialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(Iniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(28, Short.MAX_VALUE))
         );
 
@@ -323,15 +386,17 @@ public class dialogNuevaSesion extends java.awt.Dialog {
     }// </editor-fold>//GEN-END:initComponents
 
     /**
-     * Closes the dialog
+     * Close the dialog
      */
     private void closeDialog(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_closeDialog
         setVisible(false);
         dispose();
+        new frmPrincipal().setVisible(true);
     }//GEN-LAST:event_closeDialog
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        System.exit(0);
+        dispose();
+        new frmPrincipal().setVisible(true);
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void barraMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_barraMouseDragged
@@ -343,36 +408,105 @@ public class dialogNuevaSesion extends java.awt.Dialog {
         this.y = evt.getY();
     }//GEN-LAST:event_barraMousePressed
 
-    private void IniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IniciarActionPerformed
+    private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
         
-    }//GEN-LAST:event_IniciarActionPerformed
+        this.codigo = txtCodigo.getText();
+        
+        if(!codigo.equals("")){
+            if(validarCodigoEspaciosVacios(this.codigo)){
+            
+                if(validarPurosNumeros(codigo)){
+                    daoUsuario = manager.getDaoUsuario();
+                    usuario = daoUsuario.obtener(codigo);
+                    
+                    if(usuario != null){
+
+                        int aceptar = JOptionPane.showConfirmDialog(null,
+                                usuario.getNombre()+" "+usuario.getApellido()+ "  iniciará Sesion, Seguro?",
+                                "Confirmar",JOptionPane.YES_NO_OPTION);
+                        
+                        if(aceptar == 0){
+                            daoRegistroTemporal = manager.getDaoRegistroTemporal();
+                            daoRegistroTemporal.insertar(
+                                new RegistroTemporal(null,codigo,codigoPcSeleccionado,
+                                        Time.valueOf(LocalTime.now()),null,Date.valueOf(LocalDate.now())));
+                            txtCodigo.setText("");
+                        }
+    
+                    }else{
+                        JOptionPane.showMessageDialog(null,"El codigo no esta registrado");
+                    }
+                    
+                }else{
+                    JOptionPane.showMessageDialog(null,"Codigo debe poseer solo dígitos","Codigo",JOptionPane.WARNING_MESSAGE);
+                }
+                
+            }else{
+                JOptionPane.showMessageDialog(null,"Codigo no debe poseer espacios en blanco","Codigo",
+                        JOptionPane.WARNING_MESSAGE);
+            }
+            
+        }else{
+                JOptionPane.showMessageDialog(null,"Ingrese Codigo","Codigo",
+                        JOptionPane.WARNING_MESSAGE);
+        }
+        
+    }//GEN-LAST:event_btnIniciarActionPerformed
 
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
         this.dispose();
+        new frmPrincipal().setVisible(true);
     }//GEN-LAST:event_btnAtrasActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                dialogNuevaSesion dialog = new dialogNuevaSesion(new java.awt.Frame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
+    public void mostrarEquiposDisponibles(){
+        
+        listaEquiposDisponibles = new ArrayList<>();
+        daoRegistroTemporal = manager.getDaoRegistroTemporal();
+        listaEquiposDisponibles = daoRegistroTemporal.obtenerEquiposDisponibles();
+        
+        listaEquiposDisponibles.forEach((computadora)->{
+            model.addRow(new Object[]{computadora.getCodigo()});
         });
+        
     }
-
-
+    
+    public boolean validarPurosNumeros(String codigo){
+        int i,j;
+        int sizeCodigo = codigo.length();
+        int sizeNumerosValidos = numerosValidos.length();
+        
+        boolean band;
+        
+        for (i = 0; i < sizeCodigo; i++) {
+            band = false;
+            for (j = 0; j < sizeNumerosValidos; j++) {
+                if(codigo.charAt(i) == numerosValidos.charAt(j)){
+                    band = true;
+                    break;
+                }
+            }
+            
+            if(band == false){
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    public boolean validarCodigoEspaciosVacios(String codigo){
+        int i;
+        for(i=0; i< codigo.length(); i++){
+            if(codigo.charAt(i) == ' '){
+                return false;
+            }
+        }
+        return true;
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Iniciar;
     private javax.swing.JPanel barra;
     private javax.swing.JButton btnAtras;
+    private javax.swing.JButton btnIniciar;
     private javax.swing.JButton btnSalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -391,7 +525,7 @@ public class dialogNuevaSesion extends java.awt.Dialog {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tablaEquipos;
     private javax.swing.JTextField txtCodigo;
     // End of variables declaration//GEN-END:variables
 }

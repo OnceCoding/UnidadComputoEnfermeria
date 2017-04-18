@@ -371,6 +371,7 @@ public class panelEquipos extends javax.swing.JPanel {
                 
                 if(computadora == null){
                     daoComputadora.insertar(new Computadora(codigo, estado));
+                    txtNroEquipo.setText("");
                     eliminarDatosTabla();
                     mostrarEquiposTabla();
                     actualizarCantidadcomputadoras();

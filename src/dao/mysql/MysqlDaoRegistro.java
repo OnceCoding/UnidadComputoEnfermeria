@@ -111,4 +111,13 @@ public class MysqlDaoRegistro implements DaoRegistro{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public Integer obtenerCantidadSesionesActuales() {
+        try {
+            preparedStatement = conexion.prepareStatement("");
+        } catch (Exception e) {
+        }
+        return null;
+    }
+
 }

@@ -1,5 +1,5 @@
 
-package vistas;
+package PanelesAuxiliares;
 
 import java.awt.Frame;
 

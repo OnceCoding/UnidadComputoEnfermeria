@@ -32,8 +32,8 @@ public class panelUser extends javax.swing.JPanel {
     private Usuario usuario;
     private List<Usuario> listaUsuarios;
     
-    private String caracterValidos = "abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMÑOPQRSTUVWXYZ123456789";
-    private String caracteresCodigoSeleccionadoValido = "1234567890";
+    private String caracterValidos = "abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMÑOPQRSTUVWXYZ1234567890_@";
+    private String numerosValidos = "1234567890";
     
     private DefaultTableModel model;
     private RendererTablaUsuario cellRenderer;
@@ -108,10 +108,7 @@ public class panelUser extends javax.swing.JPanel {
                 
             }
         });
-        
-        
-        
-        
+         
     }
 
     @SuppressWarnings("unchecked")
@@ -560,41 +557,47 @@ public class panelUser extends javax.swing.JPanel {
         
         if(validar(codigo) && validar(nombre) && validar(apellido) && validar(email)){
             
-            if(validarCodigo(codigo)){
+            if(validarCodigoEspaciosVacios(codigo)){
                 
-                if(rbEstudiante.isSelected()){
-                    if(validarLongitudCodigoEstudiante(codigo)){
-                        daoUsuario = manager.getDaoUsuario();
-                        usuario = daoUsuario.obtener(codigo);
-                        if(usuario == null){
-                            daoUsuario.insertar(new Usuario(codigo,nombre,apellido,email,tipo,Date.valueOf(LocalDate.now()),Time.valueOf(LocalTime.now())));
-                            lblCantidadUsuarios.setText(manager.getContadorRegistro().obtenerContadorUsuario());
-                            limpiarTabla();
-                            mostrarUltimosUsuariosRegistrados();
-                            limpiarCamposGuardar();
+                if(validarPurosNumeros(codigo)){
+                    
+                    if(rbEstudiante.isSelected()){
+                        if(validarLongitudCodigoEstudiante(codigo)){
+                            daoUsuario = manager.getDaoUsuario();
+                            usuario = daoUsuario.obtener(codigo);
+                            if(usuario == null){
+                                daoUsuario.insertar(new Usuario(codigo,nombre,apellido,email,tipo,Date.valueOf(LocalDate.now()),Time.valueOf(LocalTime.now())));
+                                lblCantidadUsuarios.setText(manager.getContadorRegistro().obtenerContadorUsuario());
+                                limpiarTabla();
+                                mostrarUltimosUsuariosRegistrados();
+                                limpiarCamposGuardar();
+                            }else{
+                                JOptionPane.showMessageDialog(null,"         Codigo Ya Existe","Usuario",JOptionPane.WARNING_MESSAGE);
+                            }
                         }else{
-                            JOptionPane.showMessageDialog(null,"         Codigo Ya Existe","Usuario",JOptionPane.WARNING_MESSAGE);
+                            JOptionPane.showMessageDialog(null,"Codigo Estudiante debe poseer 10 digitos","Usuario",JOptionPane.WARNING_MESSAGE);
                         }
                     }else{
-                        JOptionPane.showMessageDialog(null,"Codigo Estudiante debe poseer 10 digitos","Usuario",JOptionPane.WARNING_MESSAGE);
-                    }
+                        if(validarLongitudCodigoDocente(codigo)){
+                            daoUsuario = manager.getDaoUsuario();
+                            usuario = daoUsuario.obtener(codigo);
+                            if(usuario == null){
+                                daoUsuario.insertar(new Usuario(codigo,nombre,apellido,email,tipo,Date.valueOf(LocalDate.now()),Time.valueOf(LocalTime.now())));
+                                lblCantidadUsuarios.setText(manager.getContadorRegistro().obtenerContadorUsuario());
+                                limpiarTabla();
+                                mostrarUltimosUsuariosRegistrados();
+                                limpiarCamposGuardar();
+                            }else{
+                                JOptionPane.showMessageDialog(null,"         Codigo Ya Existe","Usuario",JOptionPane.WARNING_MESSAGE);
+                            }
+                        }else{
+                            JOptionPane.showMessageDialog(null,"Codigo Docente debe poseer 5 digitos","Usuario",JOptionPane.WARNING_MESSAGE);
+                        }
+                    } 
                 }else{
-                    if(validarLongitudCodigoDocente(codigo)){
-                        daoUsuario = manager.getDaoUsuario();
-                        usuario = daoUsuario.obtener(codigo);
-                        if(usuario == null){
-                            daoUsuario.insertar(new Usuario(codigo,nombre,apellido,email,tipo,Date.valueOf(LocalDate.now()),Time.valueOf(LocalTime.now())));
-                            lblCantidadUsuarios.setText(manager.getContadorRegistro().obtenerContadorUsuario());
-                            limpiarTabla();
-                            mostrarUltimosUsuariosRegistrados();
-                            limpiarCamposGuardar();
-                        }else{
-                            JOptionPane.showMessageDialog(null,"         Codigo Ya Existe","Usuario",JOptionPane.WARNING_MESSAGE);
-                        }
-                    }else{
-                        JOptionPane.showMessageDialog(null,"Codigo Docente debe poseer 5 digitos","Usuario",JOptionPane.WARNING_MESSAGE);
-                    }
-                } 
+                        JOptionPane.showMessageDialog(null,"Codigo debe poseer solo digitos","Usuario",JOptionPane.WARNING_MESSAGE);
+                        
+                }
                 
                 
             }else{
@@ -602,7 +605,7 @@ public class panelUser extends javax.swing.JPanel {
             }            
             
         }else{
-            JOptionPane.showMessageDialog(null,"Complete los Campos Vacios","Usuario",JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null,"Complete los Campos ","Usuario",JOptionPane.WARNING_MESSAGE);
         }
         
         
@@ -726,7 +729,30 @@ public class panelUser extends javax.swing.JPanel {
         return false;
     }
     
-    public boolean validarCodigo(String codigo){
+    public boolean validarPurosNumeros(String codigo){
+        int i,j;
+        int sizeCodigo = codigo.length();
+        int sizeNumerosValidos = numerosValidos.length();
+        
+        boolean band;
+        
+        for (i = 0; i < sizeCodigo; i++) {
+            band = false;
+            for (j = 0; j < sizeNumerosValidos; j++) {
+                if(codigo.charAt(i) == numerosValidos.charAt(j)){
+                    band = true;
+                    break;
+                }
+            }
+            
+            if(band == false){
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    public boolean validarCodigoEspaciosVacios(String codigo){
         int i;
         for(i=0; i< codigo.length(); i++){
             if(codigo.charAt(i) == ' '){

@@ -1,5 +1,5 @@
 
-package vistas;
+package PanelesAuxiliares;
 
 public class panelSubInicio0 extends javax.swing.JPanel {
 
