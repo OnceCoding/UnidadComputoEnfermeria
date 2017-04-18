@@ -10,6 +10,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import modelo.Computadora;
 import modelo.RegistroTemporal;
+import modelo.SesionesActivas;
 
 
 public class MysqlDaoRegistroTemporal implements DaoRegistroTemporal{
@@ -17,13 +18,26 @@ public class MysqlDaoRegistroTemporal implements DaoRegistroTemporal{
     private Connection conexion = null;
     private PreparedStatement preparedStatement;
     private ResultSet resultSet;
+    private SesionesActivas sesionesActivas;
     
     private final String obtenerEquiposDisponibles = 
-            "select c.codigo,c.estado from computadora c left join registrotemporal r on c.codigo = r.codpc where r.codpc is null ";
+            "select c.codigo,c.estado from computadora c left join registrotemporal"
+            + " r on c.codigo = r.codpc where r.codpc is null ";
+    
     private final String insertar = "insert into registroTemporal(codUsuario,codPC,horaInicio,horaFin,fecha) "
             + "values(?,?,?,?,?)";
     
+    private final String obtenerNroEquiposDisponibles = 
+            "select count(c.codigo) as cantidad from computadora c left join registrotemporal"
+            + " r on c.codigo = r.codpc where r.codpc is null ";
+    
+    private final String obtenerNroSesionesActivas = "select count(codigo) as cantidad from registroTemporal";
+    
+    private final String obtenerSesionesActivas = "select r.codigo,r.codUsuario,r.codPc,r.horaInicio,u.nombre,u.apellido"
+            + " from registroTemporal r inner join usuario u on r.codUsuario = u.codigo";
+    
     private List<Computadora> listaEquiposDisponibles;
+    private List<SesionesActivas> listaSesionesActivas;
     
     public MysqlDaoRegistroTemporal(Connection conexion){
         this.conexion = conexion;
@@ -69,6 +83,60 @@ public class MysqlDaoRegistroTemporal implements DaoRegistroTemporal{
             System.out.println(e.getMessage());
         }finally{
             MysqlUtils.cerrarPreparedStatement(preparedStatement);
+        }
+    }
+
+    @Override
+    public String obtenerNroEquiposDisponibles() {
+        try {
+            preparedStatement = conexion.prepareStatement(obtenerNroEquiposDisponibles);
+            resultSet = preparedStatement.executeQuery();
+            if(resultSet.next()){
+                return String.valueOf(resultSet.getInt("cantidad"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }finally{
+            MysqlUtils.cerrarPreparedStatementAndResultSet(preparedStatement, resultSet);
+        }
+        return null;
+    }
+
+    @Override
+    public String obtenerNroSesionesActivas() {
+        try {
+            preparedStatement = conexion.prepareStatement(obtenerNroSesionesActivas);
+            resultSet = preparedStatement.executeQuery();
+            if(resultSet.next()){
+                return String.valueOf(resultSet.getInt("cantidad"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }finally{
+            MysqlUtils.cerrarPreparedStatementAndResultSet(preparedStatement, resultSet);
+        }
+        return null;
+    }
+
+    public SesionesActivas convertirResultSet(ResultSet rs){
+        try {
+            
+        } catch (Exception e) {
+        
+        }
+        return null;
+    }
+    
+    @Override
+    public void obtenerSesionesActivas() {
+        try {
+            listaSesionesActivas = new ArrayList<>();
+            preparedStatement = conexion.prepareStatement(obtenerSesionesActivas);
+            resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()){
+                
+            }
+        } catch (SQLException e) {
         }
     }
 

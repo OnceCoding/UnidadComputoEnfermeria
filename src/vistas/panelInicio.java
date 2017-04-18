@@ -1,16 +1,29 @@
 
 package vistas;
 
+import dao.DaoManager;
+import dao.DaoRegistroTemporal;
+import dao.mysql.MysqlDaoManager;
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Frame;
+import java.sql.SQLException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 public class panelInicio extends javax.swing.JPanel {
     
     private JFrame frame;
+    
+    private DefaultTableCellRenderer renderer;
+    private DefaultTableModel model;
+    
+    private DaoManager manager;
+    private DaoRegistroTemporal daoRegistroTemporal;
     
     public panelInicio(JFrame frame) {
         initComponents();
@@ -18,6 +31,40 @@ public class panelInicio extends javax.swing.JPanel {
         //Pa saber que si se mezclaron
         spnHora.setEnabled(false); 
         spnMinuto.setEnabled(false);
+        
+        try {
+            manager = MysqlDaoManager.getMysqlDaoManager();
+        } catch (SQLException e) {
+        }
+        
+        
+        model = new DefaultTableModel(){ 
+            @Override
+            public boolean isCellEditable(int row,int column){
+              return false;
+            }  
+        };
+        
+        model.addColumn("id");
+        model.addColumn("Codigo");
+        model.addColumn("Apellidos");
+        model.addColumn("Equipo");
+        model.addColumn("Hora Inicio");
+        tablaUsuariosActivos.setModel(model);
+        
+        renderer = new DefaultTableCellRenderer(){
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                setHorizontalAlignment(CENTER);
+                return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+            }          
+        };
+        
+        tablaUsuariosActivos.setDefaultRenderer(Object.class, renderer);
+        
+        
+        actualizarNroEquiposDisponibles();
+        actualizarNroSesionesActivas();
     }
 
     @SuppressWarnings("unchecked")
@@ -51,7 +98,7 @@ public class panelInicio extends javax.swing.JPanel {
         btnEliminar1 = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
         jLabel18 = new javax.swing.JLabel();
-        lblCantidadEquipos = new javax.swing.JLabel();
+        lblCantidadEquiposDisponibles = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         lblCantidadSesiones = new javax.swing.JLabel();
@@ -186,18 +233,6 @@ public class panelInicio extends javax.swing.JPanel {
         });
 
         jScrollPane1.setPreferredSize(new java.awt.Dimension(165, 225));
-
-        tablaUsuariosActivos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
         jScrollPane1.setViewportView(tablaUsuariosActivos);
 
         javax.swing.GroupLayout subPanelUsuarioLayout = new javax.swing.GroupLayout(subPanelUsuario);
@@ -314,9 +349,9 @@ public class panelInicio extends javax.swing.JPanel {
         jLabel18.setForeground(new java.awt.Color(255, 255, 255));
         jLabel18.setText("SESIONES ACTIVAS");
 
-        lblCantidadEquipos.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        lblCantidadEquipos.setForeground(new java.awt.Color(255, 255, 255));
-        lblCantidadEquipos.setText("##");
+        lblCantidadEquiposDisponibles.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblCantidadEquiposDisponibles.setForeground(new java.awt.Color(255, 255, 255));
+        lblCantidadEquiposDisponibles.setText("##");
 
         jLabel19.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(255, 255, 255));
@@ -349,7 +384,7 @@ public class panelInicio extends javax.swing.JPanel {
                                 .addGap(126, 126, 126)
                                 .addComponent(jLabel19)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblCantidadEquipos)
+                                .addComponent(lblCantidadEquiposDisponibles)
                                 .addGap(30, 30, 30)
                                 .addComponent(jLabel15)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -374,7 +409,7 @@ public class panelInicio extends javax.swing.JPanel {
                                 .addComponent(lblCantidadSesiones))
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lblCantidadEquipos)))))
+                                .addComponent(lblCantidadEquiposDisponibles)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(subPanelUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -399,7 +434,18 @@ public class panelInicio extends javax.swing.JPanel {
         dialog.setVisible(true);
         
     }//GEN-LAST:event_btnNuevaSesionActionPerformed
-/*
+
+    public void actualizarNroEquiposDisponibles(){
+        daoRegistroTemporal = manager.getDaoRegistroTemporal();
+        lblCantidadEquiposDisponibles.setText(daoRegistroTemporal.obtenerNroEquiposDisponibles());
+    }
+    
+    public void actualizarNroSesionesActivas(){
+        daoRegistroTemporal = manager.getDaoRegistroTemporal();
+        lblCantidadSesiones.setText(daoRegistroTemporal.obtenerNroSesionesActivas());
+    }
+    
+    /*
     public void cambiarPanel(JPanel panelContenido){
         panelContenido.setSize(905, 434);
         panelContenido.setLocation(1, 1);
@@ -434,7 +480,7 @@ public class panelInicio extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSpinner jSpinner3;
     private javax.swing.JSpinner jSpinner4;
-    private javax.swing.JLabel lblCantidadEquipos;
+    private javax.swing.JLabel lblCantidadEquiposDisponibles;
     private javax.swing.JLabel lblCantidadSesiones;
     private javax.swing.JSpinner spnHora;
     private javax.swing.JSpinner spnMinuto;
