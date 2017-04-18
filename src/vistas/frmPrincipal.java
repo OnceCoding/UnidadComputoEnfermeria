@@ -21,10 +21,10 @@ import javax.swing.JPanel;
 public class frmPrincipal extends javax.swing.JFrame {
 
     private int x, y;
-    private JPanel panelEquipos = new panelEquipos();
-    private JPanel panelCursos= new panelCursos();
+    private JPanel panelEquipos;
+    private JPanel panelCursos;
     private JPanel panelInicio = new panelInicio(this);
-    private JPanel panelUser = new panelUser();
+    private JPanel panelUser;
     
     private DaoManager manager;
     
@@ -516,21 +516,25 @@ public class frmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConfiguracionActionPerformed
 
     private void btnEquiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEquiposActionPerformed
+        panelEquipos = new panelEquipos();
         cambiarPanel("Equipos", panelEquipos);
         pintarBoton(btnEquipos);
     }//GEN-LAST:event_btnEquiposActionPerformed
 
     private void btnCursosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCursosActionPerformed
+        panelCursos = new panelCursos();
         cambiarPanel("Cursos", panelCursos);
         pintarBoton(btnCursos);
     }//GEN-LAST:event_btnCursosActionPerformed
 
     private void btnUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuariosActionPerformed
+        panelUser = new panelUser();
         cambiarPanel("Usuarios",panelUser);
         pintarBoton(btnUsuarios);
     }//GEN-LAST:event_btnUsuariosActionPerformed
 
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
+        panelInicio = new panelInicio(this);
         cambiarPanel("Inicio", panelInicio);
         pintarBoton(btnInicio);
     }//GEN-LAST:event_btnInicioActionPerformed

@@ -8,12 +8,15 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Frame;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import modelo.SesionesActivas;
 
 public class panelInicio extends javax.swing.JPanel {
     
@@ -24,6 +27,7 @@ public class panelInicio extends javax.swing.JPanel {
     
     private DaoManager manager;
     private DaoRegistroTemporal daoRegistroTemporal;
+    private List<SesionesActivas> listaSesionesActivas;
     
     public panelInicio(JFrame frame) {
         initComponents();
@@ -47,9 +51,11 @@ public class panelInicio extends javax.swing.JPanel {
         
         model.addColumn("id");
         model.addColumn("Codigo");
-        model.addColumn("Apellidos");
+        model.addColumn("Nombre");
+        model.addColumn("Apellido");
         model.addColumn("Equipo");
         model.addColumn("Hora Inicio");
+       
         tablaUsuariosActivos.setModel(model);
         
         renderer = new DefaultTableCellRenderer(){
@@ -60,11 +66,15 @@ public class panelInicio extends javax.swing.JPanel {
             }          
         };
         
+        tablaUsuariosActivos.removeColumn(tablaUsuariosActivos.getColumnModel().getColumn(0));
+        
+        tablaUsuariosActivos.setRowHeight(20);
         tablaUsuariosActivos.setDefaultRenderer(Object.class, renderer);
         
         
         actualizarNroEquiposDisponibles();
         actualizarNroSesionesActivas();
+        mostrarSesionesActivas();
     }
 
     @SuppressWarnings("unchecked")
@@ -443,6 +453,22 @@ public class panelInicio extends javax.swing.JPanel {
     public void actualizarNroSesionesActivas(){
         daoRegistroTemporal = manager.getDaoRegistroTemporal();
         lblCantidadSesiones.setText(daoRegistroTemporal.obtenerNroSesionesActivas());
+    }
+    
+    public void mostrarSesionesActivas(){
+        daoRegistroTemporal = manager.getDaoRegistroTemporal();
+        listaSesionesActivas = new ArrayList<>();
+        listaSesionesActivas = daoRegistroTemporal.obtenerSesionesActivas();
+        listaSesionesActivas.forEach((sesion)->{
+            model.addRow(new Object[]{
+                sesion.getRegistroTemporal().getCodigo(),
+                sesion.getUsuario().getCodigo(),
+                sesion.getUsuario().getNombre(),
+                sesion.getUsuario().getApellido(),
+                sesion.getRegistroTemporal().getCodPC(),
+                sesion.getRegistroTemporal().getHoraInicio()
+            });
+        });
     }
     
     /*
