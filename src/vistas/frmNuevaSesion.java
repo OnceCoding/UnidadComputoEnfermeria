@@ -250,6 +250,8 @@ public class frmNuevaSesion extends javax.swing.JFrame {
         jLabel10.setForeground(new java.awt.Color(184, 207, 229));
         jLabel10.setText("Por favor, complete el formulario correctamente.");
 
+        tablaEquipos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tablaEquipos.setRowHeight(25);
         jScrollPane1.setViewportView(tablaEquipos);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);

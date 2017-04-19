@@ -342,6 +342,9 @@ public class frmLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_barraMouseDragged
 
     public void iniciarSesion(){
+        dialogMensaje dm  = new dialogMensaje(this, true);
+        dm.setVisible(true);
+        /*
         try{
             this.manager = MysqlDaoManager.getMysqlDaoManager();
             this.daoAdmin = manager.getDaoAdministrador();
@@ -362,7 +365,7 @@ public class frmLogin extends javax.swing.JFrame {
             
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null,"No se pudo Conectar a la Base de Datos","Error",JOptionPane.ERROR_MESSAGE);
-        }
+        }*/
     }
     
     
