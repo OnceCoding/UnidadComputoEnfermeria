@@ -37,7 +37,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         /*  
         --> Codigo de centrado
         DefaultTableCellRenderer modelocentrar = new DefaultTableCellRenderer();
-        modelocentrar.setHorizontalAlignment(SwingConstants.RIGHT);
+        modelocentrar.setHorizontalAlignment(SwingConstants.CENTER);
         table.getColumnModel().getColumn(col).setCellRenderer(modelocentrar); 
         */
         try {
@@ -53,7 +53,8 @@ public class frmPrincipal extends javax.swing.JFrame {
         listaBotones.add(btnCursos);
         listaBotones.add(btnHistorial);
         listaBotones.add(btnReportes);
-        listaBotones.add(btnHistorial);
+        listaBotones.add(btnConfiguraciones);
+        listaBotones.add(btnBD);
     }
 
     @SuppressWarnings("unchecked")
@@ -80,14 +81,10 @@ public class frmPrincipal extends javax.swing.JFrame {
         btnCursos = new javax.swing.JButton();
         btnHistorial = new javax.swing.JButton();
         btnReportes = new javax.swing.JButton();
-        btnConfiguraciones = new javax.swing.JButton();
+        btnBD = new javax.swing.JButton();
         btnInicio = new javax.swing.JButton();
+        btnConfiguraciones = new javax.swing.JButton();
         panelContenido = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jSeparator1 = new javax.swing.JSeparator();
-        jLabel12 = new javax.swing.JLabel();
-        btnNuevaSesion = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         lblSeccion = new javax.swing.JLabel();
@@ -306,12 +303,12 @@ public class frmPrincipal extends javax.swing.JFrame {
         btnReportes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnReportes.setFocusable(false);
 
-        btnConfiguraciones.setBackground(new java.awt.Color(34, 70, 135));
-        btnConfiguraciones.setFont(new java.awt.Font("Tempus Sans ITC", 0, 12)); // NOI18N
-        btnConfiguraciones.setForeground(java.awt.Color.white);
-        btnConfiguraciones.setText("CONFIGURACIONES");
-        btnConfiguraciones.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnConfiguraciones.setFocusable(false);
+        btnBD.setBackground(new java.awt.Color(34, 70, 135));
+        btnBD.setFont(new java.awt.Font("Tempus Sans ITC", 0, 12)); // NOI18N
+        btnBD.setForeground(java.awt.Color.white);
+        btnBD.setText("BASE DE DATOS");
+        btnBD.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBD.setFocusable(false);
 
         btnInicio.setBackground(new java.awt.Color(184, 207, 229));
         btnInicio.setFont(new java.awt.Font("Tempus Sans ITC", 1, 12)); // NOI18N
@@ -325,6 +322,13 @@ public class frmPrincipal extends javax.swing.JFrame {
             }
         });
 
+        btnConfiguraciones.setBackground(new java.awt.Color(34, 70, 135));
+        btnConfiguraciones.setFont(new java.awt.Font("Tempus Sans ITC", 0, 12)); // NOI18N
+        btnConfiguraciones.setForeground(java.awt.Color.white);
+        btnConfiguraciones.setText("CONFIGURACIONES");
+        btnConfiguraciones.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnConfiguraciones.setFocusable(false);
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -334,13 +338,14 @@ public class frmPrincipal extends javax.swing.JFrame {
             .addComponent(btnCursos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnHistorial, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
             .addComponent(btnReportes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnConfiguraciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnBD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnConfiguraciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(131, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -353,70 +358,25 @@ public class frmPrincipal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnBD, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnConfiguraciones, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(125, 125, 125))
+                .addGap(106, 106, 106))
         );
 
         panelContenido.setBackground(new java.awt.Color(34, 34, 34));
         panelContenido.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(java.awt.Color.white)));
         panelContenido.setPreferredSize(new java.awt.Dimension(1260, 517));
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("BIENVENIDO!");
-
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("No hay sesiones en este momento");
-
-        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(184, 207, 229));
-        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel12.setText("Para comenzar una nueva sesión");
-
-        btnNuevaSesion.setBackground(new java.awt.Color(34, 70, 135));
-        btnNuevaSesion.setFont(new java.awt.Font("Tempus Sans ITC", 0, 12)); // NOI18N
-        btnNuevaSesion.setForeground(java.awt.Color.white);
-        btnNuevaSesion.setText("NUEVA SESIÓN");
-        btnNuevaSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnNuevaSesion.setFocusable(false);
-
         javax.swing.GroupLayout panelContenidoLayout = new javax.swing.GroupLayout(panelContenido);
         panelContenido.setLayout(panelContenidoLayout);
         panelContenidoLayout.setHorizontalGroup(
             panelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelContenidoLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(panelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelContenidoLayout.createSequentialGroup()
-                        .addGap(123, 123, 123)
-                        .addComponent(btnNuevaSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelContenidoLayout.createSequentialGroup()
-                        .addGap(106, 106, 106)
-                        .addGroup(panelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panelContenidoLayout.createSequentialGroup()
-                        .addGap(76, 76, 76)
-                        .addComponent(jLabel10)))
-                .addGap(419, 419, 419))
+            .addGap(0, 1273, Short.MAX_VALUE)
         );
         panelContenidoLayout.setVerticalGroup(
             panelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelContenidoLayout.createSequentialGroup()
-                .addGap(169, 169, 169)
-                .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(19, 19, 19)
-                .addComponent(jLabel12)
-                .addGap(18, 18, 18)
-                .addComponent(btnNuevaSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(177, Short.MAX_VALUE))
+            .addGap(0, 515, Short.MAX_VALUE)
         );
 
         jLabel11.setBackground(new java.awt.Color(184, 207, 229));
@@ -470,7 +430,7 @@ public class frmPrincipal extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(panelContenido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)))
                 .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -562,6 +522,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel barra;
+    private javax.swing.JButton btnBD;
     private javax.swing.JButton btnConfiguracion;
     private javax.swing.JButton btnConfiguraciones;
     private javax.swing.JButton btnCursos;
@@ -569,26 +530,21 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnHistorial;
     private javax.swing.JButton btnInicio;
     private javax.swing.JButton btnMinizar;
-    private javax.swing.JButton btnNuevaSesion;
     private javax.swing.JButton btnReportes;
     private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnUsuarios;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblNombreAdmin;
     private javax.swing.JLabel lblSeccion;
     private javax.swing.JPanel panelContenido;

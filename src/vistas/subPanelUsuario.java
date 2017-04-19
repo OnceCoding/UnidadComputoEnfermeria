@@ -28,9 +28,9 @@ public class subPanelUsuario extends javax.swing.JPanel {
     /**
      * Creates new form subPanelUsuario
      */
-    public subPanelUsuario() {
+    public subPanelUsuario(JFrame frame) {
         initComponents();
-        
+        this.frame = frame;
         //--- Aqui esta el codigo que saque del panelInicio.java
         try {
             manager = MysqlDaoManager.getMysqlDaoManager();
@@ -85,7 +85,7 @@ public class subPanelUsuario extends javax.swing.JPanel {
         btnEliminar8 = new javax.swing.JButton();
         jLabel34 = new javax.swing.JLabel();
         jLabel35 = new javax.swing.JLabel();
-        txtNroPCSelecionado3 = new javax.swing.JTextField();
+        txtNroPc = new javax.swing.JTextField();
         jSpinner9 = new javax.swing.JSpinner();
         jSpinner10 = new javax.swing.JSpinner();
         jLabel28 = new javax.swing.JLabel();
@@ -135,12 +135,12 @@ public class subPanelUsuario extends javax.swing.JPanel {
         jLabel35.setForeground(new java.awt.Color(255, 255, 255));
         jLabel35.setText("N° DE PC:");
 
-        txtNroPCSelecionado3.setBackground(new java.awt.Color(34, 34, 34));
-        txtNroPCSelecionado3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        txtNroPCSelecionado3.setForeground(java.awt.Color.white);
-        txtNroPCSelecionado3.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtNroPCSelecionado3.setBorder(javax.swing.BorderFactory.createLineBorder(java.awt.Color.white));
-        txtNroPCSelecionado3.setCaretColor(new java.awt.Color(255, 255, 255));
+        txtNroPc.setBackground(new java.awt.Color(34, 34, 34));
+        txtNroPc.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txtNroPc.setForeground(java.awt.Color.white);
+        txtNroPc.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtNroPc.setBorder(javax.swing.BorderFactory.createLineBorder(java.awt.Color.white));
+        txtNroPc.setCaretColor(new java.awt.Color(255, 255, 255));
 
         jLabel28.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel28.setForeground(new java.awt.Color(255, 255, 255));
@@ -152,6 +152,13 @@ public class subPanelUsuario extends javax.swing.JPanel {
         jButton4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButton4.setForeground(java.awt.Color.white);
         jButton4.setText("ELEGIR");
+        jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton4.setFocusable(false);
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -171,7 +178,7 @@ public class subPanelUsuario extends javax.swing.JPanel {
                         .addGap(5, 5, 5)
                         .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jSpinner10, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNroPCSelecionado3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtNroPc, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(3, 3, 3)
                         .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel11Layout.createSequentialGroup()
@@ -191,18 +198,19 @@ public class subPanelUsuario extends javax.swing.JPanel {
                     .addGroup(jPanel11Layout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtNroPCSelecionado3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNroPc, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel35, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel11Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(14, 14, 14)
-                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jSpinner10, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSpinner9, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel28)
-                    .addComponent(jLabel34)
-                    .addComponent(jComboBox9, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jComboBox9, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jSpinner10, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jSpinner9, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel28)
+                        .addComponent(jLabel34)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnModificar8, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -253,8 +261,7 @@ public class subPanelUsuario extends javax.swing.JPanel {
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, subPanelUsuarios3Layout.createSequentialGroup()
                                 .addComponent(btnDetenerSesion1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnDetenerTodo1)))
-                        .addGap(22, 22, 22)))
+                                .addComponent(btnDetenerTodo1)))))
                 .addContainerGap())
         );
         subPanelUsuarios3Layout.setVerticalGroup(
@@ -292,6 +299,11 @@ public class subPanelUsuario extends javax.swing.JPanel {
         dialogNuevaSesion dns = new dialogNuevaSesion(new java.awt.Frame(), true);
         dns.setVisible(true);
     }//GEN-LAST:event_btnNuevaSesion1ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        dialogElegirPc dep = new dialogElegirPc(frame, true);
+        dep.setVisible(true);
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     public void actualizarNroEquiposDisponibles(){
         daoRegistroTemporal = manager.getDaoRegistroTemporal();
@@ -336,6 +348,6 @@ public class subPanelUsuario extends javax.swing.JPanel {
     private javax.swing.JSpinner jSpinner9;
     private javax.swing.JPanel subPanelUsuarios3;
     private javax.swing.JTable tablaUsuariosActivos;
-    private javax.swing.JTextField txtNroPCSelecionado3;
+    private javax.swing.JTextField txtNroPc;
     // End of variables declaration//GEN-END:variables
 }

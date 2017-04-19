@@ -52,7 +52,6 @@
                                   <Component id="btnDetenerTodo1" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -149,7 +148,7 @@
                               <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jSpinner10" alignment="0" min="-2" pref="37" max="-2" attributes="0"/>
-                                  <Component id="txtNroPCSelecionado3" alignment="0" min="-2" pref="37" max="-2" attributes="0"/>
+                                  <Component id="txtNroPc" alignment="0" min="-2" pref="37" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -176,7 +175,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="txtNroPCSelecionado3" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                                  <Component id="txtNroPc" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                                   <Component id="jLabel35" alignment="3" max="32767" attributes="0"/>
                               </Group>
                           </Group>
@@ -186,12 +185,14 @@
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jSpinner10" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
-                          <Component id="jSpinner9" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
-                          <Component id="jLabel28" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel34" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jComboBox9" alignment="0" min="-2" pref="20" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jSpinner10" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+                              <Component id="jSpinner9" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+                              <Component id="jLabel28" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel34" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -256,7 +257,7 @@
                 <Property name="text" type="java.lang.String" value="N&#xb0; DE PC:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtNroPCSelecionado3">
+            <Component class="javax.swing.JTextField" name="txtNroPc">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="22" green="22" red="22" type="rgb"/>
@@ -320,7 +321,14 @@
                   <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="ELEGIR"/>
+                <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                  <Color id="Cursor de Mano"/>
+                </Property>
+                <Property name="focusable" type="boolean" value="false"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton4ActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
