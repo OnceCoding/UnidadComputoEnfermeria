@@ -296,8 +296,8 @@ public class subPanelUsuario extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNuevaSesion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaSesion1ActionPerformed
-        dialogNuevaSesion dns = new dialogNuevaSesion(new java.awt.Frame(), true);
-        dns.setVisible(true);
+        frame.dispose();
+        new frmNuevaSesion().setVisible(true);
     }//GEN-LAST:event_btnNuevaSesion1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed

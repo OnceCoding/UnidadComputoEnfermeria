@@ -1,10 +1,15 @@
 
 package vistas;
 
+import javax.swing.JFrame;
+
 public class subPanelCursoVacio extends javax.swing.JPanel {
 
-    public subPanelCursoVacio() {
+    JFrame frame;
+    
+    public subPanelCursoVacio(JFrame frame) {
         initComponents();
+        this.frame = frame;
     }
 
     @SuppressWarnings("unchecked")
@@ -67,8 +72,8 @@ public class subPanelCursoVacio extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIniciarCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarCursoActionPerformed
-        dialogNuevaSesionCurso dnsc = new dialogNuevaSesionCurso(new java.awt.Frame(), true);
-        dnsc.setVisible(true);
+        new frmNuevaSesionCurso().setVisible(true);
+        frame.dispose();
     }//GEN-LAST:event_btnIniciarCursoActionPerformed
 
 

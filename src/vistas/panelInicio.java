@@ -27,7 +27,7 @@ public class panelInicio extends javax.swing.JPanel {
         this.frame = frame;
         
         cambiarPanel(subPanelUsuarioPrincipal, new subPanelUsuario(frame), 1209, 384, 6, 15);
-        cambiarPanel(subPanelCursoPrincipal, new subPanelCursoVacio(), 449, 55, 8, 15);
+        cambiarPanel(subPanelCursoPrincipal, new subPanelCursoVacio(frame), 449, 55, 8, 15);
         
         /* El codigo de aqui esta en el subPanelUsuario */
         

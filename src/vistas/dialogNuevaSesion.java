@@ -385,17 +385,13 @@ public class dialogNuevaSesion extends java.awt.Dialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * Close the dialog
-     */
     private void closeDialog(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_closeDialog
         setVisible(false);
         dispose();
-        new frmPrincipal().setVisible(true);
     }//GEN-LAST:event_closeDialog
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        dispose();
+        frame.dispose();
         new frmPrincipal().setVisible(true);
     }//GEN-LAST:event_btnSalirActionPerformed
 
