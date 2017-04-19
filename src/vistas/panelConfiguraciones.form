@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+  <NonVisualComponents>
+    <Component class="com.toedter.calendar.JMonthChooser" name="jMonthChooser4">
+    </Component>
+  </NonVisualComponents>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -146,11 +150,11 @@
                               <EmptySpace min="-2" pref="199" max="-2" attributes="0"/>
                               <Component id="jLabel22" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="mesInicio1" min="-2" max="-2" attributes="0"/>
+                              <Component id="jMonthChooser1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="106" max="-2" attributes="0"/>
                               <Component id="jLabel23" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="mesFinal1" min="-2" max="-2" attributes="0"/>
+                              <Component id="jMonthChooser2" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <EmptySpace min="-2" pref="85" max="-2" attributes="0"/>
@@ -168,11 +172,12 @@
                                               <Group type="102" alignment="1" attributes="0">
                                                   <Component id="jLabel25" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                  <Component id="mesInicio2" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jMonthChooser3" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace min="-2" pref="106" max="-2" attributes="0"/>
                                                   <Component id="jLabel26" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                  <Component id="mesFinal2" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="jMonthChooser5" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
                                           <EmptySpace min="-2" pref="115" max="-2" attributes="0"/>
@@ -195,37 +200,34 @@
                       <Component id="jSeparator2" min="-2" pref="10" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="jMonthChooser1" max="32767" attributes="0"/>
                           <Component id="jLabel22" max="32767" attributes="0"/>
-                          <Component id="mesInicio1" alignment="0" max="32767" attributes="0"/>
-                          <Component id="mesFinal1" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jLabel23" alignment="0" min="-2" pref="32" max="-2" attributes="0"/>
+                          <Component id="jLabel23" alignment="0" pref="32" max="32767" attributes="0"/>
+                          <Component id="jMonthChooser2" alignment="0" pref="32" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
                       <Component id="jLabel24" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jSeparator3" min="-2" pref="10" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jMonthChooser5" pref="32" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="jLabel25" alignment="0" max="32767" attributes="0"/>
-                          <Component id="mesInicio2" alignment="0" max="32767" attributes="0"/>
-                          <Component id="mesFinal2" alignment="0" max="32767" attributes="0"/>
                           <Component id="jLabel26" alignment="0" min="-2" pref="32" max="-2" attributes="0"/>
+                          <Component id="jMonthChooser3" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="btnGuardar" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
                           <Component id="btnPredeterminado" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="70" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="com.toedter.calendar.JMonthChooser" name="mesInicio1">
-            </Component>
-            <Component class="com.toedter.calendar.JMonthChooser" name="mesFinal1">
-            </Component>
             <Component class="javax.swing.JLabel" name="jLabel21">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -290,8 +292,6 @@
                 <Property name="text" type="java.lang.String" value="Mes Inicio:"/>
               </Properties>
             </Component>
-            <Component class="com.toedter.calendar.JMonthChooser" name="mesInicio2">
-            </Component>
             <Component class="javax.swing.JLabel" name="jLabel26">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -303,8 +303,6 @@
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="text" type="java.lang.String" value="Mes Final:"/>
               </Properties>
-            </Component>
-            <Component class="com.toedter.calendar.JMonthChooser" name="mesFinal2">
             </Component>
             <Component class="javax.swing.JButton" name="btnGuardar">
               <Properties>
@@ -341,6 +339,14 @@
                 </Property>
                 <Property name="focusable" type="boolean" value="false"/>
               </Properties>
+            </Component>
+            <Component class="com.toedter.calendar.JMonthChooser" name="jMonthChooser1">
+            </Component>
+            <Component class="com.toedter.calendar.JMonthChooser" name="jMonthChooser2">
+            </Component>
+            <Component class="com.toedter.calendar.JMonthChooser" name="jMonthChooser3">
+            </Component>
+            <Component class="com.toedter.calendar.JMonthChooser" name="jMonthChooser5">
             </Component>
           </SubComponents>
         </Container>
