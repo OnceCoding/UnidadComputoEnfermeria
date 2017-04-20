@@ -2,17 +2,24 @@
 package vistas;
 
 import dao.DaoManager;
+import dao.DaoRegistro;
 import dao.DaoRegistroTemporal;
 import dao.mysql.MysqlDaoManager;
 import java.awt.Component;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.Time;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import static javax.swing.SwingConstants.CENTER;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import modelo.Registro;
+import modelo.RegistroTemporal;
 import modelo.SesionesActivas;
 
 public class subPanelUsuario extends javax.swing.JPanel {
@@ -21,6 +28,8 @@ public class subPanelUsuario extends javax.swing.JPanel {
     
     private DaoManager manager;
     private DaoRegistroTemporal daoRegistroTemporal;
+    private DaoRegistro daoRegistro;
+    private RegistroTemporal registroTemporal;
     private List<SesionesActivas> listaSesionesActivas;
     
     private DefaultTableCellRenderer renderer;
@@ -61,6 +70,7 @@ public class subPanelUsuario extends javax.swing.JPanel {
             }          
         };
         
+        //ocultar una columna en la tabla 
         tablaUsuariosActivos.removeColumn(tablaUsuariosActivos.getColumnModel().getColumn(0));
         
         tablaUsuariosActivos.setRowHeight(20);
@@ -243,6 +253,11 @@ public class subPanelUsuario extends javax.swing.JPanel {
         btnDetenerSesion1.setText("DETENER SESIÓN");
         btnDetenerSesion1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnDetenerSesion1.setFocusable(false);
+        btnDetenerSesion1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDetenerSesion1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout subPanelUsuarios3Layout = new javax.swing.GroupLayout(subPanelUsuarios3);
         subPanelUsuarios3.setLayout(subPanelUsuarios3Layout);
@@ -305,6 +320,44 @@ public class subPanelUsuario extends javax.swing.JPanel {
         dep.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void btnDetenerSesion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetenerSesion1ActionPerformed
+        
+        int aceptar = JOptionPane.showConfirmDialog(null,"detener Sesion, seguro ? ","Sesion",JOptionPane.YES_NO_OPTION);
+        
+        if(aceptar == 0){
+            try {
+                int fila = tablaUsuariosActivos.getSelectedRow();
+                int codigo = Integer.parseInt(model.getValueAt(fila,0).toString());
+                //String codUsuario = model.getValueAt(fila,1).toString();
+                //String codPc = model.getValueAt(fila,4).toString();
+                //Time horaInicio = Time.valueOf(model.getValueAt(fila,5).toString());
+                
+                daoRegistroTemporal = manager.getDaoRegistroTemporal();
+                registroTemporal = daoRegistroTemporal.obtenerRegistroTemporal(codigo);
+                
+                daoRegistro = manager.getDaoRegistro();
+                daoRegistro.insertar(new Registro(null,registroTemporal.getCodUsuario(),
+                        registroTemporal.getCodPC(),registroTemporal.getHoraInicio(),
+                        Time.valueOf(LocalTime.now()),registroTemporal.getFecha()));
+                
+                daoRegistroTemporal.eliminar(codigo);
+                
+                limpiarTabla();
+                mostrarSesionesActivas();
+                actualizarNroEquiposDisponibles();
+                actualizarNroSesionesActivas();
+                
+                
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null,"Seleccione un registro de la Tabla");
+            }
+
+            
+        }
+        
+        
+    }//GEN-LAST:event_btnDetenerSesion1ActionPerformed
+
     public void actualizarNroEquiposDisponibles(){
         daoRegistroTemporal = manager.getDaoRegistroTemporal();
         panelInicio.lblCantidadEquiposDisponibles.setText(daoRegistroTemporal.obtenerNroEquiposDisponibles());
@@ -329,6 +382,14 @@ public class subPanelUsuario extends javax.swing.JPanel {
                 sesion.getRegistroTemporal().getHoraInicio()
             });
         });
+    }
+    
+    public void limpiarTabla(){
+        int cant = model.getRowCount();
+        int i;
+        for(i=0;i<cant;i++){
+            model.removeRow(0);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

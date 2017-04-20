@@ -28,8 +28,8 @@ public class MysqlDaoManager implements DaoManager{
     private static DaoContadorRegistro contadorRegistro = null;
     
     public MysqlDaoManager() throws SQLException {
-        //try {
-            conexion = DriverManager.getConnection("jdbc:mysql://localhost/bdcomputo?useSSL=false","root","facenfUNT2017");
+        //try {facenfUNT2017
+            conexion = DriverManager.getConnection("jdbc:mysql://localhost/bdcomputo?useSSL=false","root","");
 
         //} catch (SQLException ex) {
             //JOptionPane.showMessageDialog(null,"Error al conectar con la Base de Satos");

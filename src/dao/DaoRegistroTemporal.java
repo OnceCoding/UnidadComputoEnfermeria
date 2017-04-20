@@ -12,4 +12,6 @@ public interface DaoRegistroTemporal{
     public String obtenerNroEquiposDisponibles();
     public String obtenerNroSesionesActivas();
     public List<SesionesActivas> obtenerSesionesActivas();
+    public RegistroTemporal obtenerRegistroTemporal(Integer codigo);
+    public void eliminar(Integer codigo);
 }

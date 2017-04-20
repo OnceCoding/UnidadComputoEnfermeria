@@ -2,6 +2,7 @@ package dao.mysql;
 
 import dao.DaoRegistroTemporal;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -38,9 +39,15 @@ public class MysqlDaoRegistroTemporal implements DaoRegistroTemporal{
     private final String obtenerSesionesActivas = "select r.codigo,r.codUsuario,r.codPc,r.horaInicio,u.nombre,u.apellido"
             + " from registroTemporal r inner join usuario u on r.codUsuario = u.codigo";
     
+    private final String obtenerRegistroTemporal = 
+            "select codigo,codUsuario,codPc,horaInicio,fecha from registroTemporal where codigo = ?";
+    
+    private final String eliminar = "delete from registroTemporal where codigo = ?";
+    
     private Integer codigo;
     private String codUsuario,codPc,nombre,apellido;
     private Time horaInicio;
+    private Date fecha;
     
     private List<Computadora> listaEquiposDisponibles;
     private List<SesionesActivas> listaSesionesActivas;
@@ -161,6 +168,55 @@ public class MysqlDaoRegistroTemporal implements DaoRegistroTemporal{
             MysqlUtils.cerrarPreparedStatementAndResultSet(preparedStatement, resultSet);
         }
         return null;
+    }
+
+    public RegistroTemporal convertirARegistroTemporal(ResultSet rs){
+        try {
+            codigo = rs.getInt("codigo");
+            codUsuario = rs.getString("codUsuario");
+            codPc = rs.getString("codPc");
+            horaInicio = rs.getTime("horaInicio");
+            fecha = rs.getDate("fecha");
+            
+            return new RegistroTemporal(codigo, codUsuario, codPc, horaInicio, null, fecha);
+            
+        } catch (SQLException e) {
+            System.out.println("Error al convertir registro temporal");
+        }
+        
+        return null;
+    }
+    
+    @Override
+    public RegistroTemporal obtenerRegistroTemporal(Integer codigo) {
+        try {
+            preparedStatement = conexion.prepareStatement(obtenerRegistroTemporal);
+            preparedStatement.setInt(1, codigo);
+            resultSet = preparedStatement.executeQuery();
+            
+            if(resultSet.next()){
+                return convertirARegistroTemporal(resultSet);
+            }
+            
+        } catch (SQLException e) {
+            System.out.println("Error al obtener Registro temoral");
+        } finally{
+            MysqlUtils.cerrarPreparedStatementAndResultSet(preparedStatement, resultSet);
+        }
+        return null;
+    }
+
+    @Override
+    public void eliminar(Integer codigo) {
+        try {
+            preparedStatement = conexion.prepareStatement(eliminar);
+            preparedStatement.setInt(1, codigo);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("No se pudo eliminar");
+        } finally{
+            MysqlUtils.cerrarPreparedStatement(preparedStatement);
+        }
     }
 
 }
