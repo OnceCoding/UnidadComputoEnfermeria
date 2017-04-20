@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
 import javax.swing.JTable;
 import static javax.swing.SwingConstants.CENTER;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -34,6 +35,8 @@ public class subPanelUsuario extends javax.swing.JPanel {
     
     private DefaultTableCellRenderer renderer;
     private DefaultTableModel model;
+    
+    private String nroEquipoNuevo;
     /**
      * Creates new form subPanelUsuario
      */
@@ -61,6 +64,7 @@ public class subPanelUsuario extends javax.swing.JPanel {
         model.addColumn("Hora Inicio");
        
         tablaUsuariosActivos.setModel(model);
+        tablaUsuariosActivos.getTableHeader().setReorderingAllowed(false);
         
         renderer = new DefaultTableCellRenderer(){
             @Override
@@ -81,6 +85,14 @@ public class subPanelUsuario extends javax.swing.JPanel {
         mostrarSesionesActivas();
         //---fin
         
+        tablaUsuariosActivos.getSelectionModel().addListSelectionListener((select)->{
+            int fila = tablaUsuariosActivos.getSelectedRow();
+            if(fila != -1){
+                String nroPc = model.getValueAt(fila,4).toString();
+                txtNroPc.setText(nroPc);
+            }
+        });
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -91,19 +103,14 @@ public class subPanelUsuario extends javax.swing.JPanel {
         jScrollPane4 = new javax.swing.JScrollPane();
         tablaUsuariosActivos = new javax.swing.JTable();
         jPanel11 = new javax.swing.JPanel();
-        btnModificar8 = new javax.swing.JButton();
-        btnEliminar8 = new javax.swing.JButton();
-        jLabel34 = new javax.swing.JLabel();
+        btnModificar = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
         jLabel35 = new javax.swing.JLabel();
         txtNroPc = new javax.swing.JTextField();
-        jSpinner9 = new javax.swing.JSpinner();
-        jSpinner10 = new javax.swing.JSpinner();
-        jLabel28 = new javax.swing.JLabel();
-        jComboBox9 = new javax.swing.JComboBox<>();
-        jButton4 = new javax.swing.JButton();
-        btnNuevaSesion1 = new javax.swing.JButton();
-        btnDetenerTodo1 = new javax.swing.JButton();
-        btnDetenerSesion1 = new javax.swing.JButton();
+        btnElegirEquipo = new javax.swing.JButton();
+        btnNuevaSesion = new javax.swing.JButton();
+        btnDetenerTodo = new javax.swing.JButton();
+        btnDetenerSesion = new javax.swing.JButton();
 
         subPanelUsuarios3.setBackground(new java.awt.Color(34, 34, 34));
 
@@ -125,26 +132,34 @@ public class subPanelUsuario extends javax.swing.JPanel {
         jPanel11.setBackground(new java.awt.Color(34, 34, 34));
         jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(java.awt.Color.white), "Sesión Seleccionada", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 11), java.awt.Color.white)); // NOI18N
 
-        btnModificar8.setBackground(new java.awt.Color(34, 70, 135));
-        btnModificar8.setFont(new java.awt.Font("Tempus Sans ITC", 0, 12)); // NOI18N
-        btnModificar8.setForeground(java.awt.Color.white);
-        btnModificar8.setText("MODIFICAR");
-        btnModificar8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnModificar8.setFocusable(false);
+        btnModificar.setBackground(new java.awt.Color(34, 70, 135));
+        btnModificar.setFont(new java.awt.Font("Tempus Sans ITC", 0, 12)); // NOI18N
+        btnModificar.setForeground(java.awt.Color.white);
+        btnModificar.setText("MODIFICAR");
+        btnModificar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnModificar.setFocusable(false);
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
 
-        btnEliminar8.setBackground(new java.awt.Color(34, 70, 135));
-        btnEliminar8.setFont(new java.awt.Font("Tempus Sans ITC", 0, 12)); // NOI18N
-        btnEliminar8.setForeground(java.awt.Color.white);
-        btnEliminar8.setText("ELIMINAR");
-        btnEliminar8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnEliminar8.setFocusable(false);
-
-        jLabel34.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel34.setText("HORA INICIO:");
+        btnEliminar.setBackground(new java.awt.Color(34, 70, 135));
+        btnEliminar.setFont(new java.awt.Font("Tempus Sans ITC", 0, 12)); // NOI18N
+        btnEliminar.setForeground(java.awt.Color.white);
+        btnEliminar.setText("ELIMINAR");
+        btnEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEliminar.setFocusable(false);
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         jLabel35.setForeground(new java.awt.Color(255, 255, 255));
         jLabel35.setText("N° DE PC:");
 
+        txtNroPc.setEditable(false);
         txtNroPc.setBackground(new java.awt.Color(34, 34, 34));
         txtNroPc.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         txtNroPc.setForeground(java.awt.Color.white);
@@ -152,21 +167,15 @@ public class subPanelUsuario extends javax.swing.JPanel {
         txtNroPc.setBorder(javax.swing.BorderFactory.createLineBorder(java.awt.Color.white));
         txtNroPc.setCaretColor(new java.awt.Color(255, 255, 255));
 
-        jLabel28.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel28.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel28.setText(":");
-
-        jComboBox9.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AM", "PM" }));
-
-        jButton4.setBackground(new java.awt.Color(184, 207, 229));
-        jButton4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jButton4.setForeground(java.awt.Color.white);
-        jButton4.setText("ELEGIR");
-        jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton4.setFocusable(false);
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnElegirEquipo.setBackground(new java.awt.Color(184, 207, 229));
+        btnElegirEquipo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnElegirEquipo.setForeground(java.awt.Color.white);
+        btnElegirEquipo.setText("ELEGIR");
+        btnElegirEquipo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnElegirEquipo.setFocusable(false);
+        btnElegirEquipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnElegirEquipoActionPerformed(evt);
             }
         });
 
@@ -175,31 +184,20 @@ public class subPanelUsuario extends javax.swing.JPanel {
         jPanel11Layout.setHorizontalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel11Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel11Layout.createSequentialGroup()
-                        .addComponent(btnModificar8, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnEliminar8, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel11Layout.createSequentialGroup()
-                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel35)
-                            .addComponent(jLabel34))
+                        .addGap(63, 63, 63)
+                        .addComponent(jLabel35)
                         .addGap(5, 5, 5)
-                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSpinner10, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNroPc, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(3, 3, 3)
-                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel11Layout.createSequentialGroup()
-                                .addComponent(jLabel28)
-                                .addGap(3, 3, 3)
-                                .addComponent(jSpinner9, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBox9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jButton4))
-                        .addGap(10, 10, 10)))
-                .addContainerGap(28, Short.MAX_VALUE))
+                        .addComponent(txtNroPc, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(5, 5, 5)
+                        .addComponent(btnElegirEquipo))
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -212,50 +210,47 @@ public class subPanelUsuario extends javax.swing.JPanel {
                             .addComponent(jLabel35, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel11Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(14, 14, 14)
-                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox9, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jSpinner10, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jSpinner9, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel28)
-                        .addComponent(jLabel34)))
-                .addGap(18, 18, 18)
+                        .addComponent(btnElegirEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(31, 31, 31)
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnModificar8, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEliminar8, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                    .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32))
         );
 
-        btnNuevaSesion1.setBackground(new java.awt.Color(34, 70, 135));
-        btnNuevaSesion1.setFont(new java.awt.Font("Tempus Sans ITC", 0, 12)); // NOI18N
-        btnNuevaSesion1.setForeground(java.awt.Color.white);
-        btnNuevaSesion1.setText("NUEVA SESIÓN");
-        btnNuevaSesion1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnNuevaSesion1.setFocusable(false);
-        btnNuevaSesion1.addActionListener(new java.awt.event.ActionListener() {
+        btnNuevaSesion.setBackground(new java.awt.Color(34, 70, 135));
+        btnNuevaSesion.setFont(new java.awt.Font("Tempus Sans ITC", 0, 12)); // NOI18N
+        btnNuevaSesion.setForeground(java.awt.Color.white);
+        btnNuevaSesion.setText("NUEVA SESIÓN");
+        btnNuevaSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnNuevaSesion.setFocusable(false);
+        btnNuevaSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNuevaSesion1ActionPerformed(evt);
+                btnNuevaSesionActionPerformed(evt);
             }
         });
 
-        btnDetenerTodo1.setBackground(new java.awt.Color(34, 70, 135));
-        btnDetenerTodo1.setFont(new java.awt.Font("Tempus Sans ITC", 0, 12)); // NOI18N
-        btnDetenerTodo1.setForeground(java.awt.Color.white);
-        btnDetenerTodo1.setText("DETENER TODO");
-        btnDetenerTodo1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnDetenerTodo1.setFocusable(false);
-
-        btnDetenerSesion1.setBackground(new java.awt.Color(34, 70, 135));
-        btnDetenerSesion1.setFont(new java.awt.Font("Tempus Sans ITC", 0, 12)); // NOI18N
-        btnDetenerSesion1.setForeground(java.awt.Color.white);
-        btnDetenerSesion1.setText("DETENER SESIÓN");
-        btnDetenerSesion1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnDetenerSesion1.setFocusable(false);
-        btnDetenerSesion1.addActionListener(new java.awt.event.ActionListener() {
+        btnDetenerTodo.setBackground(new java.awt.Color(34, 70, 135));
+        btnDetenerTodo.setFont(new java.awt.Font("Tempus Sans ITC", 0, 12)); // NOI18N
+        btnDetenerTodo.setForeground(java.awt.Color.white);
+        btnDetenerTodo.setText("DETENER TODO");
+        btnDetenerTodo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnDetenerTodo.setFocusable(false);
+        btnDetenerTodo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDetenerSesion1ActionPerformed(evt);
+                btnDetenerTodoActionPerformed(evt);
+            }
+        });
+
+        btnDetenerSesion.setBackground(new java.awt.Color(34, 70, 135));
+        btnDetenerSesion.setFont(new java.awt.Font("Tempus Sans ITC", 0, 12)); // NOI18N
+        btnDetenerSesion.setForeground(java.awt.Color.white);
+        btnDetenerSesion.setText("DETENER SESIÓN");
+        btnDetenerSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnDetenerSesion.setFocusable(false);
+        btnDetenerSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDetenerSesionActionPerformed(evt);
             }
         });
 
@@ -272,11 +267,11 @@ public class subPanelUsuario extends javax.swing.JPanel {
                     .addGroup(subPanelUsuarios3Layout.createSequentialGroup()
                         .addGap(23, 23, 23)
                         .addGroup(subPanelUsuarios3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(btnNuevaSesion1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnNuevaSesion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, subPanelUsuarios3Layout.createSequentialGroup()
-                                .addComponent(btnDetenerSesion1)
+                                .addComponent(btnDetenerSesion)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnDetenerTodo1)))))
+                                .addComponent(btnDetenerTodo)))))
                 .addContainerGap())
         );
         subPanelUsuarios3Layout.setVerticalGroup(
@@ -285,11 +280,11 @@ public class subPanelUsuario extends javax.swing.JPanel {
                 .addGroup(subPanelUsuarios3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(subPanelUsuarios3Layout.createSequentialGroup()
                         .addGap(40, 40, 40)
-                        .addComponent(btnNuevaSesion1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnNuevaSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(subPanelUsuarios3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnDetenerSesion1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnDetenerTodo1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnDetenerSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnDetenerTodo, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
                         .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(subPanelUsuarios3Layout.createSequentialGroup()
@@ -310,53 +305,127 @@ public class subPanelUsuario extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnNuevaSesion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaSesion1ActionPerformed
+    private void btnNuevaSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaSesionActionPerformed
         frame.dispose();
         new frmNuevaSesion().setVisible(true);
-    }//GEN-LAST:event_btnNuevaSesion1ActionPerformed
+    }//GEN-LAST:event_btnNuevaSesionActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void btnElegirEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnElegirEquipoActionPerformed
         dialogElegirPc dep = new dialogElegirPc(frame, true);
         dep.setVisible(true);
-    }//GEN-LAST:event_jButton4ActionPerformed
+        
+        String nroEquipo = dep.getNroEquipo();
+        if(nroEquipo != null){
+            txtNroPc.setText(nroEquipo);
+        }
+        
+    }//GEN-LAST:event_btnElegirEquipoActionPerformed
 
-    private void btnDetenerSesion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetenerSesion1ActionPerformed
-        
-        int aceptar = JOptionPane.showConfirmDialog(null,"detener Sesion, seguro ? ","Sesion",JOptionPane.YES_NO_OPTION);
-        
-        if(aceptar == 0){
-            try {
-                int fila = tablaUsuariosActivos.getSelectedRow();
-                int codigo = Integer.parseInt(model.getValueAt(fila,0).toString());
-                //String codUsuario = model.getValueAt(fila,1).toString();
-                //String codPc = model.getValueAt(fila,4).toString();
-                //Time horaInicio = Time.valueOf(model.getValueAt(fila,5).toString());
-                
+    private void btnDetenerSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetenerSesionActionPerformed
+
+        int fila = tablaUsuariosActivos.getSelectedRow();
+
+        if(fila == -1){
+            JOptionPane.showMessageDialog(null,"Seleccione un registro de la Tabla");
+        }
+        else{
+            int codigo = Integer.parseInt(model.getValueAt(fila,0).toString());
+            int aceptar = JOptionPane.showConfirmDialog(null,"detener Sesion, seguro ? ","Sesion",JOptionPane.YES_NO_OPTION);
+
+            if(aceptar == 0){  
                 daoRegistroTemporal = manager.getDaoRegistroTemporal();
                 registroTemporal = daoRegistroTemporal.obtenerRegistroTemporal(codigo);
-                
+
                 daoRegistro = manager.getDaoRegistro();
                 daoRegistro.insertar(new Registro(null,registroTemporal.getCodUsuario(),
                         registroTemporal.getCodPC(),registroTemporal.getHoraInicio(),
                         Time.valueOf(LocalTime.now()),registroTemporal.getFecha()));
-                
+
                 daoRegistroTemporal.eliminar(codigo);
-                
+
                 limpiarTabla();
                 mostrarSesionesActivas();
                 actualizarNroEquiposDisponibles();
                 actualizarNroSesionesActivas();
-                
-                
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null,"Seleccione un registro de la Tabla");
+            }
+        }
+    }//GEN-LAST:event_btnDetenerSesionActionPerformed
+
+    private void btnDetenerTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetenerTodoActionPerformed
+        
+    int aceptar = JOptionPane.showConfirmDialog(null,"detener todas las Sesiones, seguro ? ","Sesion",JOptionPane.YES_NO_OPTION);
+        
+        if(aceptar == 0){
+
+            int cant = model.getRowCount();
+            int i;
+
+            for(i=0; i<cant; i++){
+                int fila = 0;
+                int codigo = Integer.parseInt(model.getValueAt(fila,0).toString());
+
+                daoRegistroTemporal = manager.getDaoRegistroTemporal();
+                registroTemporal = daoRegistroTemporal.obtenerRegistroTemporal(codigo);
+
+                daoRegistro = manager.getDaoRegistro();
+                daoRegistro.insertar(new Registro(null,registroTemporal.getCodUsuario(),
+                        registroTemporal.getCodPC(),registroTemporal.getHoraInicio(),
+                        Time.valueOf(LocalTime.now()),registroTemporal.getFecha()));
+
+                daoRegistroTemporal.eliminar(codigo);
+
+                model.removeRow(0);
+
             }
 
+            mostrarSesionesActivas();
+            actualizarNroEquiposDisponibles();
+            actualizarNroSesionesActivas();
+        
+        }
+    }//GEN-LAST:event_btnDetenerTodoActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        
+        int fila = tablaUsuariosActivos.getSelectedRow();
+        if(fila != -1){
+            int aceptar = JOptionPane.showConfirmDialog(null,"Seguro de Eliminar?","Sesion",JOptionPane.YES_NO_OPTION);
+            if(aceptar == 0){
+                int codigo = Integer.valueOf(model.getValueAt(fila,0).toString());
+                System.out.println(codigo);
+                daoRegistroTemporal = manager.getDaoRegistroTemporal();
+                daoRegistroTemporal.eliminar(codigo);
+                JOptionPane.showMessageDialog(null,"Sesion Eliminada");
+            }
             
+        }else{
+            JOptionPane.showMessageDialog(null,"Seleccione una sesion de la Tabla");
+        }
+   
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        
+        int fila = tablaUsuariosActivos.getSelectedRow();
+        
+        if(fila != -1){
+            int aceptar = JOptionPane.showConfirmDialog(null,"Seguro de modificar?","Sesion",JOptionPane.YES_NO_OPTION);
+            if(aceptar == 0){
+                int codigo = Integer.valueOf(model.getValueAt(fila,0).toString());
+                String nroEquipo = txtNroPc.getText();
+                daoRegistroTemporal = manager.getDaoRegistroTemporal();
+                daoRegistroTemporal.actualizarEquipo(new RegistroTemporal(codigo, null, nroEquipo, null, null, null));
+            
+                actualizarNroEquiposDisponibles();
+                limpiarTabla();
+                mostrarSesionesActivas();
+                
+            }
+        }else{
+            JOptionPane.showMessageDialog(null,"Seleccione un registro de la Tabla");
         }
         
-        
-    }//GEN-LAST:event_btnDetenerSesion1ActionPerformed
+    }//GEN-LAST:event_btnModificarActionPerformed
 
     public void actualizarNroEquiposDisponibles(){
         daoRegistroTemporal = manager.getDaoRegistroTemporal();
@@ -393,20 +462,15 @@ public class subPanelUsuario extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnDetenerSesion1;
-    private javax.swing.JButton btnDetenerTodo1;
-    private javax.swing.JButton btnEliminar8;
-    private javax.swing.JButton btnModificar8;
-    private javax.swing.JButton btnNuevaSesion1;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JComboBox<String> jComboBox9;
-    private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel34;
+    private javax.swing.JButton btnDetenerSesion;
+    private javax.swing.JButton btnDetenerTodo;
+    private javax.swing.JButton btnElegirEquipo;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnModificar;
+    private javax.swing.JButton btnNuevaSesion;
     private javax.swing.JLabel jLabel35;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JSpinner jSpinner10;
-    private javax.swing.JSpinner jSpinner9;
     private javax.swing.JPanel subPanelUsuarios3;
     private javax.swing.JTable tablaUsuariosActivos;
     private javax.swing.JTextField txtNroPc;

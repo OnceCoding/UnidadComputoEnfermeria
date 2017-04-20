@@ -1,20 +1,56 @@
 
 package vistas;
 
+import dao.DaoManager;
+import dao.DaoRegistroTemporal;
+import dao.mysql.MysqlDaoManager;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import modelo.Computadora;
 
 public class dialogElegirPc extends java.awt.Dialog {
 
-    private int x, y;
+    private int x, y, fila;
+    private String nroEquipo;
+    
+    private List<Computadora> listaEquiposDisponibles;
+    
+    private DaoRegistroTemporal daoRegistroTemporal;
+    private DaoManager manager;
+    
+    private DefaultTableModel model;
     
     public dialogElegirPc(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setLocation(parent.getLocation().x + 1200, parent.getLocation().y + 370);
+        
+        model = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }   
+        };
+        
+        tablaPcDisponibles.setModel(model);
+        tablaPcDisponibles.getTableHeader().setReorderingAllowed(false);
+        model.addColumn("Pc Disponibles");
+        
         DefaultTableCellRenderer modelocentrar = new DefaultTableCellRenderer();
         modelocentrar.setHorizontalAlignment(SwingConstants.CENTER);
         tablaPcDisponibles.getColumnModel().getColumn(0).setCellRenderer(modelocentrar);
+    
+        try {
+            manager = MysqlDaoManager.getMysqlDaoManager();
+        } catch (SQLException e) {
+        }
+        
+        mostrarEquiposDisponibles();
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -33,17 +69,6 @@ public class dialogElegirPc extends java.awt.Dialog {
             }
         });
 
-        tablaPcDisponibles.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"1"},
-                {"2"},
-                {null},
-                {null}
-            },
-            new String [] {
-                "Nro de PC"
-            }
-        ));
         tablaPcDisponibles.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tablaPcDisponibles.setRowHeight(25);
         tablaPcDisponibles.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -120,7 +145,8 @@ public class dialogElegirPc extends java.awt.Dialog {
     }//GEN-LAST:event_closeDialog
 
     private void tablaPcDisponiblesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPcDisponiblesMouseClicked
-        // TODO add your handling code here:
+        fila = tablaPcDisponibles.getSelectedRow();
+        this.nroEquipo = tablaPcDisponibles.getValueAt(fila,0).toString();
         this.dispose();
     }//GEN-LAST:event_tablaPcDisponiblesMouseClicked
 
@@ -136,7 +162,27 @@ public class dialogElegirPc extends java.awt.Dialog {
         this.x = evt.getX();
         this.y = evt.getY();
     }//GEN-LAST:event_barraMousePressed
-
+    
+    public void mostrarEquiposDisponibles(){
+        
+        listaEquiposDisponibles = new ArrayList<>();
+        daoRegistroTemporal = manager.getDaoRegistroTemporal();
+        listaEquiposDisponibles = daoRegistroTemporal.obtenerEquiposDisponibles();
+        
+        listaEquiposDisponibles.forEach((computadora)->{
+            model.addRow(new Object[]{computadora.getCodigo()});
+        });
+        
+    }
+    
+    
+    public String getNroEquipo(){
+        if(fila != -1){
+            return this.nroEquipo;
+        }
+        return null;
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel barra;
     private javax.swing.JButton bttSalir;

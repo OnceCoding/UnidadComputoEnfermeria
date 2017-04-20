@@ -72,7 +72,8 @@ public class panelUser extends javax.swing.JPanel {
         tablaUsuarios.setRowHeight(25);
         mostrarUltimosUsuariosRegistrados();
         tablaUsuarios.setModel(model);
-
+        tablaUsuarios.getTableHeader().setReorderingAllowed(false);
+        
         cellRenderer = new RendererTablaUsuario();
         tablaUsuarios.setDefaultRenderer(Object.class, cellRenderer);
         

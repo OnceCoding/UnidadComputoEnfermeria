@@ -14,4 +14,5 @@ public interface DaoRegistroTemporal{
     public List<SesionesActivas> obtenerSesionesActivas();
     public RegistroTemporal obtenerRegistroTemporal(Integer codigo);
     public void eliminar(Integer codigo);
+    public void actualizarEquipo(RegistroTemporal registroTemporal);
 }

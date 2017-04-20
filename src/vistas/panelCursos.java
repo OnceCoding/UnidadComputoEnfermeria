@@ -44,6 +44,7 @@ public class panelCursos extends javax.swing.JPanel {
         
         tablaCursos.setRowHeight(25);
         tablaCursos.setModel(model);
+        tablaCursos.getTableHeader().setReorderingAllowed(false);
         
         renderer = new RendererTablaCurso();
         tablaCursos.setDefaultRenderer(Object.class, renderer);

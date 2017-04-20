@@ -61,6 +61,7 @@ public class panelEquipos extends javax.swing.JPanel {
         mostrarEquiposTabla();
         
         tablaEquipos.setModel(model);
+        tablaEquipos.getTableHeader().setReorderingAllowed(false);
         
         tablaEquipos.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
             @Override

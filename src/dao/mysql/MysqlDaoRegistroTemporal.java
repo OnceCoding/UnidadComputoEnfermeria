@@ -1,6 +1,7 @@
 package dao.mysql;
 
 import dao.DaoRegistroTemporal;
+import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -43,6 +44,8 @@ public class MysqlDaoRegistroTemporal implements DaoRegistroTemporal{
             "select codigo,codUsuario,codPc,horaInicio,fecha from registroTemporal where codigo = ?";
     
     private final String eliminar = "delete from registroTemporal where codigo = ?";
+    
+    private final String actualizarEquipo = "update registroTemporal set codPc = ? where codigo = ?";
     
     private Integer codigo;
     private String codUsuario,codPc,nombre,apellido;
@@ -214,6 +217,24 @@ public class MysqlDaoRegistroTemporal implements DaoRegistroTemporal{
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             System.out.println("No se pudo eliminar");
+        } finally{
+            MysqlUtils.cerrarPreparedStatement(preparedStatement);
+        }
+    }
+
+    @Override
+    public void actualizarEquipo(RegistroTemporal registroTemporal) {
+        try {
+            preparedStatement = conexion.prepareStatement(actualizarEquipo);
+            preparedStatement.setString(1,registroTemporal.getCodPC());
+            preparedStatement.setInt(2,registroTemporal.getCodigo());
+            
+            if(preparedStatement.executeUpdate() != 0){
+                JOptionPane.showMessageDialog(null,"Sesion Actualizada");
+            }
+            
+        } catch (HeadlessException | SQLException e) {
+            System.out.println(e.getMessage());
         } finally{
             MysqlUtils.cerrarPreparedStatement(preparedStatement);
         }
