@@ -6,7 +6,6 @@ import dao.DaoRegistro;
 import dao.DaoRegistroTemporal;
 import dao.mysql.MysqlDaoManager;
 import java.awt.Component;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.time.LocalTime;
@@ -14,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JSpinner;
 import javax.swing.JTable;
 import static javax.swing.SwingConstants.CENTER;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -347,6 +345,14 @@ public class subPanelUsuario extends javax.swing.JPanel {
                 mostrarSesionesActivas();
                 actualizarNroEquiposDisponibles();
                 actualizarNroSesionesActivas();
+                
+                int sesionesActivas = obtenerNroSesisonesActivas();
+                
+                if(sesionesActivas == 0){
+                    frame.dispose();
+                    new frmPrincipal().setVisible(true);
+                }
+                
             }
         }
     }//GEN-LAST:event_btnDetenerSesionActionPerformed
@@ -382,6 +388,13 @@ public class subPanelUsuario extends javax.swing.JPanel {
             actualizarNroEquiposDisponibles();
             actualizarNroSesionesActivas();
         
+            int sesionesActivas = obtenerNroSesisonesActivas();
+                
+            if(sesionesActivas == 0){
+                frame.dispose();
+                new frmPrincipal().setVisible(true);
+            }
+            
         }
     }//GEN-LAST:event_btnDetenerTodoActionPerformed
 
@@ -396,6 +409,14 @@ public class subPanelUsuario extends javax.swing.JPanel {
                 daoRegistroTemporal = manager.getDaoRegistroTemporal();
                 daoRegistroTemporal.eliminar(codigo);
                 JOptionPane.showMessageDialog(null,"Sesion Eliminada");
+                
+                int sesionesActivas = obtenerNroSesisonesActivas();
+                
+                if(sesionesActivas == 0){
+                    frame.dispose();
+                    new frmPrincipal().setVisible(true);
+                }
+                
             }
             
         }else{
@@ -435,6 +456,11 @@ public class subPanelUsuario extends javax.swing.JPanel {
     public void actualizarNroSesionesActivas(){
         daoRegistroTemporal = manager.getDaoRegistroTemporal();
         panelInicio.lblCantidadSesiones.setText(daoRegistroTemporal.obtenerNroSesionesActivas());
+    }
+    
+    public Integer obtenerNroSesisonesActivas(){
+        daoRegistroTemporal = manager.getDaoRegistroTemporal();
+        return Integer.valueOf(daoRegistroTemporal.obtenerNroSesionesActivas());
     }
     
     public void mostrarSesionesActivas(){

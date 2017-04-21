@@ -1,10 +1,15 @@
 
 package vistas;
 
+import javax.swing.JFrame;
+
 public class subPanelUsuarioVacio extends javax.swing.JPanel {
 
-    public subPanelUsuarioVacio() {
+    JFrame frame;
+    
+    public subPanelUsuarioVacio(JFrame frame) {
         initComponents();
+        this.frame = frame;
     }
 
     @SuppressWarnings("unchecked")
@@ -39,6 +44,11 @@ public class subPanelUsuarioVacio extends javax.swing.JPanel {
         btnNuevaSesion.setText("NUEVA SESIÓN");
         btnNuevaSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnNuevaSesion.setFocusable(false);
+        btnNuevaSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevaSesionActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -77,6 +87,11 @@ public class subPanelUsuarioVacio extends javax.swing.JPanel {
                 .addGap(103, 103, 103))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnNuevaSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaSesionActionPerformed
+        frame.dispose();
+        new frmNuevaSesion().setVisible(true);
+    }//GEN-LAST:event_btnNuevaSesionActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

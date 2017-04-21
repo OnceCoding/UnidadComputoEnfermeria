@@ -2,6 +2,7 @@ package dao.mysql;
 
 import dao.DaoAdministrador;
 import dao.DaoComputadora;
+import dao.DaoConfiguracion;
 import dao.DaoContadorRegistro;
 import dao.DaoCurso;
 import dao.DaoManager;
@@ -26,6 +27,7 @@ public class MysqlDaoManager implements DaoManager{
     private static DaoUsuario usuario = null;
     private static DaoCurso curso = null;
     private static DaoContadorRegistro contadorRegistro = null;
+    private static DaoConfiguracion configuracion = null;
     
     public MysqlDaoManager() throws SQLException {
         //try {facenfUNT2017
@@ -110,5 +112,15 @@ public class MysqlDaoManager implements DaoManager{
         }
         return contadorRegistro;
     }
+
+    @Override
+    public DaoConfiguracion getDaoConfiguracion() {
+        if(configuracion == null){
+            configuracion = new MysqlDaoConfiguracion(conexion);
+            return configuracion;
+        }
+        return configuracion;
+    }
+
     
 }

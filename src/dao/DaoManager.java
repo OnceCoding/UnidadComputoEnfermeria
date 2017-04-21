@@ -9,5 +9,5 @@ public interface DaoManager {
     public DaoRegistroTemporal getDaoRegistroTemporal();
     public DaoCurso getDaoCurso();
     public DaoContadorRegistro getContadorRegistro();
-    
+    public DaoConfiguracion getDaoConfiguracion();
 }

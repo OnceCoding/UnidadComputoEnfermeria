@@ -5,28 +5,40 @@ import dao.DaoManager;
 import dao.DaoRegistroTemporal;
 import dao.mysql.MysqlDaoManager;
 import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Frame;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JTable;
-import javax.swing.SwingConstants;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
-import modelo.SesionesActivas;
+import modelo.RegistroTemporal;
+
 
 public class panelInicio extends javax.swing.JPanel {
     
     private JFrame frame;
-   
+    private DaoManager manager;
+    private DaoRegistroTemporal daoRegistroTemporal;
+    
     public panelInicio(JFrame frame) {
         initComponents();
         this.frame = frame;
         
-        cambiarPanel(subPanelUsuarioPrincipal, new subPanelUsuario(frame), 1209, 384, 6, 15);
+        try {
+            manager = MysqlDaoManager.getMysqlDaoManager();
+        } catch (SQLException e) {
+        }
+        
+        daoRegistroTemporal = manager.getDaoRegistroTemporal();
+        int cantidadSesiones = Integer.valueOf(daoRegistroTemporal.obtenerNroSesionesActivas());
+        
+        if(cantidadSesiones > 0){
+            cambiarPanel(subPanelUsuarioPrincipal, new subPanelUsuario(frame), 1209, 384, 6, 15);
+        }else{
+            cambiarPanel(subPanelUsuarioPrincipal, new subPanelUsuarioVacio(frame), 1209, 384, 6, 15);
+            actualizarNroEquiposDisponibles();
+            lblCantidadSesiones.setText("0");
+        }
+        
+        
+        
         cambiarPanel(subPanelCursoPrincipal, new subPanelCursoVacio(frame), 449, 55, 8, 15);
         
         /* El codigo de aqui esta en el subPanelUsuario */
@@ -161,6 +173,10 @@ public class panelInicio extends javax.swing.JPanel {
 
     /* Las 3 funciones estan en subPanelUsuario.java*/
     
+    public void actualizarNroEquiposDisponibles(){
+        daoRegistroTemporal = manager.getDaoRegistroTemporal();
+        lblCantidadEquiposDisponibles.setText(daoRegistroTemporal.obtenerNroEquiposDisponibles());
+    }
     
     public void cambiarPanel(JPanel panelContenedor, JPanel panelNuevo, int tamX, int tamY, int posX, int posY){
         panelNuevo.setSize(tamX, tamY);

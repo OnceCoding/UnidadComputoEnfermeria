@@ -16,7 +16,7 @@ public class subPanelCurso extends javax.swing.JPanel {
         spnHora = new javax.swing.JSpinner();
         spnMinuto = new javax.swing.JSpinner();
         jLabel17 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbxTiempo = new javax.swing.JComboBox<>();
         btnModificar = new javax.swing.JButton();
         btnCerrarCurso = new javax.swing.JButton();
 
@@ -26,11 +26,15 @@ public class subPanelCurso extends javax.swing.JPanel {
         jLabel16.setForeground(new java.awt.Color(255, 255, 255));
         jLabel16.setText("OFIMATICA");
 
+        spnHora.setModel(new javax.swing.SpinnerNumberModel(1, 1, 12, 1));
+
+        spnMinuto.setModel(new javax.swing.SpinnerNumberModel(0, 0, 59, 1));
+
         jLabel17.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(255, 255, 255));
         jLabel17.setText(":");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AM", "PM" }));
+        cbxTiempo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AM", "PM" }));
 
         btnModificar.setBackground(new java.awt.Color(34, 70, 135));
         btnModificar.setFont(new java.awt.Font("Tempus Sans ITC", 0, 12)); // NOI18N
@@ -61,7 +65,7 @@ public class subPanelCurso extends javax.swing.JPanel {
                         .addGap(1, 1, 1)
                         .addComponent(spnMinuto, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbxTiempo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnModificar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -84,7 +88,7 @@ public class subPanelCurso extends javax.swing.JPanel {
                             .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(spnMinuto, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(spnHora, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jComboBox1)))))
+                            .addComponent(cbxTiempo)))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -103,7 +107,7 @@ public class subPanelCurso extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrarCurso;
     private javax.swing.JButton btnModificar;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> cbxTiempo;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JSpinner spnHora;

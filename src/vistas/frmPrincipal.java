@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -25,6 +26,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     private JPanel panelCursos;
     private JPanel panelInicio = new panelInicio(this);
     private JPanel panelUser;
+    private JPanel panelConfiguraciones;
     
     private DaoManager manager;
     
@@ -33,7 +35,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     public frmPrincipal() {
         initComponents();
         setLocationRelativeTo(null);
-        cambiarPanel("Inicio", panelInicio); //Agrege esta linea
+        cambiarPanel("Inicio", panelInicio);
         /*  
         --> Codigo de centrado
         DefaultTableCellRenderer modelocentrar = new DefaultTableCellRenderer();
@@ -328,6 +330,11 @@ public class frmPrincipal extends javax.swing.JFrame {
         btnConfiguraciones.setText("CONFIGURACIONES");
         btnConfiguraciones.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnConfiguraciones.setFocusable(false);
+        btnConfiguraciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfiguracionesActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -499,6 +506,12 @@ public class frmPrincipal extends javax.swing.JFrame {
         pintarBoton(btnInicio);
     }//GEN-LAST:event_btnInicioActionPerformed
 
+    private void btnConfiguracionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfiguracionesActionPerformed
+        panelConfiguraciones = new panelConfiguraciones();
+        cambiarPanel("Configuraciones",panelConfiguraciones);
+        pintarBoton(btnConfiguraciones);
+    }//GEN-LAST:event_btnConfiguracionesActionPerformed
+
     public void cambiarPanel(String seccion, JPanel panelElegido){
         panelElegido.setSize(1272, 515);
         panelElegido.setLocation(1, 1);
@@ -517,6 +530,10 @@ public class frmPrincipal extends javax.swing.JFrame {
                 btn.setBackground(new Color(30, 70, 135));
             }
         });
+    }
+    
+    public JLabel getLabelTitulo(){
+        return this.lblSeccion;
     }
     
     

@@ -20,9 +20,22 @@ public class dialogNuevaSesionCurso extends java.awt.Dialog {
         setLocationRelativeTo(null);
         this.frame = parent;
        
+        model = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        
+        tablaCursosRegistrados.setModel(model);
+        tablaCursosRegistrados.getTableHeader().setReorderingAllowed(false);
+        
+
         DefaultTableCellRenderer modelocentrar = new DefaultTableCellRenderer();
         modelocentrar.setHorizontalAlignment(SwingConstants.CENTER);
         tablaCursosRegistrados.getColumnModel().getColumn(0).setCellRenderer(modelocentrar);
+        
+       
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -185,17 +198,6 @@ public class dialogNuevaSesionCurso extends java.awt.Dialog {
         jLabel10.setForeground(new java.awt.Color(184, 207, 229));
         jLabel10.setText("Por favor, elija el curso que desea iniciar.");
 
-        tablaCursosRegistrados.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null}
-            },
-            new String [] {
-                "Cursos Registrados"
-            }
-        ));
         tablaCursosRegistrados.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tablaCursosRegistrados.setRowHeight(25);
         jScrollPane1.setViewportView(tablaCursosRegistrados);
