@@ -305,6 +305,7 @@ public class subPanelUsuario extends javax.swing.JPanel {
 
     private void btnNuevaSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaSesionActionPerformed
         frame.dispose();
+        System.out.println("Nueva sesion");
         new frmNuevaSesion().setVisible(true);
     }//GEN-LAST:event_btnNuevaSesionActionPerformed
 

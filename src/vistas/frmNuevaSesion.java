@@ -415,6 +415,9 @@ public class frmNuevaSesion extends javax.swing.JFrame {
                                 new RegistroTemporal(null,codigo,codigoPcSeleccionado,
                                     Time.valueOf(LocalTime.now()),null,Date.valueOf(LocalDate.now())));
                             txtCodigo.setText("");
+                            
+                            limpiarTabla();
+                            mostrarEquiposDisponibles();
                         }
 
                     }else{
@@ -485,6 +488,14 @@ public class frmNuevaSesion extends javax.swing.JFrame {
             }
         }
         return true;
+    }
+    
+    public void limpiarTabla(){
+        int cant = model.getRowCount();
+        int i;
+        for(i=0;i<cant;i++){
+            model.removeRow(0);
+        }
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
