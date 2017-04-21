@@ -27,6 +27,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     private JPanel panelInicio = new panelInicio(this);
     private JPanel panelUser;
     private JPanel panelConfiguraciones;
+    private JPanel panelBD;
     
     private DaoManager manager;
     
@@ -311,6 +312,11 @@ public class frmPrincipal extends javax.swing.JFrame {
         btnBD.setText("BASE DE DATOS");
         btnBD.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnBD.setFocusable(false);
+        btnBD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBDActionPerformed(evt);
+            }
+        });
 
         btnInicio.setBackground(new java.awt.Color(184, 207, 229));
         btnInicio.setFont(new java.awt.Font("Tempus Sans ITC", 1, 12)); // NOI18N
@@ -484,33 +490,39 @@ public class frmPrincipal extends javax.swing.JFrame {
 
     private void btnEquiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEquiposActionPerformed
         panelEquipos = new panelEquipos();
-        cambiarPanel("Equipos", panelEquipos);
+        cambiarPanel("EQUIPOS", panelEquipos);
         pintarBoton(btnEquipos);
     }//GEN-LAST:event_btnEquiposActionPerformed
 
     private void btnCursosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCursosActionPerformed
         panelCursos = new panelCursos();
-        cambiarPanel("Cursos", panelCursos);
+        cambiarPanel("CURSOS", panelCursos);
         pintarBoton(btnCursos);
     }//GEN-LAST:event_btnCursosActionPerformed
 
     private void btnUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuariosActionPerformed
         panelUser = new panelUser();
-        cambiarPanel("Usuarios",panelUser);
+        cambiarPanel("USUARIOS",panelUser);
         pintarBoton(btnUsuarios);
     }//GEN-LAST:event_btnUsuariosActionPerformed
 
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
         panelInicio = new panelInicio(this);
-        cambiarPanel("Inicio", panelInicio);
+        cambiarPanel("INICIO", panelInicio);
         pintarBoton(btnInicio);
     }//GEN-LAST:event_btnInicioActionPerformed
 
     private void btnConfiguracionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfiguracionesActionPerformed
         panelConfiguraciones = new panelConfiguraciones();
-        cambiarPanel("Configuraciones",panelConfiguraciones);
+        cambiarPanel("CONFIGURACIONEs",panelConfiguraciones);
         pintarBoton(btnConfiguraciones);
     }//GEN-LAST:event_btnConfiguracionesActionPerformed
+
+    private void btnBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBDActionPerformed
+        panelBD = new panelBaseDeDatos();
+        cambiarPanel("BASE DE DATOS", panelBD);
+        pintarBoton(btnBD);
+    }//GEN-LAST:event_btnBDActionPerformed
 
     public void cambiarPanel(String seccion, JPanel panelElegido){
         panelElegido.setSize(1272, 515);

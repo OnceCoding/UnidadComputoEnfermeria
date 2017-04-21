@@ -3,9 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/CHANDUVI/Documents/system78/chanduvi/UnidadComputoEnfermeria/src/vistas/panelUser.java</file>
-            <file>file:/C:/Users/CHANDUVI/Documents/system78/chanduvi/UnidadComputoEnfermeria/src/vistas/dialogNuevaSesion.java</file>
-            <file>file:/C:/Users/CHANDUVI/Documents/system78/chanduvi/UnidadComputoEnfermeria/src/SQL/BDComputo-Enfermeria.sql</file>
+            <file>file:/C:/Users/CHANDUVI/Documents/system78/chanduvi/UnidadComputoEnfermeria/src/vistas/frmPrincipal.java</file>
+            <file>file:/C:/Users/CHANDUVI/Documents/system78/chanduvi/UnidadComputoEnfermeria/src/vistas/subPanelUsuario.java</file>
+            <file>file:/C:/Users/CHANDUVI/Documents/system78/chanduvi/UnidadComputoEnfermeria/src/vistas/panelBaseDeDatos.java</file>
+            <file>file:/C:/Users/CHANDUVI/Documents/system78/chanduvi/UnidadComputoEnfermeria/src/vistas/panelConfiguraciones.java</file>
         </group>
     </open-files>
 </project-private>
