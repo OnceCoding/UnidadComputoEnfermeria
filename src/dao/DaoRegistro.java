@@ -11,5 +11,5 @@ public interface DaoRegistro{
     public List<UsuarioReporte> obtenerListaRegistrosPorFecha(Date fecha);
     public void insertar(Registro registro);
     public void obtenerListaPorSemestre();
-    
+    public void eliminarTodosLosRegistrosDeUnUsuario(Integer codigo);
 }

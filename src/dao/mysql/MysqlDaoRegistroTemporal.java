@@ -47,6 +47,8 @@ public class MysqlDaoRegistroTemporal implements DaoRegistroTemporal{
     
     private final String actualizarEquipo = "update registroTemporal set codPc = ? where codigo = ?";
     
+    private final String verificarUsuarioActivo = "select codUsuario from registroTemporal where codUsuario = ?";
+    
     private Integer codigo;
     private String codPc,nombre,apellido;
     private String codUsuario;
@@ -240,6 +242,20 @@ public class MysqlDaoRegistroTemporal implements DaoRegistroTemporal{
         } finally{
             MysqlUtils.cerrarPreparedStatement(preparedStatement);
         }
+    }
+
+    @Override
+    public boolean verificarUsuarioActivo(Integer codigo) {
+        try {
+            preparedStatement = conexion.prepareStatement(verificarUsuarioActivo);
+            preparedStatement.setInt(1, codigo);
+            resultSet = preparedStatement.executeQuery();
+            if(resultSet.next()){
+                return true;
+            }
+        } catch (SQLException e) {
+        }
+        return false;
     }
 
 }

@@ -2,6 +2,8 @@ package vistas;
 
 import TablaModel.RendererTablaUsuario;
 import dao.DaoManager;
+import dao.DaoRegistro;
+import dao.DaoRegistroTemporal;
 import dao.DaoUsuario;
 import dao.mysql.MysqlDaoManager;
 import java.sql.Date;
@@ -28,6 +30,8 @@ public class panelUser extends javax.swing.JPanel {
     private String tipo;
     
     private DaoUsuario daoUsuario;
+    private DaoRegistroTemporal daoRegistroTemporal;
+    private DaoRegistro daoRegistro;
     private DaoManager manager;
     
     private Usuario usuario;
@@ -654,11 +658,7 @@ public class panelUser extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null,"Porfavor Seleccione algun Usuario de Tabla",
                     "Usuario",JOptionPane.WARNING_MESSAGE);
         }else{
-            //true = 0   false = 1
-            /*int aceptar = JOptionPane.showConfirmDialog(null,"¿Está Seguro?","Eliminar",
-                    JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
-            */
-            
+
             Object[] options = {"Eliminar","Cancelar"};
             int aceptar = JOptionPane.showOptionDialog(
                     null,"Esta Seguro de Eliminarlo ?","Eliminar",JOptionPane.YES_NO_OPTION,
@@ -669,11 +669,25 @@ public class panelUser extends javax.swing.JPanel {
                 int fila = tablaUsuarios.getSelectedRow();
                 codigo = txtCodigoSeleccionado.getText();
                 daoUsuario = manager.getDaoUsuario();
-                daoUsuario.eliminar(new Usuario(Integer.parseInt(model.getValueAt(fila,0).toString()),null,null,null,null,null,null,null));
-                limpiarTabla();
-                mostrarUltimosUsuariosRegistrados();
-                actualizarContadorUsuario();
-                limpiarCamposSeleccionados();
+                daoRegistroTemporal = manager.getDaoRegistroTemporal();
+                int codigoAeliminar = Integer.parseInt(model.getValueAt(fila, 0).toString());
+                boolean band = daoRegistroTemporal.verificarUsuarioActivo(codigoAeliminar);
+                if(band == false){
+                    
+                    aceptar = JOptionPane.showConfirmDialog(null,"Desea eliminar con todas sus sesiones registradas?","Confirmar",JOptionPane.YES_NO_OPTION);
+                    if(aceptar == 0){
+                        daoRegistro = manager.getDaoRegistro();
+                        daoRegistro.eliminarTodosLosRegistrosDeUnUsuario(codigoAeliminar);
+                        daoUsuario.eliminar(new Usuario(codigoAeliminar,null,null,null,null,null,null,null));
+                        limpiarTabla();
+                        mostrarUltimosUsuariosRegistrados();
+                        actualizarContadorUsuario();
+                        limpiarCamposSeleccionados();
+                    }
+                    
+                }else{
+                    JOptionPane.showMessageDialog(null,"no se puede eliminar  , esta en registro temporal");
+                }
             }
             
         }

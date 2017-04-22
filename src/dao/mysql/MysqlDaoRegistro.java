@@ -28,7 +28,7 @@ public class MysqlDaoRegistro implements DaoRegistro{
             "select usuario.codigo, usuario.nombre, usuario.apellido, usuario.correo,count(registro.codigo) from usuario inner join registro\n" +
         " on registro.codUsuario = usuario.codigo where (month(registro.fecha) = ? and registro.codUsuario like ?) group by usuario.codigo, usuario.nombre, usuario.apellido, usuario.correo";
     
-    
+    private final String eliminarTodosRegistroDeUnUsuario = "delete from registro where codUsuario = ?";
     
     private List<Registro> listaUsuarios;
     
@@ -87,6 +87,19 @@ public class MysqlDaoRegistro implements DaoRegistro{
     @Override
     public void obtenerListaPorSemestre() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void eliminarTodosLosRegistrosDeUnUsuario(Integer codigo) {
+        try {
+            preparedStatement = conexion.prepareStatement(eliminarTodosRegistroDeUnUsuario);
+            preparedStatement.setInt(1, codigo);
+            if(preparedStatement.executeUpdate() != 0){
+                System.out.println("eliminados todos los registros");
+            }
+        } catch (SQLException e) {
+            System.out.println("error eliminando todos los registros");
+        }
     }
 
 

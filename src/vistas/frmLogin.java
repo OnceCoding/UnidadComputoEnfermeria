@@ -342,10 +342,7 @@ public class frmLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_barraMouseDragged
 
     public void iniciarSesion(){
-        /*
-        dialogMensaje dm  = new dialogMensaje(this, true);
-        dm.setVisible(true);
-        */
+        
         try{
             this.manager = MysqlDaoManager.getMysqlDaoManager();
             this.daoAdmin = manager.getDaoAdministrador();

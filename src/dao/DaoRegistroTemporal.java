@@ -15,4 +15,5 @@ public interface DaoRegistroTemporal{
     public RegistroTemporal obtenerRegistroTemporal(Integer codigo);
     public void eliminar(Integer codigo);
     public void actualizarEquipo(RegistroTemporal registroTemporal);
+    public boolean verificarUsuarioActivo(Integer codigo);
 }
