@@ -10,4 +10,6 @@ public interface DaoManager {
     public DaoCurso getDaoCurso();
     public DaoContadorRegistro getContadorRegistro();
     public DaoConfiguracion getDaoConfiguracion();
+    public DaoCursoRegistroTemporal getDaoCursoRegistroTemporal();
+    public DaoCursoRegistro getDaoCursoRegistro();
 }

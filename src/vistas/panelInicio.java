@@ -1,6 +1,7 @@
 
 package vistas;
 
+import dao.DaoCursoRegistroTemporal;
 import dao.DaoManager;
 import dao.DaoRegistroTemporal;
 import dao.mysql.MysqlDaoManager;
@@ -16,6 +17,7 @@ public class panelInicio extends javax.swing.JPanel {
     private JFrame frame;
     private DaoManager manager;
     private DaoRegistroTemporal daoRegistroTemporal;
+    private DaoCursoRegistroTemporal daoCursoRegistroTemporal;
     
     public panelInicio(JFrame frame) {
         initComponents();
@@ -37,9 +39,17 @@ public class panelInicio extends javax.swing.JPanel {
             lblCantidadSesiones.setText("0");
         }
         
+        daoCursoRegistroTemporal = manager.getDaoCursoRegistroTemporal();
+        int cursoActivo = daoCursoRegistroTemporal.existeCursoActual();
+        
+        if(cursoActivo == 1){
+            cambiarPanel(subPanelCursoPrincipal, new subPanelCurso(frame), 449, 55, 8, 15);
+        }else{
+            cambiarPanel(subPanelCursoPrincipal, new subPanelCursoVacio(frame), 449, 55, 8, 15);
+        }
+            
         
         
-        cambiarPanel(subPanelCursoPrincipal, new subPanelCursoVacio(frame), 449, 55, 8, 15);
         
         /* El codigo de aqui esta en el subPanelUsuario */
         

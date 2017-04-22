@@ -5,6 +5,8 @@ import dao.DaoComputadora;
 import dao.DaoConfiguracion;
 import dao.DaoContadorRegistro;
 import dao.DaoCurso;
+import dao.DaoCursoRegistro;
+import dao.DaoCursoRegistroTemporal;
 import dao.DaoManager;
 import dao.DaoRegistro;
 import dao.DaoRegistroTemporal;
@@ -28,6 +30,8 @@ public class MysqlDaoManager implements DaoManager{
     private static DaoCurso curso = null;
     private static DaoContadorRegistro contadorRegistro = null;
     private static DaoConfiguracion configuracion = null;
+    private static DaoCursoRegistro daoCursoRegistro = null;
+    private static DaoCursoRegistroTemporal daoCursoRegistroTemporal = null;
     
     public MysqlDaoManager() throws SQLException {
         //try {facenfUNT2017
@@ -122,5 +126,25 @@ public class MysqlDaoManager implements DaoManager{
         return configuracion;
     }
 
+    @Override
+    public DaoCursoRegistroTemporal getDaoCursoRegistroTemporal() {
+        if(daoCursoRegistroTemporal == null){
+            daoCursoRegistroTemporal = new MysqlDaoCursoRegistroTemporal(conexion);
+            return daoCursoRegistroTemporal;
+        }
+        return daoCursoRegistroTemporal;
+    }
+
+    @Override
+    public DaoCursoRegistro getDaoCursoRegistro() {
+        if(daoCursoRegistro == null){
+            daoCursoRegistro = new MysqlDaoCursoRegistro(conexion);
+            return daoCursoRegistro;
+        }
+        return daoCursoRegistro;  
+    }
+
+    
+    
     
 }

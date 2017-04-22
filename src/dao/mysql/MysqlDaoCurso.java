@@ -23,11 +23,11 @@ public class MysqlDaoCurso implements DaoCurso{
     private List<Curso> listacursos;
     
     private final String insertar = "insert into curso(nombre) values(?)";
-    private final String obtener = "select codigo,nombre from curso where nombre = ?";
+    private final String obtener = "select codigo,nombre from curso where codigo = ?";
     private final String obtenerTodos = "select codigo,nombre from curso order by codigo desc";
     private final String obtenerContador = "select count(codigo) as cantidad from curso";
-    private final String eliminar = "delete from curso where nombre = ?";
-    private final String actualizar = "update curso set nombre = ? where nombre = ?";
+    private final String eliminar = "delete from curso where codigo = ?";
+    private final String actualizar = "update curso set nombre = ? where codigo = ?";
     
     public MysqlDaoCurso(Connection conexion){
         this.conexion = conexion;
@@ -50,10 +50,10 @@ public class MysqlDaoCurso implements DaoCurso{
     }
 
     @Override
-    public void eliminar(Curso curso) {
+    public void eliminar(Integer codigo) {
         try {
             preparedStatement = conexion.prepareStatement(eliminar);
-            preparedStatement.setString(1,curso.getNombre());
+            preparedStatement.setInt(1,codigo);
             if(preparedStatement.executeUpdate() != 0){
                 JOptionPane.showMessageDialog(null,"Se elimino el Curso");
             }
@@ -64,11 +64,11 @@ public class MysqlDaoCurso implements DaoCurso{
     }
 
     @Override
-    public void actualizar(Curso curso,String nombreNuevo) {
+    public void actualizar(Curso curso) {
         try {
             preparedStatement = conexion.prepareStatement(actualizar);
-            preparedStatement.setString(1,nombreNuevo);
-            preparedStatement.setString(2,curso.getNombre());
+            preparedStatement.setString(1,curso.getNombre());
+            preparedStatement.setInt(2,curso.getCodigo());
             if(preparedStatement.executeUpdate() != 0){
                 JOptionPane.showMessageDialog(null,"Se Modifico el nombre el Curso");
             }
@@ -79,10 +79,10 @@ public class MysqlDaoCurso implements DaoCurso{
     }
 
     @Override
-    public Curso obtener(String nombre) {
+    public Curso obtener(Integer codigo) {
         try {
             preparedStatement = conexion.prepareStatement(obtener);
-            preparedStatement.setString(1, nombre);
+            preparedStatement.setInt(1, codigo);
             resulSet = preparedStatement.executeQuery();
             
             if(resulSet.next()){

@@ -40,10 +40,12 @@ public class panelCursos extends javax.swing.JPanel {
             }
             
         };
+        model.addColumn("codigo");
         model.addColumn("Nombre del Curso");
         
         tablaCursos.setRowHeight(25);
         tablaCursos.setModel(model);
+        tablaCursos.removeColumn(tablaCursos.getColumnModel().getColumn(0));
         tablaCursos.getTableHeader().setReorderingAllowed(false);
         
         renderer = new RendererTablaCurso();
@@ -63,7 +65,7 @@ public class panelCursos extends javax.swing.JPanel {
             
             try{
                 int fila = tablaCursos.getSelectedRow();
-                nombreCurso = model.getValueAt(fila,0).toString();
+                nombreCurso = model.getValueAt(fila,1).toString();
                 
                 txtNombreCursoSeleccionado.setText(nombreCurso);
                 
@@ -340,16 +342,11 @@ public class panelCursos extends javax.swing.JPanel {
         if(validar(nombreCurso)){
             
             daoCurso = manager.getDaoCurso();
-            curso = daoCurso.obtener(nombreCurso);
-            if(curso == null){
-                daoCurso.insertar(new Curso(null, nombreCurso));
-                txtNombreCurso.setText("");
-                limpiarTabla();
-                mostrarTodosLosCursos();
-                actualizarLabelCantidadCursos();
-            }else{
-                JOptionPane.showMessageDialog(null,"El Curso ya Existe","Curso",JOptionPane.WARNING_MESSAGE);
-            }
+            daoCurso.insertar(new Curso(null, nombreCurso));
+            txtNombreCurso.setText("");
+            limpiarTabla();
+            mostrarTodosLosCursos();
+            actualizarLabelCantidadCursos();
 
         }else{
             JOptionPane.showMessageDialog(null,"Escriba un Nombre Valido","Curso",JOptionPane.WARNING_MESSAGE);
@@ -368,7 +365,8 @@ public class panelCursos extends javax.swing.JPanel {
             
             if(n == 0){
                 daoCurso = manager.getDaoCurso();
-                daoCurso.eliminar(new Curso(null,txtNombreCursoSeleccionado.getText()));
+                int fila = tablaCursos.getSelectedRow();
+                daoCurso.eliminar(Integer.parseInt(model.getValueAt(fila,0).toString()));
                 limpiarTabla();
                 mostrarTodosLosCursos();
                 actualizarLabelCantidadCursos();
@@ -392,7 +390,8 @@ public class panelCursos extends javax.swing.JPanel {
             
                 if(n == 0){
                     daoCurso = manager.getDaoCurso();
-                    daoCurso.actualizar(new Curso(null,txtNombreCursoSeleccionado.getText()),txtNombreCursoModificacion.getText());
+                    int fila = tablaCursos.getSelectedRow();
+                    daoCurso.actualizar(new Curso(Integer.parseInt(model.getValueAt(fila, 0).toString()),txtNombreCursoModificacion.getText()));
                     limpiarTabla();
                     mostrarTodosLosCursos();
                     actualizarLabelCantidadCursos();
@@ -425,7 +424,7 @@ public class panelCursos extends javax.swing.JPanel {
         listaCursos = daoCurso.obtenerTodos();
         
         listaCursos.forEach((cur)->{
-            model.addRow(new String[]{cur.getNombre()});
+            model.addRow(new String[]{cur.getCodigo().toString(),cur.getNombre()});
         });
         
     }

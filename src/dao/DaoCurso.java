@@ -7,11 +7,11 @@ public interface DaoCurso{
 
     public void insertar(Curso curso);
 
-    public void eliminar(Curso curso);
+    public void eliminar(Integer codigo);
 
-    public void actualizar(Curso curso,String nombreNuevo);
+    public void actualizar(Curso curso);
 
-    public Curso obtener(String nombre);
+    public Curso obtener(Integer codigo);
 
     public List<Curso> obtenerTodos();
     

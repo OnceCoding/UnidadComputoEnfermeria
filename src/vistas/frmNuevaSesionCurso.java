@@ -1,10 +1,26 @@
 
 package vistas;
 
+import dao.DaoCurso;
+import dao.DaoCursoRegistroTemporal;
+import dao.DaoManager;
+import dao.mysql.MysqlDaoManager;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Frame;
+import java.sql.Date;
+import java.sql.SQLException;
+import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.List;
+import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import modelo.Curso;
+import modelo.CursoRegistroTemporal;
+import sun.swing.table.DefaultTableCellHeaderRenderer;
 
 public class frmNuevaSesionCurso extends javax.swing.JFrame {
 
@@ -12,14 +28,48 @@ public class frmNuevaSesionCurso extends javax.swing.JFrame {
     private Frame frame;
     
     private DefaultTableModel model;
+    private DaoManager manager;
+    private DaoCurso daoCurso;
+    private DaoCursoRegistroTemporal daoCursoRegistroTemporal;
     private DefaultTableCellRenderer renderer;
     
     public frmNuevaSesionCurso() {
         initComponents();
         setLocationRelativeTo(null);
-        DefaultTableCellRenderer modelocentrar = new DefaultTableCellRenderer();
-        modelocentrar.setHorizontalAlignment(SwingConstants.CENTER);
-        tablaCursosRegistrados.getColumnModel().getColumn(0).setCellRenderer(modelocentrar);
+        
+        model = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row,int column){
+                return false;
+            }  
+        };
+        
+        model.addColumn("codigo");
+        model.addColumn("Nombre Curso");
+        
+        tablaCursosRegistrados.setModel(model);
+        tablaCursosRegistrados.removeColumn(tablaCursosRegistrados.getColumnModel().getColumn(0));
+        tablaCursosRegistrados.setBackground(Color.WHITE);
+  
+        
+        renderer = new DefaultTableCellRenderer(){
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                setHorizontalAlignment(CENTER);
+                return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+            }
+            
+        };
+        
+        tablaCursosRegistrados.setDefaultRenderer(Object.class, renderer);
+       
+        try {
+            manager = MysqlDaoManager.getMysqlDaoManager();
+        } catch (SQLException e) {
+        }
+        
+        mostrarTodosLosCursos();
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -178,18 +228,6 @@ public class frmNuevaSesionCurso extends javax.swing.JFrame {
         jLabel10.setForeground(new java.awt.Color(184, 207, 229));
         jLabel10.setText("Por favor, elija el curso que desea iniciar.");
 
-        tablaCursosRegistrados.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null}
-            },
-            new String [] {
-                "Cursos Registrados"
-            }
-        ));
-        tablaCursosRegistrados.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tablaCursosRegistrados.setRowHeight(25);
         jScrollPane1.setViewportView(tablaCursosRegistrados);
 
@@ -336,7 +374,15 @@ public class frmNuevaSesionCurso extends javax.swing.JFrame {
     }//GEN-LAST:event_barraMousePressed
 
     private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
-
+        int fila = tablaCursosRegistrados.getSelectedRow();
+        int codcurso = Integer.parseInt(model.getValueAt(fila, 0).toString());
+        
+        daoCursoRegistroTemporal = manager.getDaoCursoRegistroTemporal();
+        daoCursoRegistroTemporal.iniciarSesion(new CursoRegistroTemporal(null, codcurso,Time.valueOf(LocalTime.now()),Date.valueOf(LocalDate.now())));
+        
+        dispose();
+        new frmPrincipal().setVisible(true);
+        
     }//GEN-LAST:event_btnIniciarActionPerformed
 
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
@@ -344,6 +390,16 @@ public class frmNuevaSesionCurso extends javax.swing.JFrame {
         new frmPrincipal().setVisible(true);
     }//GEN-LAST:event_btnAtrasActionPerformed
 
+    public void mostrarTodosLosCursos(){
+        daoCurso = manager.getDaoCurso();
+        List<Curso> listaCursos = daoCurso.obtenerTodos();
+    
+        listaCursos.forEach((curso)->{
+            model.addRow(new Object[]{curso.getCodigo(),curso.getNombre()});
+        });  
+    }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel barra;
