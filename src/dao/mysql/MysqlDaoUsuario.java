@@ -19,12 +19,13 @@ public class MysqlDaoUsuario implements DaoUsuario{
     private ResultSet resultSet;
     private Usuario usuario = null;
 
-    private final String obtener = "select codigo,nombre,apellido,correo,tipo,fecha,hora from usuario where codigo = ? ";
-    private final String actualizar = "update usuario set nombre = ? , apellido = ?, correo = ? where codigo = ?";
-    private final String eliminar = "delete from usuario where codigo = ? ";
+    private final String obtenerPorId = "select id,codigo,nombre,apellido,correo,tipo,fecha,hora from usuario where id = ? ";
+    private final String obtenerPorCodigoUsuario = "select id,codigo,nombre,apellido,correo,tipo,fecha,hora from usuario where codigo = ? ";
+    private final String actualizar = "update usuario set codigo = ?, nombre = ? , apellido = ?, correo = ? where id = ?";
+    private final String eliminar = "delete from usuario where id = ? ";
     private final String insertar = "insert into usuario(codigo,nombre,apellido,correo,tipo,fecha,hora) values(?,?,?,?,?,?,?)";
-    private final String obtenerPorApellido = "select codigo,nombre,apellido,correo,tipo,fecha,hora from usuario where apellido like ?";
-    private final String obtenerUltimosUsuariosRegistrados = "select codigo,nombre,apellido,correo,tipo,fecha,hora from usuario "
+    private final String obtenerPorApellido = "select id,codigo,nombre,apellido,correo,tipo,fecha,hora from usuario where apellido like ?";
+    private final String obtenerUltimosUsuariosRegistrados = "select id,codigo,nombre,apellido,correo,tipo,fecha,hora from usuario "
             + "order by fecha desc, hora desc limit 15";
     
     
@@ -36,9 +37,9 @@ public class MysqlDaoUsuario implements DaoUsuario{
     }
 
     @Override
-    public Usuario obtener(String key) {
+    public Usuario obtenerPorCodigoUsuario(String key) {
         try {
-            preparedStatement = conexion.prepareStatement(obtener);
+            preparedStatement = conexion.prepareStatement(obtenerPorCodigoUsuario);
             preparedStatement.setString(1,key);
             resultSet = preparedStatement.executeQuery();
             
@@ -59,6 +60,7 @@ public class MysqlDaoUsuario implements DaoUsuario{
 
     public Usuario convertirResultSetToUsuario(ResultSet rs){
         try {
+            Integer id = rs.getInt("id");
             String codigo = rs.getString("codigo");
             String nombre = rs.getString("nombre");
             String apellido = rs.getString("apellido");
@@ -67,7 +69,7 @@ public class MysqlDaoUsuario implements DaoUsuario{
             Date fecha = rs.getDate("fecha");
             Time hora = rs.getTime("hora");
             
-            this.usuario = new Usuario(codigo, nombre, apellido,correo,tipo,fecha,hora);
+            this.usuario = new Usuario(id,codigo, nombre, apellido,correo,tipo,fecha,hora);
             return this.usuario;
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -80,10 +82,11 @@ public class MysqlDaoUsuario implements DaoUsuario{
     public void actualizar(Usuario usuario) {
         try {
             preparedStatement = conexion.prepareStatement(actualizar);
-            preparedStatement.setString(1,usuario.getNombre());
-            preparedStatement.setString(2,usuario.getApellido());
-            preparedStatement.setString(3,usuario.getCorreo());
-            preparedStatement.setString(4,usuario.getCodigo());
+            preparedStatement.setString(1,usuario.getCodigo());
+            preparedStatement.setString(2,usuario.getNombre());
+            preparedStatement.setString(3,usuario.getApellido());
+            preparedStatement.setString(4,usuario.getCorreo());
+            preparedStatement.setInt(5,usuario.getId());
             
             if(preparedStatement.executeUpdate()!= 0){
                 JOptionPane.showMessageDialog(null,"Actualizado Exitosamente");
@@ -103,7 +106,7 @@ public class MysqlDaoUsuario implements DaoUsuario{
     public void eliminar(Usuario usuario) {
         try {
             preparedStatement = conexion.prepareStatement(eliminar);
-            preparedStatement.setString(1,usuario.getCodigo());
+            preparedStatement.setInt(1,usuario.getId());
             
             if(preparedStatement.executeUpdate()!= 0){
                 JOptionPane.showMessageDialog(null,"Eliminado Exitosamente");
@@ -186,6 +189,28 @@ public class MysqlDaoUsuario implements DaoUsuario{
         } finally{
             MysqlUtils.cerrarPreparedStatementAndResultSet(preparedStatement, resultSet);
         }
+        return null;
+    }
+
+    @Override
+    public Usuario obtenerPorId(Integer key) {
+        try {
+            preparedStatement = conexion.prepareStatement(obtenerPorId);
+            preparedStatement.setInt(1,key);
+            resultSet = preparedStatement.executeQuery();
+            
+            if(resultSet.next()){
+                usuario = convertirResultSetToUsuario(resultSet);
+                return usuario;
+            }
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null,"Ocurrio una Accion Inesperada","Usuario",JOptionPane.ERROR_MESSAGE);
+        } finally{
+            MysqlUtils.cerrarPreparedStatementAndResultSet(preparedStatement, resultSet);
+        }
+        
         return null;
     }
 

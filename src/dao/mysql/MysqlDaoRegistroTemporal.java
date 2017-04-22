@@ -37,8 +37,8 @@ public class MysqlDaoRegistroTemporal implements DaoRegistroTemporal{
     
     private final String obtenerNroSesionesActivas = "select count(codigo) as cantidad from registroTemporal";
     
-    private final String obtenerSesionesActivas = "select r.codigo,r.codUsuario,r.codPc,r.horaInicio,u.nombre,u.apellido"
-            + " from registroTemporal r inner join usuario u on r.codUsuario = u.codigo";
+    private final String obtenerSesionesActivas = "select r.codigo as rcodigo,u.codigo as ucodigo,r.codPc,r.horaInicio,u.nombre,u.apellido"
+            + " from registroTemporal r inner join usuario u on r.codUsuario = u.id";
     
     private final String obtenerRegistroTemporal = 
             "select codigo,codUsuario,codPc,horaInicio,fecha from registroTemporal where codigo = ?";
@@ -48,7 +48,8 @@ public class MysqlDaoRegistroTemporal implements DaoRegistroTemporal{
     private final String actualizarEquipo = "update registroTemporal set codPc = ? where codigo = ?";
     
     private Integer codigo;
-    private String codUsuario,codPc,nombre,apellido;
+    private String codPc,nombre,apellido;
+    private String codUsuario;
     private Time horaInicio;
     private Date fecha;
     
@@ -85,7 +86,7 @@ public class MysqlDaoRegistroTemporal implements DaoRegistroTemporal{
     public void insertar(RegistroTemporal registroTemporal) {
         try {
             preparedStatement = conexion.prepareStatement(insertar);
-            preparedStatement.setString(1,registroTemporal.getCodUsuario());
+            preparedStatement.setInt(1,registroTemporal.getCodUsuario());
             preparedStatement.setString(2,registroTemporal.getCodPC());
             preparedStatement.setTime(3,registroTemporal.getHoraInicio());
             preparedStatement.setTime(4,registroTemporal.getHoraFin());
@@ -136,16 +137,16 @@ public class MysqlDaoRegistroTemporal implements DaoRegistroTemporal{
 
     public SesionesActivas convertirResultSet(ResultSet rs){
         try {
-            codigo = rs.getInt("codigo");
-            codUsuario = rs.getString("codUsuario");
+            codigo = rs.getInt("rcodigo");
+            codUsuario = rs.getString("ucodigo");
             codPc = rs.getString("codPc");
             horaInicio = rs.getTime("horaInicio");
             nombre = rs.getString("nombre");
             apellido = rs.getString("apellido");
             
             return new SesionesActivas(
-                    new Usuario(codUsuario,nombre, apellido, null, null, null, null),
-                    new RegistroTemporal(codigo, codUsuario, codPc, horaInicio, null, null));
+                    new Usuario(null,codUsuario,nombre, apellido, null, null, null, null),
+                    new RegistroTemporal(codigo, null, codPc, horaInicio, null, null));
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -167,6 +168,7 @@ public class MysqlDaoRegistroTemporal implements DaoRegistroTemporal{
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+            System.out.println("****");
         }finally{
             MysqlUtils.cerrarPreparedStatementAndResultSet(preparedStatement, resultSet);
         }
@@ -176,12 +178,12 @@ public class MysqlDaoRegistroTemporal implements DaoRegistroTemporal{
     public RegistroTemporal convertirARegistroTemporal(ResultSet rs){
         try {
             codigo = rs.getInt("codigo");
-            codUsuario = rs.getString("codUsuario");
+            Integer codigoUsuario = rs.getInt("codUsuario");
             codPc = rs.getString("codPc");
             horaInicio = rs.getTime("horaInicio");
             fecha = rs.getDate("fecha");
             
-            return new RegistroTemporal(codigo, codUsuario, codPc, horaInicio, null, fecha);
+            return new RegistroTemporal(codigo, codigoUsuario, codPc, horaInicio, null, fecha);
             
         } catch (SQLException e) {
             System.out.println("Error al convertir registro temporal");

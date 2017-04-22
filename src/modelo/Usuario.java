@@ -5,6 +5,7 @@ import java.sql.Time;
 
 public class Usuario {
     
+    private Integer id;
     private String codigo;
     private String nombre;
     private String apellido;
@@ -13,7 +14,8 @@ public class Usuario {
     private Date fecha;
     private Time hora;
     
-    public Usuario(String codigo, String nombre, String apellido,String correo,String tipo,Date fecha,Time hora) {
+    public Usuario(Integer id,String codigo, String nombre, String apellido,String correo,String tipo,Date fecha,Time hora) {
+        this.id = id;
         this.codigo = codigo;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -79,4 +81,13 @@ public class Usuario {
         this.hora = hora;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    
 }

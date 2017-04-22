@@ -6,13 +6,13 @@ import java.sql.Time;
 public class Registro {
     
     private Integer codigo;
-    private String codUsuario;
+    private Integer codUsuario;
     private String codPC;
     private Time horaInicio;
     private Time horaFin;
     private Date fecha;
 
-    public Registro(Integer codigo, String codUsuario, String codPC, Time horaInicio, Time horaFin, Date fecha) {
+    public Registro(Integer codigo, Integer codUsuario, String codPC, Time horaInicio, Time horaFin, Date fecha) {
         this.codigo = codigo;
         this.codUsuario = codUsuario;
         this.codPC = codPC;
@@ -29,11 +29,11 @@ public class Registro {
         this.codigo = codigo;
     }
 
-    public String getCodUsuario() {
+    public Integer getCodUsuario() {
         return codUsuario;
     }
 
-    public void setCodUsuario(String codUsuario) {
+    public void setCodUsuario(Integer codUsuario) {
         this.codUsuario = codUsuario;
     }
 

@@ -39,8 +39,8 @@ public class MysqlDaoRegistro implements DaoRegistro{
     
     public Registro convertirResultSetToRegistro(ResultSet rs){
         try {
-            int codigo = rs.getInt("codigo");
-            String codUsuario = rs.getString("codUsuario");
+            Integer codigo = rs.getInt("codigo");
+            Integer codUsuario = rs.getInt("codUsuario");
             String codPC = rs.getString("codPC");
             Time horaInicio = rs.getTime("horaInicio");
             Time horaFin = rs.getTime("horaFin");
@@ -60,7 +60,7 @@ public class MysqlDaoRegistro implements DaoRegistro{
     public void insertar(Registro registro) {
         try {
             preparedStatement = conexion.prepareStatement(insertar);
-            preparedStatement.setString(1,registro.getCodUsuario());
+            preparedStatement.setInt(1,registro.getCodUsuario());
             preparedStatement.setString(2, registro.getCodPC());
             preparedStatement.setTime(3, registro.getHoraInicio());
             preparedStatement.setTime(4, registro.getHoraFin());

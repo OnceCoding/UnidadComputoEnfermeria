@@ -12,13 +12,15 @@ create table administrador(
 
 /* estudiantes y profesores*/
 create table usuario(
-	codigo varchar(11) primary key,	
+	id int auto_increment primary key,
+	codigo varchar(11),	
 	nombre varchar(30) not null,
     apellido varchar(50) not null,
-    correo varchar(100),
+    correo varchar(70),
     tipo varchar(12),
     fecha date,
-    hora time
+    hora time,
+    unique key codigoUsuario(codigo)
 )ENGINE=innoDB;
 
 create table computadora(
@@ -27,49 +29,51 @@ create table computadora(
 )ENGINE=innoDB;
 
 create table curso(
-	codigo int auto_increment,
-    nombre varchar(100),
-    primary key(codigo,nombre) 
+	codigo int auto_increment primary key,
+    nombre varchar(30) not null
 )ENGINE=innoDB;
 
 create table registro(
 	codigo int auto_increment primary key,
-    codUsuario varchar(11),
+    codUsuario int,
     codPC varchar(10),
     horaInicio time,
     horaFin time,
     fecha date ,
     index indexFecha(fecha),
-    foreign key(codUsuario) references usuario(codigo),
+    foreign key(codUsuario) references usuario(id),
     foreign key(codPC) references computadora(codigo)
 )ENGINE=innoDB;
 
 create table registroTemporal(
 	codigo int auto_increment primary key,
-    codUsuario varchar(11),
+    codUsuario int,
     codPC varchar(10),
     horaInicio time,
     horaFin time,
     fecha date,
-    foreign key(codUsuario) references usuario(codigo),
+    foreign key(codUsuario) references usuario(id),
     foreign key(codPC) references computadora(codigo)
 
 )ENGINE=innoDB;
 
+
 create table registroCurso(
 	codigo int auto_increment primary key,
-    nombreCurso varchar(100),
+    codCurso int,
     horaInicio time,
     horaFin time,
-    fecha date
+    fecha date,
+    foreign key(codCurso) references curso(codigo)
 )ENGINE=innoDB;
 
 create table registroCursoTemporal(
 	codigo int auto_increment primary key,
-    noombreCurso varchar(100),
+    codCurso int,
     horaInicio time,
     horaFin time,
-    fecha date
+    fecha date,
+    foreign key(codCurso) references curso(codigo)
 )ENGINE=innoDB;
 
 create table configuracionSemestre(

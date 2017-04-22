@@ -401,7 +401,7 @@ public class frmNuevaSesion extends javax.swing.JFrame {
 
                 if(validarPurosNumeros(codigo)){
                     daoUsuario = manager.getDaoUsuario();
-                    usuario = daoUsuario.obtener(codigo);
+                    usuario = daoUsuario.obtenerPorCodigoUsuario(codigo);
 
                     if(usuario != null){
 
@@ -412,7 +412,7 @@ public class frmNuevaSesion extends javax.swing.JFrame {
                         if(aceptar == 0){
                             daoRegistroTemporal = manager.getDaoRegistroTemporal();
                             daoRegistroTemporal.insertar(
-                                new RegistroTemporal(null,codigo,codigoPcSeleccionado,
+                                new RegistroTemporal(null,usuario.getId(),codigoPcSeleccionado,
                                     Time.valueOf(LocalTime.now()),null,Date.valueOf(LocalDate.now())));
                             txtCodigo.setText("");
                             

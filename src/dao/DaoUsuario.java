@@ -5,7 +5,9 @@ import modelo.Usuario;
 
 public interface DaoUsuario{
 
-    public Usuario obtener(String key);
+    public Usuario obtenerPorId(Integer key);
+    
+    public Usuario obtenerPorCodigoUsuario(String key);
     
     public void actualizar(Usuario usuario);
     

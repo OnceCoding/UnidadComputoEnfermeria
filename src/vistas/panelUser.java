@@ -20,6 +20,7 @@ import modelo.Usuario;
 
 public class panelUser extends javax.swing.JPanel {
 
+    private Integer id;
     private String codigo;
     private String nombre;
     private String apellido;
@@ -63,6 +64,7 @@ public class panelUser extends javax.swing.JPanel {
             }
         };
 
+        model.addColumn("ID");
         model.addColumn("CODIGO");
         model.addColumn("NOMBRE");
         model.addColumn("APELLIDO");
@@ -72,6 +74,7 @@ public class panelUser extends javax.swing.JPanel {
         tablaUsuarios.setRowHeight(25);
         mostrarUltimosUsuariosRegistrados();
         tablaUsuarios.setModel(model);
+        tablaUsuarios.removeColumn(tablaUsuarios.getColumnModel().getColumn(0));
         tablaUsuarios.getTableHeader().setReorderingAllowed(false);
         
         cellRenderer = new RendererTablaUsuario();
@@ -89,23 +92,22 @@ public class panelUser extends javax.swing.JPanel {
             @Override
             public void valueChanged(ListSelectionEvent event) {
                 
-                try{
-                    int fila = tablaUsuarios.getSelectedRow();
-                    codigo = model.getValueAt(fila,0).toString();
-                    nombre = model.getValueAt(fila,1).toString();
-                    apellido = model.getValueAt(fila,2).toString();
-                    tipo = model.getValueAt(fila,3).toString();
-                    email = model.getValueAt(fila,4).toString();
+                int fila = tablaUsuarios.getSelectedRow();
+                
+                if(fila > -1){
+                    id = Integer.parseInt(model.getValueAt(fila, 0).toString());
+                    codigo = model.getValueAt(fila,1).toString();
+                    nombre = model.getValueAt(fila,2).toString();
+                    apellido = model.getValueAt(fila,3).toString();
+                    tipo = model.getValueAt(fila,4).toString();
+                    email = model.getValueAt(fila,5).toString();
 
                     txtCodigoSeleccionado.setText(codigo);
                     txtNombreSeleccionado.setText(nombre);
                     txtApellidoSeleccionado.setText(apellido);
 
                     txtEmailSeleccionado.setText(email);
-                }catch(Exception e){
-                    
                 }
-                
                 
             }
         });
@@ -287,7 +289,6 @@ public class panelUser extends javax.swing.JPanel {
         txtEmailSeleccionado.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtEmailSeleccionado.setBorder(javax.swing.BorderFactory.createLineBorder(java.awt.Color.white));
 
-        txtCodigoSeleccionado.setEditable(false);
         txtCodigoSeleccionado.setBackground(new java.awt.Color(34, 34, 34));
         txtCodigoSeleccionado.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         txtCodigoSeleccionado.setForeground(java.awt.Color.white);
@@ -341,15 +342,15 @@ public class panelUser extends javax.swing.JPanel {
                         .addComponent(txtEmailSeleccionado, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(txtCodigoSeleccionado, javax.swing.GroupLayout.Alignment.LEADING))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18))
+                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(22, Short.MAX_VALUE)
                 .addComponent(jLabel29)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtCodigoSeleccionado, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -369,7 +370,7 @@ public class panelUser extends javax.swing.JPanel {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30))
+                .addGap(19, 19, 19))
         );
 
         btnGuardar.setBackground(new java.awt.Color(34, 70, 135));
@@ -565,9 +566,9 @@ public class panelUser extends javax.swing.JPanel {
                     if(rbEstudiante.isSelected()){
                         if(validarLongitudCodigoEstudiante(codigo)){
                             daoUsuario = manager.getDaoUsuario();
-                            usuario = daoUsuario.obtener(codigo);
+                            usuario = daoUsuario.obtenerPorCodigoUsuario(codigo);
                             if(usuario == null){
-                                daoUsuario.insertar(new Usuario(codigo,nombre,apellido,email,tipo,Date.valueOf(LocalDate.now()),Time.valueOf(LocalTime.now())));
+                                daoUsuario.insertar(new Usuario(null,codigo,nombre,apellido,email,tipo,Date.valueOf(LocalDate.now()),Time.valueOf(LocalTime.now())));
                                 lblCantidadUsuarios.setText(manager.getContadorRegistro().obtenerContadorUsuario());
                                 limpiarTabla();
                                 mostrarUltimosUsuariosRegistrados();
@@ -581,9 +582,9 @@ public class panelUser extends javax.swing.JPanel {
                     }else{
                         if(validarLongitudCodigoDocente(codigo)){
                             daoUsuario = manager.getDaoUsuario();
-                            usuario = daoUsuario.obtener(codigo);
+                            usuario = daoUsuario.obtenerPorCodigoUsuario(codigo);
                             if(usuario == null){
-                                daoUsuario.insertar(new Usuario(codigo,nombre,apellido,email,tipo,Date.valueOf(LocalDate.now()),Time.valueOf(LocalTime.now())));
+                                daoUsuario.insertar(new Usuario(null,codigo,nombre,apellido,email,tipo,Date.valueOf(LocalDate.now()),Time.valueOf(LocalTime.now())));
                                 lblCantidadUsuarios.setText(manager.getContadorRegistro().obtenerContadorUsuario());
                                 limpiarTabla();
                                 mostrarUltimosUsuariosRegistrados();
@@ -624,7 +625,7 @@ public class panelUser extends javax.swing.JPanel {
                
                 
                 daoUsuario = manager.getDaoUsuario();
-                usuario = daoUsuario.obtener(buscar);
+                usuario = daoUsuario.obtenerPorCodigoUsuario(buscar);
                 
                 limpiarTabla();
                 if(usuario != null){
@@ -633,7 +634,7 @@ public class panelUser extends javax.swing.JPanel {
                 }     
             }else{
                 daoUsuario = manager.getDaoUsuario();
-                this.listaUsuarios = daoUsuario.obtenerPorApellido(new Usuario(null, null, buscar, null, null, null, null));
+                this.listaUsuarios = daoUsuario.obtenerPorApellido(new Usuario(null,null, null, buscar, null, null, null, null));
                 
                 limpiarTabla();
                 if(listaUsuarios != null){
@@ -668,7 +669,7 @@ public class panelUser extends javax.swing.JPanel {
                 int fila = tablaUsuarios.getSelectedRow();
                 codigo = txtCodigoSeleccionado.getText();
                 daoUsuario = manager.getDaoUsuario();
-                daoUsuario.eliminar(new Usuario(model.getValueAt(fila,0).toString(),null,null,null,null,null,null));
+                daoUsuario.eliminar(new Usuario(Integer.parseInt(model.getValueAt(fila,0).toString()),null,null,null,null,null,null,null));
                 limpiarTabla();
                 mostrarUltimosUsuariosRegistrados();
                 actualizarContadorUsuario();
@@ -712,7 +713,7 @@ public class panelUser extends javax.swing.JPanel {
         nombre = txtNombreSeleccionado.getText();
         apellido = txtApellidoSeleccionado.getText();
         email = txtEmailSeleccionado.getText();
-        return new Usuario(codigo, nombre, apellido,email,null,null,null);
+        return new Usuario(id,codigo, nombre, apellido,email,null,null,null);
     }
     
     public boolean validar(String texto){
@@ -795,7 +796,7 @@ public class panelUser extends javax.swing.JPanel {
         listaUsuarios = daoUsuario.obtenerUltimosRegistros();
         
         for (Usuario user : listaUsuarios) {
-            model.addRow(new Object[]{user.getCodigo(),user.getNombre(),user.getApellido(),user.getTipo(),user.getCorreo()});
+            model.addRow(new Object[]{user.getId(),user.getCodigo(),user.getNombre(),user.getApellido(),user.getTipo(),user.getCorreo()});
         }
         this.listaUsuarios = null;
         this.listaUsuarios = new ArrayList<>();
@@ -804,7 +805,7 @@ public class panelUser extends javax.swing.JPanel {
     public void mostrarUsuariosBuscados(List<Usuario> listaUsuarios){
         this.listaUsuarios = listaUsuarios;
         for (Usuario user : listaUsuarios) {
-            model.addRow(new Object[]{user.getCodigo(),user.getNombre(),user.getApellido(),user.getTipo(),user.getCorreo()});
+            model.addRow(new Object[]{user.getId(),user.getCodigo(),user.getNombre(),user.getApellido(),user.getTipo(),user.getCorreo()});
         }
         this.listaUsuarios = null;
         this.listaUsuarios = new ArrayList<>();
