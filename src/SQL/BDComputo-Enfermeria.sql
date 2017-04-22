@@ -30,7 +30,7 @@ create table computadora(
 
 create table curso(
 	codigo int auto_increment primary key,
-    nombre varchar(30) not null
+    nombre varchar(50) not null
 )ENGINE=innoDB;
 
 create table registro(
@@ -71,7 +71,6 @@ create table registroCursoTemporal(
 	codigo int auto_increment primary key,
     codCurso int,
     horaInicio time,
-    horaFin time,
     fecha date,
     foreign key(codCurso) references curso(codigo)
 )ENGINE=innoDB;
