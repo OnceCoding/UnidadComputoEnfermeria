@@ -3,10 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/CHANDUVI/Documents/system78/chanduvi/UnidadComputoEnfermeria/src/vistas/frmPrincipal.java</file>
             <file>file:/C:/Users/CHANDUVI/Documents/system78/chanduvi/UnidadComputoEnfermeria/src/vistas/subPanelUsuario.java</file>
-            <file>file:/C:/Users/CHANDUVI/Documents/system78/chanduvi/UnidadComputoEnfermeria/src/vistas/panelBaseDeDatos.java</file>
-            <file>file:/C:/Users/CHANDUVI/Documents/system78/chanduvi/UnidadComputoEnfermeria/src/vistas/panelConfiguraciones.java</file>
+            <file>file:/C:/Users/CHANDUVI/Documents/system78/chanduvi/UnidadComputoEnfermeria/src/dao/mysql/MysqlDaoUsuario.java</file>
+            <file>file:/C:/Users/CHANDUVI/Documents/system78/chanduvi/UnidadComputoEnfermeria/src/dao/mysql/MysqlDaoRegistroTemporal.java</file>
+            <file>file:/C:/Users/CHANDUVI/Documents/system78/chanduvi/UnidadComputoEnfermeria/src/modelo/Usuario.java</file>
+            <file>file:/C:/Users/CHANDUVI/Documents/system78/chanduvi/UnidadComputoEnfermeria/src/vistas/dialogMensaje.java</file>
+            <file>file:/C:/Users/CHANDUVI/Documents/system78/chanduvi/UnidadComputoEnfermeria/src/dao/mysql/MysqlDaoRegistro.java</file>
         </group>
     </open-files>
 </project-private>
