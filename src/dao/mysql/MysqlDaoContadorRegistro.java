@@ -30,7 +30,7 @@ public class MysqlDaoContadorRegistro implements DaoContadorRegistro{
                 return String.valueOf(resultSet.getInt("cantidad"));
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null,"Error Inesperado","Error",JOptionPane.WARNING_MESSAGE);
+            //JOptionPane.showMessageDialog(null,"Error Inesperado","Error",JOptionPane.WARNING_MESSAGE);
         }finally{
             MysqlUtils.cerrarPreparedStatementAndResultSet(preparedStatement, resultSet);
         }
@@ -47,7 +47,7 @@ public class MysqlDaoContadorRegistro implements DaoContadorRegistro{
                 return String.valueOf(resultSet.getInt("cantidad"));
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null,"Error Inesperado","Error",JOptionPane.WARNING_MESSAGE);
+            //JOptionPane.showMessageDialog(null,"Error Inesperado","Error",JOptionPane.WARNING_MESSAGE);
         }finally{
             MysqlUtils.cerrarPreparedStatementAndResultSet(preparedStatement, resultSet);
         }

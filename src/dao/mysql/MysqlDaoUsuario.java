@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import modelo.Usuario;
+import vistas.DialogMensaje;
 
 public class MysqlDaoUsuario implements DaoUsuario{
     
@@ -50,7 +51,7 @@ public class MysqlDaoUsuario implements DaoUsuario{
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            JOptionPane.showMessageDialog(null,"Ocurrio una Accion Inesperada","Usuario",JOptionPane.ERROR_MESSAGE);
+            //JOptionPane.showMessageDialog(null,"Ocurrio una Accion Inesperada","Usuario",JOptionPane.ERROR_MESSAGE);
         } finally{
             MysqlUtils.cerrarPreparedStatementAndResultSet(preparedStatement, resultSet);
         }
@@ -89,14 +90,15 @@ public class MysqlDaoUsuario implements DaoUsuario{
             preparedStatement.setInt(5,usuario.getId());
             
             if(preparedStatement.executeUpdate()!= 0){
-                JOptionPane.showMessageDialog(null,"Actualizado Exitosamente");
+                //JOptionPane.showMessageDialog(null,"Actualizado Exitosamente");
+                DialogMensaje.Informacion(null,"Actualizado exitosamente");
             }else{
-                JOptionPane.showMessageDialog(null,"No se pudo Actualizar");
+                //JOptionPane.showMessageDialog(null,"No se pudo Actualizar");
             }
             
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
-            JOptionPane.showMessageDialog(null,"Error al Actualizar");
+            //JOptionPane.showMessageDialog(null,"Error al Actualizar");
         } finally{
             MysqlUtils.cerrarPreparedStatement(preparedStatement);
         }
@@ -109,14 +111,15 @@ public class MysqlDaoUsuario implements DaoUsuario{
             preparedStatement.setInt(1,usuario.getId());
             
             if(preparedStatement.executeUpdate()!= 0){
-                JOptionPane.showMessageDialog(null,"Eliminado Exitosamente");
+                //JOptionPane.showMessageDialog(null,"Eliminado Exitosamente");
+                DialogMensaje.Informacion(null,"Eliminado exitosamente");
             }else{
-                JOptionPane.showMessageDialog(null,"No se pudo eliminar");
+                //JOptionPane.showMessageDialog(null,"No se pudo eliminar");
             }
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            JOptionPane.showMessageDialog(null,"Error al Eliminar");
+            //JOptionPane.showMessageDialog(null,"Error al Eliminar");
         } finally{
             MysqlUtils.cerrarPreparedStatement(preparedStatement);
         }
@@ -135,14 +138,15 @@ public class MysqlDaoUsuario implements DaoUsuario{
             preparedStatement.setTime(7,usuario.getHora());
             
             if(preparedStatement.executeUpdate()!= 0){
-                JOptionPane.showMessageDialog(null,"Registrado Exitosamente","Usuario",JOptionPane.INFORMATION_MESSAGE);
+                //JOptionPane.showMessageDialog(null,"Registrado Exitosamente","Usuario",JOptionPane.INFORMATION_MESSAGE);
+                DialogMensaje.Informacion(null,"Registrado exitosamente");
             }else{
-                JOptionPane.showMessageDialog(null,"No se pudo Registrar");
+                //JOptionPane.showMessageDialog(null,"No se pudo Registrar");
             }
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            JOptionPane.showMessageDialog(null,"Ocurrio un error al registrar","Usuario",JOptionPane.WARNING_MESSAGE);
+            //JOptionPane.showMessageDialog(null,"Ocurrio un error al registrar","Usuario",JOptionPane.WARNING_MESSAGE);
         } finally{
             MysqlUtils.cerrarPreparedStatement(preparedStatement);
         }
@@ -161,7 +165,7 @@ public class MysqlDaoUsuario implements DaoUsuario{
                 listaUsuarios.add(usuario);
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null,"Ocurrio un Error");
+            //JOptionPane.showMessageDialog(null,"Ocurrio un Error");
             System.out.println(e.getMessage());
         } finally{
             MysqlUtils.cerrarPreparedStatementAndResultSet(preparedStatement, resultSet);
@@ -185,7 +189,7 @@ public class MysqlDaoUsuario implements DaoUsuario{
             return listaUsuarios;
             
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"Error");
+            //JOptionPane.showMessageDialog(null,"Error");
         } finally{
             MysqlUtils.cerrarPreparedStatementAndResultSet(preparedStatement, resultSet);
         }
@@ -206,7 +210,7 @@ public class MysqlDaoUsuario implements DaoUsuario{
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            JOptionPane.showMessageDialog(null,"Ocurrio una Accion Inesperada","Usuario",JOptionPane.ERROR_MESSAGE);
+            //JOptionPane.showMessageDialog(null,"Ocurrio una Accion Inesperada","Usuario",JOptionPane.ERROR_MESSAGE);
         } finally{
             MysqlUtils.cerrarPreparedStatementAndResultSet(preparedStatement, resultSet);
         }

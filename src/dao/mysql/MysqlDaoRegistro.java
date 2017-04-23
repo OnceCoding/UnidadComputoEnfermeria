@@ -72,7 +72,7 @@ public class MysqlDaoRegistro implements DaoRegistro{
             
             
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null,"No se pudo registrar");
+            //JOptionPane.showMessageDialog(null,"No se pudo registrar");
             System.out.println(e.getMessage());
         } finally{
             MysqlUtils.cerrarPreparedStatement(preparedStatement);

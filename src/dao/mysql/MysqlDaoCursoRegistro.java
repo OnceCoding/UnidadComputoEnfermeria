@@ -33,7 +33,7 @@ public class MysqlDaoCursoRegistro implements DaoCursoRegistro{
             preparedStatement.setDate(4, registroCurso.getFecha());
             
             if(preparedStatement.executeUpdate() != 0){
-                JOptionPane.showMessageDialog(null,"Se guardo sesion se curso en registro");
+                //JOptionPane.showMessageDialog(null,"Se guardo sesion se curso en registro");
             }
             
         } catch (HeadlessException | SQLException e) {

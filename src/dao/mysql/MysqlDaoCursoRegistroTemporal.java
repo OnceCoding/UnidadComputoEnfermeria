@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.sql.Time;
 import javax.swing.JOptionPane;
 import modelo.CursoRegistroTemporal;
+import vistas.DialogMensaje;
 
 
 public class MysqlDaoCursoRegistroTemporal implements DaoCursoRegistroTemporal{
@@ -51,7 +52,8 @@ public class MysqlDaoCursoRegistroTemporal implements DaoCursoRegistroTemporal{
         try {
             preparedStatement = conexion.prepareStatement(cerrarSesion);
             if(preparedStatement.executeUpdate() != 0){
-                JOptionPane.showMessageDialog(null,"curso cerro sesion");
+                DialogMensaje.Informacion(null,"El curso cerró sesión");
+                //JOptionPane.showMessageDialog(null,"curso cerro sesion");
             }
         } catch (HeadlessException | SQLException e) {
             System.out.println("Error cerrando curso");
@@ -67,7 +69,7 @@ public class MysqlDaoCursoRegistroTemporal implements DaoCursoRegistroTemporal{
             preparedStatement.setDate(3, registroCursoTemporal.getFecha());
             
             if(preparedStatement.executeUpdate() != 0){
-                JOptionPane.showMessageDialog(null,"Inicio Sesion el curso");
+                //JOptionPane.showMessageDialog(null,"Inicio Sesion el curso");
             }
             
         } catch (SQLException e) {
@@ -98,7 +100,8 @@ public class MysqlDaoCursoRegistroTemporal implements DaoCursoRegistroTemporal{
             preparedStatement.setTime(1, horaInicio);
             
             if(preparedStatement.executeUpdate() != 0){
-                JOptionPane.showMessageDialog(null,"Actualizo hora de Inicio");
+                DialogMensaje.Informacion(null,"Se actualizo hora de inicio");
+                //JOptionPane.showMessageDialog(null,"Actualizo hora de Inicio");
             }
             
         } catch (HeadlessException | SQLException e) {

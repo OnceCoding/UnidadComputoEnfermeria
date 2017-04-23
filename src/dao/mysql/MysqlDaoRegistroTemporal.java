@@ -15,6 +15,7 @@ import modelo.Computadora;
 import modelo.RegistroTemporal;
 import modelo.SesionesActivas;
 import modelo.Usuario;
+import vistas.DialogMensaje;
 
 
 public class MysqlDaoRegistroTemporal implements DaoRegistroTemporal{
@@ -95,7 +96,8 @@ public class MysqlDaoRegistroTemporal implements DaoRegistroTemporal{
             preparedStatement.setDate(5,registroTemporal.getFecha());
             
             if(preparedStatement.executeUpdate() != 0){
-                JOptionPane.showMessageDialog(null,"Sesion Iniciada");
+                //JOptionPane.showMessageDialog(null,"Sesion Iniciada");
+                DialogMensaje.Informacion(null,"Sesión iniciada");
             }
             
         } catch (SQLException e) {
@@ -218,7 +220,9 @@ public class MysqlDaoRegistroTemporal implements DaoRegistroTemporal{
         try {
             preparedStatement = conexion.prepareStatement(eliminar);
             preparedStatement.setInt(1, codigo);
-            preparedStatement.executeUpdate();
+            if(preparedStatement.executeUpdate() != 0){
+                DialogMensaje.Informacion(null,"Eliminado exitosamente");
+            }
         } catch (SQLException e) {
             System.out.println("No se pudo eliminar");
         } finally{
@@ -234,7 +238,8 @@ public class MysqlDaoRegistroTemporal implements DaoRegistroTemporal{
             preparedStatement.setInt(2,registroTemporal.getCodigo());
             
             if(preparedStatement.executeUpdate() != 0){
-                JOptionPane.showMessageDialog(null,"Sesion Actualizada");
+                DialogMensaje.Informacion(null,"Actualizado Exitosamente");
+                //JOptionPane.showMessageDialog(null,"Sesion Actualizada");
             }
             
         } catch (HeadlessException | SQLException e) {

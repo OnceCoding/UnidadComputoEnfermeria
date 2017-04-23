@@ -377,16 +377,19 @@ public class panelEquipos extends javax.swing.JPanel {
                     mostrarEquiposTabla();
                     actualizarCantidadcomputadoras();
                 }else{
-                    JOptionPane.showMessageDialog(null,"Codigo Ya Existe","Codigo",JOptionPane.WARNING_MESSAGE);
+                    DialogMensaje.Error(null,"Codigo ya existe");
+                    //JOptionPane.showMessageDialog(null,"Codigo Ya Existe","Codigo",JOptionPane.WARNING_MESSAGE);
                 }
                 
                 
             }else{
-                JOptionPane.showMessageDialog(null,"Solo Se Acepta Numeros","Codigo",JOptionPane.WARNING_MESSAGE);
+                DialogMensaje.Error(null,"Solo se acepta numeros");
+                //JOptionPane.showMessageDialog(null,"Solo Se Acepta Numeros","Codigo",JOptionPane.WARNING_MESSAGE);
             }
             
         }else{
-            JOptionPane.showMessageDialog(null,"El codigo no debe posser espacios es blanco","Codigo",JOptionPane.WARNING_MESSAGE);
+            DialogMensaje.Error(null,"El codigo no debe posser espacios es blanco");
+            //JOptionPane.showMessageDialog(null,"El codigo no debe posser espacios es blanco","Codigo",JOptionPane.WARNING_MESSAGE);
         }
         
         
@@ -394,10 +397,13 @@ public class panelEquipos extends javax.swing.JPanel {
 
     private void btnEliminar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminar2ActionPerformed
         if(!"##".equals(lblNroCompuradoraSeleccionado.getText())){
-            Object[] opciones = {"Eliminar","Cancelar"};
+            /*Object[] opciones = {"Eliminar","Cancelar"};
             int aceptar = JOptionPane.showOptionDialog
                 (null,"¿Seguro que desea Eliminarlo?","Eliminar Equipo",
                         JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE,null, opciones,opciones[0]);
+            */
+            
+            int aceptar = DialogMensaje.Confirmacion(null,"¿ Seguro que desea eliminarlo ?");
             
             if(aceptar == 0){
                 codigo = lblNroCompuradoraSeleccionado.getText();
@@ -409,16 +415,20 @@ public class panelEquipos extends javax.swing.JPanel {
             }
         
         }else{
-            JOptionPane.showMessageDialog(null,"Seleccione un Equipo de la Tabla","Equipo",JOptionPane.WARNING_MESSAGE);
+            DialogMensaje.Error(null,"Seleccione un Equipo de la Tabla");
+            //JOptionPane.showMessageDialog(null,"Seleccione un Equipo de la Tabla","Equipo",JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnEliminar2ActionPerformed
 
     private void btnModificar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificar2ActionPerformed
         if(!"##".equals(lblNroCompuradoraSeleccionado.getText())){
-            Object[] opciones = {"Modificar","Cancelar"};
+            /*Object[] opciones = {"Modificar","Cancelar"};
             int aceptar = JOptionPane.showOptionDialog
                 (null,"¿Seguro que desea Modificarlo?","Eliminar Equipo",
                         JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE,null, opciones,opciones[0]);
+            */
+            
+            int aceptar = DialogMensaje.Confirmacion(null,"¿ Seguro que desea modifiarlo ?");
             
             if(aceptar == 0){
                 
@@ -437,7 +447,8 @@ public class panelEquipos extends javax.swing.JPanel {
             }
         
         }else{
-            JOptionPane.showMessageDialog(null,"Seleccione un Equipo de la Tabla","Equipo",JOptionPane.WARNING_MESSAGE);
+            DialogMensaje.Error(null,"Seleccione un Equipo de la Tabla");
+            //JOptionPane.showMessageDialog(null,"Seleccione un Equipo de la Tabla","Equipo",JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnModificar2ActionPerformed
 

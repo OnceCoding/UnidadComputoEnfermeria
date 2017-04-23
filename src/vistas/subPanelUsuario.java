@@ -403,13 +403,17 @@ public class subPanelUsuario extends javax.swing.JPanel {
         
         int fila = tablaUsuariosActivos.getSelectedRow();
         if(fila != -1){
-            int aceptar = JOptionPane.showConfirmDialog(null,"Seguro de Eliminar?","Sesion",JOptionPane.YES_NO_OPTION);
+            //int aceptar = JOptionPane.showConfirmDialog(null,"Seguro de Eliminar?","Sesion",JOptionPane.YES_NO_OPTION);
+            int aceptar = DialogMensaje.Confirmacion(null,"¿ Seguro de eliminarlo ?");
             if(aceptar == 0){
                 int codigo = Integer.valueOf(model.getValueAt(fila,0).toString());
                 System.out.println(codigo);
                 daoRegistroTemporal = manager.getDaoRegistroTemporal();
                 daoRegistroTemporal.eliminar(codigo);
-                JOptionPane.showMessageDialog(null,"Sesion Eliminada");
+                
+                actualizarNroEquiposDisponibles();
+                limpiarTabla();
+                mostrarSesionesActivas();
                 
                 int sesionesActivas = obtenerNroSesisonesActivas();
                 
@@ -421,7 +425,8 @@ public class subPanelUsuario extends javax.swing.JPanel {
             }
             
         }else{
-            JOptionPane.showMessageDialog(null,"Seleccione una sesion de la Tabla");
+            DialogMensaje.Error(null,"Seleccione un registro de la tabla");
+            //JOptionPane.showMessageDialog(null,"Seleccione una sesion de la Tabla");
         }
    
     }//GEN-LAST:event_btnEliminarActionPerformed
@@ -431,7 +436,8 @@ public class subPanelUsuario extends javax.swing.JPanel {
         int fila = tablaUsuariosActivos.getSelectedRow();
         
         if(fila != -1){
-            int aceptar = JOptionPane.showConfirmDialog(null,"Seguro de modificar?","Sesion",JOptionPane.YES_NO_OPTION);
+            //int aceptar = JOptionPane.showConfirmDialog(null,"Seguro de modificar?","Sesion",JOptionPane.YES_NO_OPTION);
+            int aceptar = DialogMensaje.Confirmacion(null,"¿ Seguro de Modificarlo ?");
             if(aceptar == 0){
                 int codigo = Integer.valueOf(model.getValueAt(fila,0).toString());
                 String nroEquipo = txtNroPc.getText();
@@ -444,7 +450,8 @@ public class subPanelUsuario extends javax.swing.JPanel {
                 
             }
         }else{
-            JOptionPane.showMessageDialog(null,"Seleccione un registro de la Tabla");
+            DialogMensaje.Error(null,"Seleccione un registro de la tabla");
+            //JOptionPane.showMessageDialog(null,"Seleccione un registro de la Tabla");
         }
         
     }//GEN-LAST:event_btnModificarActionPerformed

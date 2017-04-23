@@ -14,7 +14,7 @@ public class MysqlUtils {
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            JOptionPane.showMessageDialog(null,"Ocurrio una Accion Inesperada");
+            //JOptionPane.showMessageDialog(null,"Ocurrio una Accion Inesperada");
         }
     }
     
@@ -29,7 +29,7 @@ public class MysqlUtils {
             }
         }catch(SQLException e){
             System.out.println(e.getMessage());
-            JOptionPane.showMessageDialog(null,"Ocurrio una Accion Inesperada");
+            //JOptionPane.showMessageDialog(null,"Ocurrio una Accion Inesperada");
         }
     }
     

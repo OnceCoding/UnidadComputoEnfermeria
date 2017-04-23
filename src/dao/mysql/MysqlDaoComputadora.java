@@ -7,10 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.Computadora;
+import vistas.DialogMensaje;
 
 public class MysqlDaoComputadora implements DaoComputadora{
 
@@ -45,7 +44,7 @@ public class MysqlDaoComputadora implements DaoComputadora{
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            JOptionPane.showMessageDialog(null,"Ocurrio una accion inesperada");
+            //JOptionPane.showMessageDialog(null,"Ocurrio una accion inesperada");
         } finally{
             MysqlUtils.cerrarPreparedStatementAndResultSet(preparedStatement, resultSet);
         }
@@ -68,7 +67,7 @@ public class MysqlDaoComputadora implements DaoComputadora{
             
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
-            JOptionPane.showMessageDialog(null,"Ocurrio una accion inesperada");
+            //JOptionPane.showMessageDialog(null,"Ocurrio una accion inesperada");
         } finally{
             MysqlUtils.cerrarPreparedStatementAndResultSet(preparedStatement, resultSet);
         }
@@ -99,14 +98,15 @@ public class MysqlDaoComputadora implements DaoComputadora{
             preparedStatement.setString(2,computadora.getCodigo());
             
             if(preparedStatement.executeUpdate()!= 0){
-                JOptionPane.showMessageDialog(null,"Actualizado Exitosamente");
+                DialogMensaje.Informacion(null,"Actualizado exitosamente");
+                //JOptionPane.showMessageDialog(null,"Actualizado Exitosamente");
             }else{
-                JOptionPane.showMessageDialog(null,"No se pudo actualizar");
+                //JOptionPane.showMessageDialog(null,"No se pudo actualizar");
             }
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            JOptionPane.showMessageDialog(null,"Ocurrio una accion inesperada");
+            //JOptionPane.showMessageDialog(null,"Ocurrio una accion inesperada");
         } finally{
             MysqlUtils.cerrarPreparedStatement(preparedStatement);
         }
@@ -118,14 +118,15 @@ public class MysqlDaoComputadora implements DaoComputadora{
             preparedStatement = conexion.prepareStatement(eliminar);
             preparedStatement.setString(1,computadora.getCodigo());
             if(preparedStatement.executeUpdate()!= 0){
-                JOptionPane.showMessageDialog(null,"Eliminado Exitosamente","Equipo",JOptionPane.WARNING_MESSAGE);
+                DialogMensaje.Informacion(null,"Eliminado exitosamente");
+                //JOptionPane.showMessageDialog(null,"Eliminado Exitosamente","Equipo",JOptionPane.WARNING_MESSAGE);
             }else{
-                JOptionPane.showMessageDialog(null,"No se pudo eliminar");
+                //JOptionPane.showMessageDialog(null,"No se pudo eliminar");
             }
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            JOptionPane.showMessageDialog(null,"Ocurrio una accion inesperada");
+            //JOptionPane.showMessageDialog(null,"Ocurrio una accion inesperada");
         } finally{
             MysqlUtils.cerrarPreparedStatement(preparedStatement);
         }
@@ -139,14 +140,16 @@ public class MysqlDaoComputadora implements DaoComputadora{
             preparedStatement.setString(2,computadora.getEstado());
             
             if(preparedStatement.executeUpdate()!= 0){
-                JOptionPane.showMessageDialog(null,"Registrado Exitosamente","Equipo",JOptionPane.INFORMATION_MESSAGE);
+                DialogMensaje.Informacion(null,"Registrado exitosamente");
+                //JOptionPane.showMessageDialog(null,"Registrado Exitosamente","Equipo",JOptionPane.INFORMATION_MESSAGE);
+                
             }else{
-                JOptionPane.showMessageDialog(null,"No se pudo Registrar","Equipo",JOptionPane.WARNING_MESSAGE);
+                //JOptionPane.showMessageDialog(null,"No se pudo Registrar","Equipo",JOptionPane.WARNING_MESSAGE);
             }
             
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
-            JOptionPane.showMessageDialog(null,"Ocurrio una accion inesperada","Equipo",JOptionPane.WARNING_MESSAGE);
+            //JOptionPane.showMessageDialog(null,"Ocurrio una accion inesperada","Equipo",JOptionPane.WARNING_MESSAGE);
         } finally{
             MysqlUtils.cerrarPreparedStatement(preparedStatement);
         }
@@ -162,7 +165,7 @@ public class MysqlDaoComputadora implements DaoComputadora{
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
-            JOptionPane.showMessageDialog(null,"Ocurrio una accion inesperada","Equipo",JOptionPane.WARNING_MESSAGE);
+            //JOptionPane.showMessageDialog(null,"Ocurrio una accion inesperada","Equipo",JOptionPane.WARNING_MESSAGE);
         }
         return null;
     }

@@ -179,7 +179,9 @@ public class subPanelCurso extends javax.swing.JPanel {
 
     private void btnCerrarCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarCursoActionPerformed
 
-        int n = JOptionPane.showConfirmDialog(null,"Seguro de cerrar el curso ?","Curso",JOptionPane.YES_NO_OPTION);
+        //int n = JOptionPane.showConfirmDialog(null,"Seguro de cerrar el curso ?","Curso",JOptionPane.YES_NO_OPTION);
+        
+        int n = DialogMensaje.Confirmacion(null,"¿ Seguro de cerrar sesión del curso ?");
         
         if (n == 0){
             
@@ -204,7 +206,9 @@ public class subPanelCurso extends javax.swing.JPanel {
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         
-        int aceptar = JOptionPane.showConfirmDialog(null, "Desea modificarlo ?", "Curso", JOptionPane.YES_NO_OPTION);
+        //int aceptar = JOptionPane.showConfirmDialog(null, "Desea modificarlo ?", "Curso", JOptionPane.YES_NO_OPTION);
+        
+        int aceptar = DialogMensaje.Confirmacion(null,"¿ Seguro modificar la hora de inicio del curso?");
         
         if(aceptar == 0){
             

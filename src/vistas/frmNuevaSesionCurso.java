@@ -374,14 +374,22 @@ public class frmNuevaSesionCurso extends javax.swing.JFrame {
     }//GEN-LAST:event_barraMousePressed
 
     private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
+        
         int fila = tablaCursosRegistrados.getSelectedRow();
         int codcurso = Integer.parseInt(model.getValueAt(fila, 0).toString());
+        String nombrecurso = model.getValueAt(fila, 1).toString();
         
-        daoCursoRegistroTemporal = manager.getDaoCursoRegistroTemporal();
-        daoCursoRegistroTemporal.iniciarSesion(new CursoRegistroTemporal(null, codcurso,Time.valueOf(LocalTime.now()),Date.valueOf(LocalDate.now())));
+        int aceptar = DialogMensaje.Confirmacion(null,"¿ Seguro de Iniciar sesión del Curso de <br>"+nombrecurso+" ?");
         
-        dispose();
-        new frmPrincipal().setVisible(true);
+        if(aceptar == 0){
+            daoCursoRegistroTemporal = manager.getDaoCursoRegistroTemporal();
+            daoCursoRegistroTemporal.iniciarSesion(new CursoRegistroTemporal(null, codcurso,Time.valueOf(LocalTime.now()),Date.valueOf(LocalDate.now())));
+        
+            dispose();
+            new frmPrincipal().setVisible(true);
+        }
+        
+
         
     }//GEN-LAST:event_btnIniciarActionPerformed
 

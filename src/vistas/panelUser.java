@@ -578,10 +578,12 @@ public class panelUser extends javax.swing.JPanel {
                                 mostrarUltimosUsuariosRegistrados();
                                 limpiarCamposGuardar();
                             }else{
-                                JOptionPane.showMessageDialog(null,"         Codigo Ya Existe","Usuario",JOptionPane.WARNING_MESSAGE);
+                                DialogMensaje.Error(null,"Codigo ya existe");
+                                //JOptionPane.showMessageDialog(null,"         Codigo Ya Existe","Usuario",JOptionPane.WARNING_MESSAGE);
                             }
                         }else{
-                            JOptionPane.showMessageDialog(null,"Codigo Estudiante debe poseer 10 digitos","Usuario",JOptionPane.WARNING_MESSAGE);
+                            DialogMensaje.Error(null,"Codigo Estudiante debe poseer 10 digitos");
+                            //JOptionPane.showMessageDialog(null,"Codigo Estudiante debe poseer 10 digitos","Usuario",JOptionPane.WARNING_MESSAGE);
                         }
                     }else{
                         if(validarLongitudCodigoDocente(codigo)){
@@ -594,24 +596,29 @@ public class panelUser extends javax.swing.JPanel {
                                 mostrarUltimosUsuariosRegistrados();
                                 limpiarCamposGuardar();
                             }else{
-                                JOptionPane.showMessageDialog(null,"         Codigo Ya Existe","Usuario",JOptionPane.WARNING_MESSAGE);
+                                DialogMensaje.Error(null,"Codigo ya existe");
+                                //JOptionPane.showMessageDialog(null,"         Codigo Ya Existe","Usuario",JOptionPane.WARNING_MESSAGE);
                             }
                         }else{
-                            JOptionPane.showMessageDialog(null,"Codigo Docente debe poseer 5 digitos","Usuario",JOptionPane.WARNING_MESSAGE);
+                            DialogMensaje.Error(null,"Codigo Docente debe poseer 5 digitos");
+                            //JOptionPane.showMessageDialog(null,"Codigo Docente debe poseer 5 digitos","Usuario",JOptionPane.WARNING_MESSAGE);
                         }
                     } 
                 }else{
-                        JOptionPane.showMessageDialog(null,"Codigo debe poseer solo digitos","Usuario",JOptionPane.WARNING_MESSAGE);
+                      DialogMensaje.Error(null,"Codigo debe poseer solo digitos");
+                    //JOptionPane.showMessageDialog(null,"Codigo debe poseer solo digitos","Usuario",JOptionPane.WARNING_MESSAGE);
                         
                 }
                 
                 
             }else{
-                JOptionPane.showMessageDialog(null,"El Campo Codigo no debe poseer espacios en blanco","Usuario",JOptionPane.WARNING_MESSAGE);
+                DialogMensaje.Error(null,"El campo codigo no debe poseer espacios en blanco");
+                //JOptionPane.showMessageDialog(null,"El Campo Codigo no debe poseer espacios en blanco","Usuario",JOptionPane.WARNING_MESSAGE);
             }            
             
         }else{
-            JOptionPane.showMessageDialog(null,"Complete los Campos ","Usuario",JOptionPane.WARNING_MESSAGE);
+            DialogMensaje.Error(null,"Complete los campos");
+            //JOptionPane.showMessageDialog(null,"Complete los Campos ","Usuario",JOptionPane.WARNING_MESSAGE);
         }
         
         
@@ -646,7 +653,8 @@ public class panelUser extends javax.swing.JPanel {
                 }             
             }           
         }else{
-            JOptionPane.showMessageDialog(null,"Ingrese Algun Caracter Valido","Buscar",JOptionPane.WARNING_MESSAGE);
+            DialogMensaje.Error(null,"Ingrese algún caracter válido");
+            //JOptionPane.showMessageDialog(null,"Ingrese Algun Caracter Valido","Buscar",JOptionPane.WARNING_MESSAGE);
         }
         
     }//GEN-LAST:event_btnBuscarActionPerformed
@@ -655,14 +663,20 @@ public class panelUser extends javax.swing.JPanel {
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         
         if(txtCodigoSeleccionado.getText().equals("")){
-            JOptionPane.showMessageDialog(null,"Porfavor Seleccione algun Usuario de Tabla",
-                    "Usuario",JOptionPane.WARNING_MESSAGE);
+            /*JOptionPane.showMessageDialog(null,"Porfavor Seleccione algun Usuario de Tabla",
+                    "Usuario",JOptionPane.WARNING_MESSAGE);*/
+            
+            DialogMensaje.Error(null,"Seleccione algun usuario de tabla");
+            
         }else{
 
-            Object[] options = {"Eliminar","Cancelar"};
+            /*Object[] options = {"Eliminar","Cancelar"};
             int aceptar = JOptionPane.showOptionDialog(
                     null,"Esta Seguro de Eliminarlo ?","Eliminar",JOptionPane.YES_NO_OPTION,
                     JOptionPane.WARNING_MESSAGE,null,options,null);
+            */
+            
+            int aceptar = DialogMensaje.Confirmacion(null,"¿ Seguro que desea eliminarlo ?");
             
             /* Acepto Eliminarlo */
             if(aceptar == 0){
@@ -674,7 +688,8 @@ public class panelUser extends javax.swing.JPanel {
                 boolean band = daoRegistroTemporal.verificarUsuarioActivo(codigoAeliminar);
                 if(band == false){
                     
-                    aceptar = JOptionPane.showConfirmDialog(null,"Desea eliminar con todas sus sesiones registradas?","Confirmar",JOptionPane.YES_NO_OPTION);
+                    //aceptar = JOptionPane.showConfirmDialog(null,"Desea eliminar con todas sus sesiones registradas?","Confirmar",JOptionPane.YES_NO_OPTION);
+                    aceptar = DialogMensaje.Confirmacion(null,"Se eliminará todos los registros de ese Usuario");
                     if(aceptar == 0){
                         daoRegistro = manager.getDaoRegistro();
                         daoRegistro.eliminarTodosLosRegistrosDeUnUsuario(codigoAeliminar);
@@ -686,7 +701,8 @@ public class panelUser extends javax.swing.JPanel {
                     }
                     
                 }else{
-                    JOptionPane.showMessageDialog(null,"no se puede eliminar  , esta en registro temporal");
+                    DialogMensaje.Error(null,"No se puede eliminar <br> El usuario se encuentra activo en este momento");
+                    //JOptionPane.showMessageDialog(null,"no se puede eliminar  , esta en registro temporal");
                 }
             }
             
@@ -696,27 +712,46 @@ public class panelUser extends javax.swing.JPanel {
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         if(txtCodigoSeleccionado.getText().equals("")){
-            JOptionPane.showMessageDialog(null,"Porfavor Seleccione algun Usuario de Tabla",
-                    "Usuario",JOptionPane.WARNING_MESSAGE);
+            /*JOptionPane.showMessageDialog(null,"Porfavor Seleccione algun Usuario de Tabla",
+                    "Usuario",JOptionPane.WARNING_MESSAGE);*/
+            
+            DialogMensaje.Error(null,"Seleccione algun usuario de tabla");
+            
         }else{
             //true = 0   false = 1
            
-            Object[] options = {"Modificar","Cancelar"};
+            /*Object[] options = {"Modificar","Cancelar"};
             int aceptar = JOptionPane.showOptionDialog(
-                    null,"Esta Seguro de Eliminarlo ?","Eliminar",JOptionPane.YES_NO_OPTION,
-                    JOptionPane.WARNING_MESSAGE,null,options,null);
+                    null,"Esta Seguro de mdificarlo ?","Eliminar",JOptionPane.YES_NO_OPTION,
+                    JOptionPane.WARNING_MESSAGE,null,options,null);*/
+            
+            int aceptar = DialogMensaje.Confirmacion(null,"¿ Seguro que desea modificarlo ?");
             
             /* Acepto Modificarlo */
             if(aceptar == 0){
                
                 int fila = tablaUsuarios.getSelectedRow();
-                codigo = model.getValueAt(fila,0).toString();
+                codigo = txtCodigoSeleccionado.getText();
+                
                 daoUsuario = manager.getDaoUsuario();
-                daoUsuario.actualizar(obtenerDatosSeleccioandos());
-                limpiarTabla();
-                mostrarUltimosUsuariosRegistrados();
-                actualizarContadorUsuario();
-                limpiarCamposSeleccionados();
+                usuario = daoUsuario.obtenerPorCodigoUsuario(codigo);
+                
+                if(usuario == null){
+                    daoUsuario.actualizar(obtenerDatosSeleccioandos());
+                    limpiarTabla();
+                    mostrarUltimosUsuariosRegistrados();
+                    actualizarContadorUsuario();
+                    limpiarCamposSeleccionados(); 
+                } else if(usuario.getId().equals(model.getValueAt(fila, 0))){                  
+                    daoUsuario.actualizar(obtenerDatosSeleccioandos());
+                    limpiarTabla();
+                    mostrarUltimosUsuariosRegistrados();
+                    actualizarContadorUsuario();
+                    limpiarCamposSeleccionados(); 
+                } else{
+                    DialogMensaje.Error(null,"Codigo ya existe");
+                }
+                
             }
             
         }

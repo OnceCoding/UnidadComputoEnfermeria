@@ -32,7 +32,7 @@ public class frmNuevaSesion extends javax.swing.JFrame {
     private List<Computadora> listaEquiposDisponibles;
     
     private String codigo;
-    private String codigoPcSeleccionado;
+    private String codigoPcSeleccionado = "";
     private int fila;
     
     private String numerosValidos = "1234567890";
@@ -65,10 +65,9 @@ public class frmNuevaSesion extends javax.swing.JFrame {
         tablaEquipos.setDefaultRenderer(Object.class, renderer);
         
         tablaEquipos.getSelectionModel().addListSelectionListener((event)->{
-            try {
-                fila = tablaEquipos.getSelectedRow();
+            fila = tablaEquipos.getSelectedRow();
+            if(fila != -1){
                 codigoPcSeleccionado = model.getValueAt(fila,0).toString();
-            } catch (Exception e) {
             }
         });
         
@@ -405,37 +404,52 @@ public class frmNuevaSesion extends javax.swing.JFrame {
 
                     if(usuario != null){
 
-                        int aceptar = JOptionPane.showConfirmDialog(null,
+                        /*int aceptar = JOptionPane.showConfirmDialog(null,
                             usuario.getNombre()+" "+usuario.getApellido()+ "  iniciará Sesion, Seguro?",
                             "Confirmar",JOptionPane.YES_NO_OPTION);
-
+                        */
+                        
+                        int aceptar = DialogMensaje.Confirmacion(null,usuario.getNombre()+" "+usuario.getApellido()+ "  iniciará Sesion <br> ¿ Seguro ?");
+                        
                         if(aceptar == 0){
-                            daoRegistroTemporal = manager.getDaoRegistroTemporal();
-                            daoRegistroTemporal.insertar(
+                            
+                            if(!codigoPcSeleccionado.equals("")){
+                                daoRegistroTemporal = manager.getDaoRegistroTemporal();
+                                daoRegistroTemporal.insertar(
                                 new RegistroTemporal(null,usuario.getId(),codigoPcSeleccionado,
                                     Time.valueOf(LocalTime.now()),null,Date.valueOf(LocalDate.now())));
-                            txtCodigo.setText("");
+                                txtCodigo.setText("");
                             
-                            limpiarTabla();
-                            mostrarEquiposDisponibles();
+                                limpiarTabla();
+                                mostrarEquiposDisponibles();
+                            }else{
+                                DialogMensaje.Error(null,"Seleccione una Pc de la tabla");
+                            }
+                            
+
                         }
 
                     }else{
-                        JOptionPane.showMessageDialog(null,"El codigo no esta registrado");
+                        DialogMensaje.Error(null,"El codigo no esta registrado");
+                        //JOptionPane.showMessageDialog(null,"El codigo no esta registrado");
                     }
 
                 }else{
-                    JOptionPane.showMessageDialog(null,"Codigo debe poseer solo dígitos","Codigo",JOptionPane.WARNING_MESSAGE);
+                    DialogMensaje.Confirmacion(null,"Codigo debe poseer solo dígitos");
+                    //JOptionPane.showMessageDialog(null,"Codigo debe poseer solo dígitos","Codigo",JOptionPane.WARNING_MESSAGE);
                 }
 
             }else{
-                JOptionPane.showMessageDialog(null,"Codigo no debe poseer espacios en blanco","Codigo",
-                    JOptionPane.WARNING_MESSAGE);
+                
+                DialogMensaje.Error(null,"Codigo no debe poseer espacios en blanco");
+                /*JOptionPane.showMessageDialog(null,"Codigo no debe poseer espacios en blanco","Codigo",
+                    JOptionPane.WARNING_MESSAGE);*/
             }
 
         }else{
-            JOptionPane.showMessageDialog(null,"Ingrese Codigo","Codigo",
-                JOptionPane.WARNING_MESSAGE);
+            DialogMensaje.Error(null,"Ingrese Codigo");
+            /*JOptionPane.showMessageDialog(null,"Ingrese Codigo","Codigo",
+                JOptionPane.WARNING_MESSAGE);*/
         }
 
     }//GEN-LAST:event_btnIniciarActionPerformed
