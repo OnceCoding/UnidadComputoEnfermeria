@@ -6,7 +6,6 @@ import dao.DaoCursoRegistro;
 import dao.DaoCursoRegistroTemporal;
 import dao.DaoManager;
 import dao.mysql.MysqlDaoManager;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.time.LocalTime;

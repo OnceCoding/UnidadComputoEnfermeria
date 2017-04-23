@@ -38,7 +38,7 @@ public class frmAdministrador extends javax.swing.JFrame {
         }
         
         daoAdmin = manager.getDaoAdministrador();
-        lblNombreAdmin.setText(daoAdmin.obtener().getUser());
+        lblNombreAdmin.setText(daoAdmin.obtener().getUser()); 
     }
 
     @SuppressWarnings("unchecked")
