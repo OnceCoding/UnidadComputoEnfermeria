@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import javax.swing.JOptionPane;
 import modelo.CursoRegistroTemporal;
 
@@ -20,6 +21,7 @@ public class MysqlDaoCursoRegistroTemporal implements DaoCursoRegistroTemporal{
     private final String obtenercursoActual = "select codigo,codCurso,horaInicio,fecha from registrocursotemporal";
     private final String cerrarSesion = "delete from registroCursoTemporal";
     private final String existeCursoActual = "select count(codigo) as cantidad from registroCursoTemporal";
+    private final String actualizarHoraInicio = "update registroCursoTemporal set horaInicio = ?";
     
     public MysqlDaoCursoRegistroTemporal(Connection conexion) {
         this.conexion = conexion;
@@ -87,6 +89,21 @@ public class MysqlDaoCursoRegistroTemporal implements DaoCursoRegistroTemporal{
             System.out.println(e.getMessage());
         }
         return 0;
+    }
+
+    @Override
+    public void modificarSesionCursoHoraInicio(Time horaInicio) {
+        try {
+            preparedStatement = conexion.prepareStatement(actualizarHoraInicio);
+            preparedStatement.setTime(1, horaInicio);
+            
+            if(preparedStatement.executeUpdate() != 0){
+                JOptionPane.showMessageDialog(null,"Actualizo hora de Inicio");
+            }
+            
+        } catch (HeadlessException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
 

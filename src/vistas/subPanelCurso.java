@@ -6,6 +6,7 @@ import dao.DaoCursoRegistro;
 import dao.DaoCursoRegistroTemporal;
 import dao.DaoManager;
 import dao.mysql.MysqlDaoManager;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.time.LocalTime;
@@ -39,22 +40,36 @@ public class subPanelCurso extends javax.swing.JPanel {
         
         daoCursoRegistroTemporal = manager.getDaoCursoRegistroTemporal();
         daoCurso = manager.getDaoCurso();
-        txtCurso.setText(daoCurso.obtener(daoCursoRegistroTemporal.obtenerCursoActual().getCodCurso()).getNombre());
+        cursoRegistroTemporal = daoCursoRegistroTemporal.obtenerCursoActual();
+        txtCurso.setText(daoCurso.obtener(cursoRegistroTemporal.getCodCurso()).getNombre());
         
+        Time tiempo = cursoRegistroTemporal.getHoraInicio();
+        LocalTime localTime = tiempo.toLocalTime();
+        
+        int hora,minutos;
+        
+        if(localTime.getHour() >= 12){
+            cbxTiempo.setSelectedIndex(1);
+            if(localTime.getHour() > 12){
+                hora = localTime.getHour() - 12;
+                spnHora.setValue(hora);
+            }
+        }else{
+            cbxTiempo.setSelectedIndex(0);
+            if(localTime.getHour() == 0){
+                hora = localTime.getHour() + 12;
+                spnHora.setValue(hora);
+            }else{
+                hora = localTime.getHour();
+                spnHora.setValue(hora);
+            }
+        }
+        
+        spnMinuto.setValue(localTime.getMinute());
+
         ((JSpinner.DefaultEditor)spnHora.getEditor()).getTextField().setEditable(false);
         ((JSpinner.DefaultEditor)spnMinuto.getEditor()).getTextField().setEditable(false);
         
-        int hora = 0;
-        
-        if(cbxTiempo.getSelectedIndex() == 0){
-            hora = Integer.parseInt(spnHora.getValue().toString());
-
-        }else{
-            hora = Integer.parseInt(spnHora.getValue().toString()) + 12;
-            if(hora == 12){
-                hora = 0;
-            }
-        }
     }
 
     @SuppressWarnings("unchecked")
@@ -164,20 +179,27 @@ public class subPanelCurso extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCerrarCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarCursoActionPerformed
-        daoCursoRegistro = manager.getDaoCursoRegistro();
-        daoCursoRegistroTemporal = manager.getDaoCursoRegistroTemporal();
+
+        int n = JOptionPane.showConfirmDialog(null,"Seguro de cerrar el curso ?","Curso",JOptionPane.YES_NO_OPTION);
         
-        cursoRegistroTemporal = daoCursoRegistroTemporal.obtenerCursoActual();
-        daoCursoRegistro.registrarSesionCurso(new CursoRegistro(
+        if (n == 0){
+            
+            daoCursoRegistro = manager.getDaoCursoRegistro();
+            daoCursoRegistroTemporal = manager.getDaoCursoRegistroTemporal();
+        
+            cursoRegistroTemporal = daoCursoRegistroTemporal.obtenerCursoActual();
+            daoCursoRegistro.registrarSesionCurso(new CursoRegistro(
                 null, cursoRegistroTemporal.getCodCurso(), 
                 cursoRegistroTemporal.getHoraInicio(),
                 Time.valueOf(LocalTime.now()),
                 cursoRegistroTemporal.getFecha()));
         
-        daoCursoRegistroTemporal.cerrarSesionCursoActual();
+            daoCursoRegistroTemporal.cerrarSesionCursoActual();
         
-        frame.dispose();
-        new frmPrincipal().setVisible(true);
+            frame.dispose();
+            new frmPrincipal().setVisible(true);
+        }
+        
         
     }//GEN-LAST:event_btnCerrarCursoActionPerformed
 
@@ -186,7 +208,23 @@ public class subPanelCurso extends javax.swing.JPanel {
         int aceptar = JOptionPane.showConfirmDialog(null, "Desea modificarlo ?", "Curso", JOptionPane.YES_NO_OPTION);
         
         if(aceptar == 0){
-            System.out.println(spnHora.getValue() + " : "+ spnMinuto.getValue());
+            
+            int hora = Integer.parseInt(spnHora.getValue().toString());
+            int minutos = Integer.parseInt(spnMinuto.getValue().toString());
+            
+            if(cbxTiempo.getSelectedIndex() == 0){
+                if(hora == 12){
+                    hora = 0;
+                }
+            }else{
+                if(hora != 12){
+                    hora = hora + 12;
+                }
+            }
+            
+            daoCursoRegistroTemporal = manager.getDaoCursoRegistroTemporal();
+            daoCursoRegistroTemporal.modificarSesionCursoHoraInicio(Time.valueOf(LocalTime.of(hora, minutos)));
+   
         }
         
         

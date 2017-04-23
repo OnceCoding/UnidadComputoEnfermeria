@@ -3,6 +3,7 @@ package vistas;
 
 import TablaModel.RendererTablaCurso;
 import dao.DaoCurso;
+import dao.DaoCursoRegistro;
 import dao.DaoManager;
 import dao.mysql.MysqlDaoManager;
 import java.sql.SQLException;
@@ -29,6 +30,8 @@ public class panelCursos extends javax.swing.JPanel {
     
     private DefaultTableModel model;
     private RendererTablaCurso renderer;
+    
+    private DaoCursoRegistro daoCursoRegistro;
     
     public panelCursos() {
         initComponents();
@@ -360,13 +363,19 @@ public class panelCursos extends javax.swing.JPanel {
         if(validar(txtNombreCursoSeleccionado.getText())){
             
             Object[] options = {"Eliminar","Cancelar"};
-            int n = JOptionPane.showOptionDialog(null,"Seguro que desea eliminar el curso "+txtNombreCursoSeleccionado.getText()
+            int n = JOptionPane.showOptionDialog(null,"Seguro que desea eliminar el curso , se  eliminaran tambine todos su registros "+txtNombreCursoSeleccionado.getText()
                     ,"Eliminar Curso",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE,null, options,null);
             
             if(n == 0){
-                daoCurso = manager.getDaoCurso();
+                
                 int fila = tablaCursos.getSelectedRow();
+                
+                daoCursoRegistro = manager.getDaoCursoRegistro();
+                daoCursoRegistro.eliminarRegistrosDeUnCurso(Integer.parseInt(model.getValueAt(fila,0).toString()));
+                
+                daoCurso = manager.getDaoCurso();
                 daoCurso.eliminar(Integer.parseInt(model.getValueAt(fila,0).toString()));
+                
                 limpiarTabla();
                 mostrarTodosLosCursos();
                 actualizarLabelCantidadCursos();
