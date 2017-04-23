@@ -152,9 +152,3 @@ create trigger disminuirContadorHistorialRegistro after delete on registro for e
     end$
 
 delimiter ;
-
-
-
-
- 
-
