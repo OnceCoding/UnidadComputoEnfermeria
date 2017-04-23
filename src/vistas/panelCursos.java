@@ -4,6 +4,7 @@ package vistas;
 import TablaModel.RendererTablaCurso;
 import dao.DaoCurso;
 import dao.DaoCursoRegistro;
+import dao.DaoCursoRegistroTemporal;
 import dao.DaoManager;
 import dao.mysql.MysqlDaoManager;
 import java.sql.SQLException;
@@ -16,6 +17,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import modelo.Curso;
+import modelo.CursoRegistroTemporal;
 
 public class panelCursos extends javax.swing.JPanel {
 
@@ -32,6 +34,8 @@ public class panelCursos extends javax.swing.JPanel {
     private RendererTablaCurso renderer;
     
     private DaoCursoRegistro daoCursoRegistro;
+    private DaoCursoRegistroTemporal daoCursoRegistroTemporal;
+    private CursoRegistroTemporal cursoRegistroTemporal;
     
     public panelCursos() {
         initComponents();
@@ -65,16 +69,11 @@ public class panelCursos extends javax.swing.JPanel {
         
         
         tablaCursos.getSelectionModel().addListSelectionListener((ListSelectionEvent e) -> {
-            
-            try{
-                int fila = tablaCursos.getSelectedRow();
+            int fila = tablaCursos.getSelectedRow();
+            if(fila != -1){
                 nombreCurso = model.getValueAt(fila,1).toString();
-                
-                txtNombreCursoSeleccionado.setText(nombreCurso);
-                
-            }catch(Exception ex){
+                txtNombreCursoSeleccionado.setText(nombreCurso); 
             }
-        
         });
     
     }
@@ -345,14 +344,21 @@ public class panelCursos extends javax.swing.JPanel {
         if(validar(nombreCurso)){
             
             daoCurso = manager.getDaoCurso();
-            daoCurso.insertar(new Curso(null, nombreCurso));
-            txtNombreCurso.setText("");
-            limpiarTabla();
-            mostrarTodosLosCursos();
-            actualizarLabelCantidadCursos();
-
+            
+            curso = null;
+            curso = daoCurso.obtenerPorNombre(nombreCurso);
+            if(curso == null){
+                daoCurso.insertar(new Curso(null, nombreCurso));
+                txtNombreCurso.setText("");
+                limpiarTabla();
+                mostrarTodosLosCursos();
+                actualizarLabelCantidadCursos(); 
+            }else{
+                DialogMensaje.Error(null,"Curso con el mismo nombre ya existe");
+            }
         }else{
-            JOptionPane.showMessageDialog(null,"Escriba un Nombre Valido","Curso",JOptionPane.WARNING_MESSAGE);
+            DialogMensaje.Error(null,"Solo se acepta letras y numeros");
+            //JOptionPane.showMessageDialog(null,"Escriba un Nombre Valido","Curso",JOptionPane.WARNING_MESSAGE);
         }
         
  
@@ -362,28 +368,57 @@ public class panelCursos extends javax.swing.JPanel {
         
         if(validar(txtNombreCursoSeleccionado.getText())){
             
-            Object[] options = {"Eliminar","Cancelar"};
+            /*Object[] options = {"Eliminar","Cancelar"};
             int n = JOptionPane.showOptionDialog(null,"Seguro que desea eliminar el curso , se  eliminaran tambine todos su registros "+txtNombreCursoSeleccionado.getText()
                     ,"Eliminar Curso",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE,null, options,null);
+            */
+            
+            int n = DialogMensaje.Confirmacion(null,"¿ Seguro que desea eliminar el Curso ? <br> Se eliminara tambien todos los registros de Sesiones. ");
             
             if(n == 0){
                 
+                daoCursoRegistroTemporal = manager.getDaoCursoRegistroTemporal();
+                cursoRegistroTemporal = null;
+                cursoRegistroTemporal = daoCursoRegistroTemporal.obtenerCursoActual();
+                
                 int fila = tablaCursos.getSelectedRow();
+                int codigoCurso = Integer.parseInt(model.getValueAt(fila,0).toString());
                 
-                daoCursoRegistro = manager.getDaoCursoRegistro();
-                daoCursoRegistro.eliminarRegistrosDeUnCurso(Integer.parseInt(model.getValueAt(fila,0).toString()));
-                
-                daoCurso = manager.getDaoCurso();
-                daoCurso.eliminar(Integer.parseInt(model.getValueAt(fila,0).toString()));
-                
-                limpiarTabla();
-                mostrarTodosLosCursos();
-                actualizarLabelCantidadCursos();
-                limpiarSeleccionados();
+                if(cursoRegistroTemporal != null){
+                    if(cursoRegistroTemporal.getCodCurso() != codigoCurso){
+                    
+                        daoCursoRegistro = manager.getDaoCursoRegistro();
+                        daoCursoRegistro.eliminarRegistrosDeUnCurso(codigoCurso);
+                        
+                        daoCurso = manager.getDaoCurso();
+                        daoCurso.eliminar(codigoCurso);
+
+                        limpiarTabla();
+                        mostrarTodosLosCursos();
+                        actualizarLabelCantidadCursos();
+                        limpiarSeleccionados();
+
+                    }else{
+                        DialogMensaje.Error(null,"No se puede eliminar el curso <br> El curso se esta dictando en este momento");
+                    }
+                }else{
+
+                    daoCursoRegistro = manager.getDaoCursoRegistro();
+                    daoCursoRegistro.eliminarRegistrosDeUnCurso(codigoCurso);
+                    
+                    daoCurso = manager.getDaoCurso();
+                    daoCurso.eliminar(codigoCurso);
+
+                    limpiarTabla();
+                    mostrarTodosLosCursos();
+                    actualizarLabelCantidadCursos();
+                    limpiarSeleccionados();
+                }
             }
 
         }else{
-            JOptionPane.showMessageDialog(null,"Seleccione un curso de la Tabla");
+            DialogMensaje.Error(null, "Seleccione un curso de la tabla");
+            //JOptionPane.showMessageDialog(null,"Seleccione un curso de la Tabla");
         }
         
         
@@ -394,9 +429,12 @@ public class panelCursos extends javax.swing.JPanel {
         if(validar(txtNombreCursoSeleccionado.getText())){
             if(validar(txtNombreCursoModificacion.getText())){
                 Object[] options = {"Modificar","Cancelar"};
-                int n = JOptionPane.showOptionDialog(null,"Seguro que desea Modificar el curso "+txtNombreCursoSeleccionado.getText()
+                /*int n = JOptionPane.showOptionDialog(null,"Seguro que desea Modificar el curso "+txtNombreCursoSeleccionado.getText()
                     ,"Modificar Curso",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE,null, options,null);
-            
+                */
+                
+                int n = DialogMensaje.Confirmacion(null,"¿ Seguro que desea modificar el nombre del curso ?");
+                
                 if(n == 0){
                     daoCurso = manager.getDaoCurso();
                     int fila = tablaCursos.getSelectedRow();
@@ -407,10 +445,12 @@ public class panelCursos extends javax.swing.JPanel {
                     limpiarSeleccionados();
                 }
             }else{
-                JOptionPane.showMessageDialog(null,"Ingrese un Nombre Nuevo Valido");
+                DialogMensaje.Error(null, "Solo se acepta letras y numeros");
+                //JOptionPane.showMessageDialog(null,"Solo se acepta letras y numeros");
             }
         }else{
-            JOptionPane.showMessageDialog(null,"Seleccione un curso de la Tabla");
+            DialogMensaje.Error(null, "Seleccione un curso de la tabla");
+            //JOptionPane.showMessageDialog(null,"Seleccione un curso de la Tabla");
         }
         
     }//GEN-LAST:event_btnModificarActionPerformed

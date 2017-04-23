@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import modelo.Administrador;
+import vistas.DialogMensaje;
 
 public class MysqlDaoAdministrador implements DaoAdministrador{
     
@@ -36,7 +37,6 @@ public class MysqlDaoAdministrador implements DaoAdministrador{
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            //JOptionPane.showMessageDialog(null,"Ocurrio una Accion Inseperada");
             System.exit(0);
         } finally{
             MysqlUtils.cerrarPreparedStatementAndResultSet(preparedStatement, resultSet);
@@ -53,7 +53,6 @@ public class MysqlDaoAdministrador implements DaoAdministrador{
             return administrador;
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
-            //JOptionPane.showMessageDialog(null,"Ocurrio una Accion inesperada");
         }
         return null;
     }
@@ -65,11 +64,8 @@ public class MysqlDaoAdministrador implements DaoAdministrador{
             preparedStatement.setString(1,administrador.getUser());
             
             if(preparedStatement.executeUpdate()!= 0){
-                //JOptionPane.showMessageDialog(null,"Actualizado Exitosamente","Usuario",JOptionPane.INFORMATION_MESSAGE);
-            }else{
-                //JOptionPane.showMessageDialog(null,"No se pudo Actualizar","Usuario",JOptionPane.WARNING_MESSAGE);
+                DialogMensaje.Informacion(null,"Usuario Actualizado Exitosamente");
             }
-            
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
             //JOptionPane.showMessageDialog(null,"Ocurrio una Accion inesperada");
@@ -87,7 +83,7 @@ public class MysqlDaoAdministrador implements DaoAdministrador{
             preparedStatement.setString(1,administrador.getPass());
             
             if(preparedStatement.executeUpdate()!= 0){
-                //JOptionPane.showMessageDialog(null,"Actualizado Exitosamente");
+                DialogMensaje.Informacion(null,"Contraseña Actualizada Exitosamente");
             }else{
                 //JOptionPane.showMessageDialog(null,"No se pudo Actualizar");
             }

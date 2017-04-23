@@ -48,7 +48,7 @@ public class MysqlDaoCursoRegistro implements DaoCursoRegistro{
             preparedStatement.setInt(1, codigo);
             
             if(preparedStatement.executeUpdate() != 0){
-                JOptionPane.showMessageDialog(null,"se elimino todos sus registros del curso");
+                //JOptionPane.showMessageDialog(null,"se elimino todos sus registros del curso");
             }
             
         } catch (HeadlessException | SQLException e) {

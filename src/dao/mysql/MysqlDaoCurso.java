@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import modelo.Curso;
+import vistas.DialogMensaje;
 
 public class MysqlDaoCurso implements DaoCurso{
 
@@ -24,6 +25,7 @@ public class MysqlDaoCurso implements DaoCurso{
     
     private final String insertar = "insert into curso(nombre) values(?)";
     private final String obtener = "select codigo,nombre from curso where codigo = ?";
+    private final String obtenerPorNombre = "select codigo,nombre from curso where nombre = ?";
     private final String obtenerTodos = "select codigo,nombre from curso order by codigo desc";
     private final String obtenerContador = "select count(codigo) as cantidad from curso";
     private final String eliminar = "delete from curso where codigo = ?";
@@ -39,11 +41,11 @@ public class MysqlDaoCurso implements DaoCurso{
             preparedStatement = conexion.prepareStatement(insertar);
             preparedStatement.setString(1,curso.getNombre());
             if(preparedStatement.executeUpdate() != 0){
-                JOptionPane.showMessageDialog(null,"Curso Registrado");
+                //JOptionPane.showMessageDialog(null,"Curso Registrado");
             }
             
         } catch (HeadlessException | SQLException e) {
-            JOptionPane.showMessageDialog(null,"Error al Registrar");
+            //JOptionPane.showMessageDialog(null,"Error al Registrar");
         }finally{
             MysqlUtils.cerrarPreparedStatement(preparedStatement);
         }
@@ -55,11 +57,12 @@ public class MysqlDaoCurso implements DaoCurso{
             preparedStatement = conexion.prepareStatement(eliminar);
             preparedStatement.setInt(1,codigo);
             if(preparedStatement.executeUpdate() != 0){
-                JOptionPane.showMessageDialog(null,"Se elimino el Curso");
+                DialogMensaje.Informacion(null,"Se elimino el curso exitosamente");
+                //JOptionPane.showMessageDialog(null,"Se elimino el Curso");
             }
             
         } catch (HeadlessException | SQLException e) {
-            JOptionPane.showMessageDialog(null,"Error al Eliminar");
+            //JOptionPane.showMessageDialog(null,"Error al Eliminar");
         }
     }
 
@@ -70,11 +73,12 @@ public class MysqlDaoCurso implements DaoCurso{
             preparedStatement.setString(1,curso.getNombre());
             preparedStatement.setInt(2,curso.getCodigo());
             if(preparedStatement.executeUpdate() != 0){
-                JOptionPane.showMessageDialog(null,"Se Modifico el nombre el Curso");
+                //JOptionPane.showMessageDialog(null,"Se Modifico el nombre el Curso");
             }
             
         } catch (HeadlessException | SQLException e) {
-            JOptionPane.showMessageDialog(null,"Error al Modificar");
+            System.out.println(e.getMessage());
+            //JOptionPane.showMessageDialog(null,"Error al Modificar");
         }
     }
 
@@ -90,7 +94,8 @@ public class MysqlDaoCurso implements DaoCurso{
             }
             
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null,"error al obtener curso");
+            System.out.println(e.getMessage());
+            //JOptionPane.showMessageDialog(null,"error al obtener curso");
         }
         
         return null;
@@ -127,7 +132,7 @@ public class MysqlDaoCurso implements DaoCurso{
             return listacursos;
             
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null,"Error al obtener Todos");
+            //JOptionPane.showMessageDialog(null,"Error al obtener Todos");
         }
     
         return null;
@@ -144,7 +149,26 @@ public class MysqlDaoCurso implements DaoCurso{
             }
             
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null,"Error al contar Cursos");
+            //JOptionPane.showMessageDialog(null,"Error al contar Cursos");
+        }
+        
+        return null;
+    }
+
+    @Override
+    public Curso obtenerPorNombre(String nombre) {
+        try {
+            preparedStatement = conexion.prepareStatement(obtenerPorNombre);
+            preparedStatement.setString(1,nombre);
+            resulSet = preparedStatement.executeQuery();
+            
+            if(resulSet.next()){
+                return new Curso(resulSet.getInt("codigo"),resulSet.getString("nombre"));
+            }
+            
+        } catch (SQLException e) {
+            System.out.println("Error al obtener Curso");
+            //JOptionPane.showMessageDialog(null,"error al obtener curso");
         }
         
         return null;

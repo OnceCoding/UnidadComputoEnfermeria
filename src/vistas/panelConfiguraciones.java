@@ -294,7 +294,8 @@ public class panelConfiguraciones extends javax.swing.JPanel {
                         String.valueOf(spinMesFinal2.getMonth() +1),
                         String.valueOf(year2.getYear())));
         
-        JOptionPane.showMessageDialog(null,"Configuracion de Semestres Actualizado");
+        DialogMensaje.Informacion(null, "Configuracion de Semestres Actualizado");
+        //JOptionPane.showMessageDialog(null,"Configuracion de Semestres Actualizado");
         
     }//GEN-LAST:event_btnGuardarActionPerformed
 

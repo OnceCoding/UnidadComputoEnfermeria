@@ -7,7 +7,7 @@ import javax.swing.ImageIcon;
 public class DialogMensaje extends javax.swing.JDialog {
 
     private int x, y;
-    private int tipo; // 1 -> aviso, 2 -> question
+    private int tipo;
     private String texto;
     private int rpta; // return 0 si es si, y 1 si es no
     
@@ -158,7 +158,7 @@ public class DialogMensaje extends javax.swing.JDialog {
             }
         });
 
-        lblTexto.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lblTexto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblTexto.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblTexto.setText("CLAVE INCORRECTA! Intente nuevamente.");
 
@@ -200,7 +200,7 @@ public class DialogMensaje extends javax.swing.JDialog {
                 .addComponent(btnAceptar2, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(63, Short.MAX_VALUE)
+                .addContainerGap(42, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -208,7 +208,7 @@ public class DialogMensaje extends javax.swing.JDialog {
                         .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(73, 73, 73))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(34, 34, 34)
                         .addComponent(lblTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(27, 27, 27))))
@@ -234,9 +234,7 @@ public class DialogMensaje extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 451, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

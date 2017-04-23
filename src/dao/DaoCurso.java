@@ -13,6 +13,8 @@ public interface DaoCurso{
 
     public Curso obtener(Integer codigo);
 
+    public Curso obtenerPorNombre(String nombre);
+    
     public List<Curso> obtenerTodos();
     
     public String obtenerContadorCursos();

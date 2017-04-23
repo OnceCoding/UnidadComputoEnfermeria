@@ -358,11 +358,13 @@ public class frmLogin extends javax.swing.JFrame {
                 fp.setVisible(true);
                 
             }else{
-                JOptionPane.showMessageDialog(null,"Datos Incorrectos","Conexion",JOptionPane.WARNING_MESSAGE);
+                DialogMensaje.Error(null, "Datos Incorrectos");
+                //JOptionPane.showMessageDialog(null,"Datos Incorrectos","Conexion",JOptionPane.WARNING_MESSAGE);
             }
             
         }catch(SQLException e){
-            JOptionPane.showMessageDialog(null,"No se pudo Conectar a la Base de Datos","Error",JOptionPane.ERROR_MESSAGE);
+            DialogMensaje.Error(null,"No se pudo conectar a la Base de Datos");
+            //JOptionPane.showMessageDialog(null,"No se pudo Conectar a la Base de Datos","Error",JOptionPane.ERROR_MESSAGE);
         }
     }
     

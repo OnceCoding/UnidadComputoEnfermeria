@@ -449,8 +449,11 @@ public class frmAdministrador extends javax.swing.JFrame {
             txtNombreNuevo.setVisible(false);
             
         }else{
-            JOptionPane.showMessageDialog(rootPane,"Usuario No Valido \n"
-                    + "Solo se acepta letras o numeros","Invalido",JOptionPane.WARNING_MESSAGE);
+            
+            DialogMensaje.Error(null,"Solo se acepta letras o numeros");
+            
+            /*JOptionPane.showMessageDialog(rootPane,"Usuario No Valido \n"
+                    + "Solo se acepta letras o numeros","Invalido",JOptionPane.WARNING_MESSAGE);*/
         }
 
     }//GEN-LAST:event_btnListoActionPerformed
@@ -471,17 +474,17 @@ public class frmAdministrador extends javax.swing.JFrame {
         if(administrador.getPass().equals(claveOriginal)){
             bandClaveOriginal = true;
         }else{
-            JOptionPane.showMessageDialog(rootPane,"Contraseña Actual Incorrecta","Contraseña",JOptionPane.ERROR_MESSAGE);
+            DialogMensaje.Error(null,"Contraseña actual incorrecta");
+            //JOptionPane.showMessageDialog(rootPane,"Contraseña Actual Incorrecta","Contraseña",JOptionPane.ERROR_MESSAGE);
         }
         
         if(bandClaveOriginal){
             if(revisar(claveNueva)){
-                daoAdmin.actualizarContraseña(new Administrador(null, null,claveNueva));
-                JOptionPane.showMessageDialog(rootPane,"Actualizacion de Contraseña Exitosa","Contraseña Nueva",JOptionPane.INFORMATION_MESSAGE);
-          
+                daoAdmin.actualizarContraseña(new Administrador(null, null,claveNueva));   
             }else{
-                JOptionPane.showMessageDialog(rootPane,"Contraseña Nueva No Valida \n"
-                        + "Solo se acepta letras o numeros","Contraseña Nueva",JOptionPane.WARNING_MESSAGE);
+                DialogMensaje.Error(null,"Solo se acepta letras o numeros");
+                /*JOptionPane.showMessageDialog(rootPane,"Contraseña Nueva No Valida \n"
+                        + "Solo se acepta letras o numeros","Contraseña Nueva",JOptionPane.WARNING_MESSAGE);*/
             }
         }
        

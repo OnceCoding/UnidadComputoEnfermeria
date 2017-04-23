@@ -3,13 +3,12 @@ package vistas;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import javax.swing.JFileChooser;
 
 public class panelBaseDeDatos extends javax.swing.JPanel {
 
     private JFileChooser elegir;
-    String ruta;
+    String ruta = "";
     
     public panelBaseDeDatos() {
         initComponents();
@@ -225,21 +224,27 @@ public class panelBaseDeDatos extends javax.swing.JPanel {
 
     private void btnNuevaSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaSesionActionPerformed
         //C:\\Program Files\\MySQL\\MySQL Server 5.7\\bin\\
-        String nombre = "\\BD-"+LocalDate.now()+".sql";
-        String backup = "mysqldump --opt --host=localhost -uroot -pfacenfUNT2017 -B bdcomputo -r "+ruta+nombre;
-        System.out.println(ruta+nombre);
+        if(!this.ruta.equals("")){
+            String nombre = "\\BD-"+LocalDate.now()+".sql";
+            String backup = "mysqldump --opt --host=localhost -uroot -pfacenfUNT2017 -B bdcomputo -r "+ruta+nombre;
+            System.out.println(ruta+nombre);
 
-        try{
-            Process process = Runtime.getRuntime().exec(backup);
-            int processComplete = process.waitFor();
-            if(processComplete == 0){
-                System.out.println("Backup taken successfully");
-            }else{
-                System.out.println("Could not take mysql backup");
+            try{
+                Process process = Runtime.getRuntime().exec(backup);
+                int processComplete = process.waitFor();
+                if(processComplete == 0){
+                    DialogMensaje.Informacion(null,"Exportación de la Base de Datos Exitosa");
+                    //System.out.println("Backup taken successfully");
+                }else{
+                    DialogMensaje.Error(null,"No se pudo exportar la Base de Datos");
+                    //System.out.println("Could not take mysql backup");
+                }
+
+            }catch(IOException | InterruptedException e){
+                System.out.println(e.getMessage());
             }
-
-        }catch(IOException | InterruptedException e){
-            System.out.println(e.getMessage());
+        }else{
+            DialogMensaje.Error(null,"Eliga la ruta de destino");
         }
     }//GEN-LAST:event_btnNuevaSesionActionPerformed
 
