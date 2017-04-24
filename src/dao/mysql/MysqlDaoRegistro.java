@@ -9,9 +9,10 @@ import java.sql.SQLException;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
 import modelo.Registro;
-import modelo.UsuarioReporte;
+import modelo.ReporteRegistroUsuario;
+import modelo.Usuario;
+import vistas.DialogMensaje;
 
 public class MysqlDaoRegistro implements DaoRegistro{
     
@@ -22,15 +23,15 @@ public class MysqlDaoRegistro implements DaoRegistro{
     
     private final String insertar = 
             "insert into registro(codUsuario,codPC,horaInicio,horaFin,fecha) values(?,?,?,?,?)";
-    private final String obtenerPorPromocionYMes = 
-            "select codigo,codUsuario,codPC,horaInicio,horaFin,fecha from registro where codUsuario = '%?'";
-    private final String obtenerNroRegistroUsuarioPorFecha = 
-            "select usuario.codigo, usuario.nombre, usuario.apellido, usuario.correo,count(registro.codigo) from usuario inner join registro\n" +
-        " on registro.codUsuario = usuario.codigo where (month(registro.fecha) = ? and registro.codUsuario like ?) group by usuario.codigo, usuario.nombre, usuario.apellido, usuario.correo";
-    
+
     private final String eliminarTodosRegistroDeUnUsuario = "delete from registro where codUsuario = ?";
     
+    private final String obtenerReporteEntreFechas = 
+            "select u.codigo, u.nombre, u.apellido, u.tipo , r.codPC, r.horaInicio, r.horaFin, r.fecha from registro r inner join "
+            + "usuario u on r.codUsuario = u.id where r.fecha between ? and ? ";
+
     private List<Registro> listaUsuarios;
+    private List<ReporteRegistroUsuario> listaRegistroUsuarios;
     
     public MysqlDaoRegistro(Connection conexion) {
         this.conexion = conexion;
@@ -80,16 +81,6 @@ public class MysqlDaoRegistro implements DaoRegistro{
     }
 
     @Override
-    public List<UsuarioReporte> obtenerListaRegistrosPorFecha(Date fecha) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void obtenerListaPorSemestre() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public void eliminarTodosLosRegistrosDeUnUsuario(Integer codigo) {
         try {
             preparedStatement = conexion.prepareStatement(eliminarTodosRegistroDeUnUsuario);
@@ -100,6 +91,56 @@ public class MysqlDaoRegistro implements DaoRegistro{
         } catch (SQLException e) {
             System.out.println("error eliminando todos los registros");
         }
+    }
+
+    public ReporteRegistroUsuario convertirResultSetToReporteUsuario(ResultSet rs){
+        try {
+            String codigoUsuario = rs.getString("codigo");
+            String nombre = rs.getString("nombre");
+            String apellido = rs.getString("apellido");
+            String tipo = rs.getString("tipo");
+            String pc = rs.getString("codPc");
+            Time horaInicio = rs.getTime("horaInicio");
+            Time horaFin = rs.getTime("horaFin");
+            Date fecha = rs.getDate("fecha");
+            
+            return new ReporteRegistroUsuario(
+                    new Usuario(null, codigoUsuario, nombre, apellido, null, tipo, null, null), 
+                    new Registro(null,null, pc, horaInicio, horaFin, fecha));
+            
+        } catch (SQLException e) {
+            System.out.println("Error conviertiendo");
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+    
+    
+    @Override
+    public List<ReporteRegistroUsuario> obtenerReporteEntreFechas(Date inicio, Date fin) {
+        try {
+            
+            listaRegistroUsuarios = null;
+            listaRegistroUsuarios = new ArrayList<>();
+            
+            preparedStatement = conexion.prepareStatement(obtenerReporteEntreFechas);
+            preparedStatement.setDate(1, inicio);
+            preparedStatement.setDate(2, fin);
+            resultSet = preparedStatement.executeQuery();
+            
+            while(resultSet.next()){
+                listaRegistroUsuarios.add(convertirResultSetToReporteUsuario(resultSet));
+            }
+            
+            return listaRegistroUsuarios;
+     
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            DialogMensaje.Error(null,"No se puede obtener reporte");
+        }
+        
+        return null;
+        
     }
 
 

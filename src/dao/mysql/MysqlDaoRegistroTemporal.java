@@ -221,7 +221,7 @@ public class MysqlDaoRegistroTemporal implements DaoRegistroTemporal{
             preparedStatement = conexion.prepareStatement(eliminar);
             preparedStatement.setInt(1, codigo);
             if(preparedStatement.executeUpdate() != 0){
-                DialogMensaje.Informacion(null,"Eliminado exitosamente");
+                //DialogMensaje.Informacion(null,"Eliminado exitosamente");
             }
         } catch (SQLException e) {
             System.out.println("No se pudo eliminar");

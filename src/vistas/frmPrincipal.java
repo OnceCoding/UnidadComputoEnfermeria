@@ -1,5 +1,6 @@
 package vistas;
 
+import PanelesAuxiliares.panel;
 import dao.DaoManager;
 import dao.mysql.MysqlDaoManager;
 import java.awt.BorderLayout;
@@ -28,6 +29,8 @@ public class frmPrincipal extends javax.swing.JFrame {
     private JPanel panelUser;
     private JPanel panelConfiguraciones;
     private JPanel panelBD;
+    private JPanel panelHistorial;
+    private JPanel panelHistorialInicio;
     
     private DaoManager manager;
     
@@ -298,6 +301,11 @@ public class frmPrincipal extends javax.swing.JFrame {
         btnHistorial.setText("HISTORIAL DE REGISTROS");
         btnHistorial.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnHistorial.setFocusable(false);
+        btnHistorial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHistorialActionPerformed(evt);
+            }
+        });
 
         btnReportes.setBackground(new java.awt.Color(34, 70, 135));
         btnReportes.setFont(new java.awt.Font("Tempus Sans ITC", 0, 12)); // NOI18N
@@ -523,6 +531,12 @@ public class frmPrincipal extends javax.swing.JFrame {
         cambiarPanel("BASE DE DATOS", panelBD);
         pintarBoton(btnBD);
     }//GEN-LAST:event_btnBDActionPerformed
+
+    private void btnHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistorialActionPerformed
+        panelHistorialInicio = new panel(panelContenido);
+        cambiarPanel("HISTORIAL DE REGISTROS", panelHistorialInicio);
+        pintarBoton(btnHistorial);
+    }//GEN-LAST:event_btnHistorialActionPerformed
 
     public void cambiarPanel(String seccion, JPanel panelElegido){
         panelElegido.setSize(1272, 515);

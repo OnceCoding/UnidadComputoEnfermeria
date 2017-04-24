@@ -360,8 +360,9 @@ public class subPanelUsuario extends javax.swing.JPanel {
 
     private void btnDetenerTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetenerTodoActionPerformed
         
-    int aceptar = JOptionPane.showConfirmDialog(null,"detener todas las Sesiones, seguro ? ","Sesion",JOptionPane.YES_NO_OPTION);
-        
+    //int aceptar = JOptionPane.showConfirmDialog(null,"detener todas las Sesiones, seguro ? ","Sesion",JOptionPane.YES_NO_OPTION);
+    int aceptar = DialogMensaje.Confirmacion(null,"Detener todas la sesiones , ¿ Seguro ?");
+    
         if(aceptar == 0){
 
             int cant = model.getRowCount();

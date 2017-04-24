@@ -3,13 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/Jose%20sp/Documents/NetBeansProjects/UnidadComputoEnfermeria/src/dao/mysql/MysqlUtils.java</file>
+            <file>file:/C:/Users/Jose%20sp/Documents/NetBeansProjects/UnidadComputoEnfermeria/src/vistas/panelCursos.java</file>
+            <file>file:/C:/Users/Jose%20sp/Documents/NetBeansProjects/UnidadComputoEnfermeria/src/vistas/panelInicio.java</file>
             <file>file:/C:/Users/Jose%20sp/Documents/NetBeansProjects/UnidadComputoEnfermeria/src/dao/mysql/MysqlDaoCurso.java</file>
             <file>file:/C:/Users/Jose%20sp/Documents/NetBeansProjects/UnidadComputoEnfermeria/src/dao/mysql/MysqlDaoCursoRegistroTemporal.java</file>
-            <file>file:/C:/Users/Jose%20sp/Documents/NetBeansProjects/UnidadComputoEnfermeria/src/vistas/frmNuevaSesionCurso.java</file>
-            <file>file:/C:/Users/Jose%20sp/Documents/NetBeansProjects/UnidadComputoEnfermeria/src/vistas/dialogMensaje.java</file>
-            <file>file:/C:/Users/Jose%20sp/Documents/NetBeansProjects/UnidadComputoEnfermeria/src/dao/mysql/MysqlDaoCursoRegistro.java</file>
             <file>file:/C:/Users/Jose%20sp/Documents/NetBeansProjects/UnidadComputoEnfermeria/src/vistas/subPanelCurso.java</file>
-            <file>file:/C:/Users/Jose%20sp/Documents/NetBeansProjects/UnidadComputoEnfermeria/src/SQL/BDComputo-Enfermeria.sql</file>
+            <file>file:/C:/Users/Jose%20sp/Documents/NetBeansProjects/UnidadComputoEnfermeria/src/dao/mysql/MysqlDaoCursoRegistro.java</file>
+            <file>file:/C:/Users/Jose%20sp/Documents/NetBeansProjects/UnidadComputoEnfermeria/src/dao/mysql/MysqlDaoRegistro.java</file>
+            <file>file:/C:/Users/Jose%20sp/Documents/NetBeansProjects/UnidadComputoEnfermeria/src/dao/mysql/MysqlDaoManager.java</file>
         </group>
     </open-files>
 </project-private>
