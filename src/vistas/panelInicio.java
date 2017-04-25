@@ -198,44 +198,12 @@ public class panelInicio extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnEliminar2;
-    private javax.swing.JButton btnEliminar3;
-    private javax.swing.JButton btnEliminar4;
-    private javax.swing.JButton btnEliminar5;
-    private javax.swing.JButton btnModificar2;
-    private javax.swing.JButton btnModificar3;
-    private javax.swing.JButton btnModificar4;
-    private javax.swing.JButton btnModificar5;
-    private javax.swing.JComboBox<String> jComboBox3;
-    private javax.swing.JComboBox<String> jComboBox4;
-    private javax.swing.JComboBox<String> jComboBox5;
-    private javax.swing.JComboBox<String> jComboBox6;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
     static javax.swing.JLabel lblCantidadEquiposDisponibles;
     static javax.swing.JLabel lblCantidadSesiones;
-    private javax.swing.JSpinner spnHora1;
-    private javax.swing.JSpinner spnHora2;
-    private javax.swing.JSpinner spnHora3;
-    private javax.swing.JSpinner spnHora4;
-    private javax.swing.JSpinner spnMinuto1;
-    private javax.swing.JSpinner spnMinuto2;
-    private javax.swing.JSpinner spnMinuto3;
-    private javax.swing.JSpinner spnMinuto4;
-    private javax.swing.JPanel subPanelCurso;
-    private javax.swing.JPanel subPanelCurso1;
-    private javax.swing.JPanel subPanelCurso2;
     private javax.swing.JPanel subPanelCursoPrincipal;
     private javax.swing.JPanel subPanelUsuarioPrincipal;
     // End of variables declaration//GEN-END:variables

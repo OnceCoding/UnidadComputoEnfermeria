@@ -9,7 +9,10 @@ import java.sql.SQLException;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
+import modelo.Curso;
 import modelo.Registro;
+import modelo.RegistroCurso;
+import modelo.ReporteRegistroCurso;
 import modelo.ReporteRegistroUsuario;
 import modelo.Usuario;
 import vistas.DialogMensaje;
@@ -29,9 +32,14 @@ public class MysqlDaoRegistro implements DaoRegistro{
     private final String obtenerReporteEntreFechas = 
             "select u.codigo, u.nombre, u.apellido, u.tipo , r.codPC, r.horaInicio, r.horaFin, r.fecha from registro r inner join "
             + "usuario u on r.codUsuario = u.id where r.fecha between ? and ? ";
+    
+    private final String obtenerReporteCursosEntreFechas = 
+            "select c.nombre, rc.horaInicio, rc.horaFin, rc.fecha from registrocurso rc inner join "
+            + "curso c on rc.codCurso = c.codigo where rc.fecha between ? and ? ";
 
     private List<Registro> listaUsuarios;
     private List<ReporteRegistroUsuario> listaRegistroUsuarios;
+    private List<ReporteRegistroCurso> listaRegistroCursos;
     
     public MysqlDaoRegistro(Connection conexion) {
         this.conexion = conexion;
@@ -48,6 +56,23 @@ public class MysqlDaoRegistro implements DaoRegistro{
             Date fecha = rs.getDate("fecha");
             
             return new Registro(codigo, codUsuario, codPC, horaInicio, horaFin, fecha);
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        
+        return null;
+        
+    }
+    
+    public RegistroCurso convertirResultSetToRegistroCurso(ResultSet rs){
+        try {
+            String nombreCurso = rs.getString("nombre");
+            Time horaInicio = rs.getTime("horaInicio");
+            Time horaFin = rs.getTime("horaFin");
+            Date fecha = rs.getDate("fecha");
+            
+            return new RegistroCurso(nombreCurso, horaInicio, horaFin, fecha);
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -115,6 +140,23 @@ public class MysqlDaoRegistro implements DaoRegistro{
         return null;
     }
     
+    public ReporteRegistroCurso convertirResultSetToReporteCurso(ResultSet rs){
+        try {
+            String nombreCurso = rs.getString("nombre");
+            Time horaInicio = rs.getTime("horaInicio");
+            Time horaFin = rs.getTime("horaFin");
+            Date fecha = rs.getDate("fecha");
+            
+            return new ReporteRegistroCurso(
+                    new Curso(null, nombreCurso), 
+                    new RegistroCurso(nombreCurso, horaInicio, horaFin, fecha));
+            
+        } catch (SQLException e) {
+            System.out.println("Error conviertiendo");
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
     
     @Override
     public List<ReporteRegistroUsuario> obtenerReporteEntreFechas(Date inicio, Date fin) {
@@ -143,5 +185,31 @@ public class MysqlDaoRegistro implements DaoRegistro{
         
     }
 
+    @Override
+    public List<ReporteRegistroCurso> obtenerReporteCursoEntreFechas(Date inicio, Date fin) {
+        try {
+            
+            listaRegistroCursos = null;
+            listaRegistroCursos = new ArrayList<>();
+            
+            preparedStatement = conexion.prepareStatement(obtenerReporteCursosEntreFechas);
+            preparedStatement.setDate(1, inicio);
+            preparedStatement.setDate(2, fin);
+            resultSet = preparedStatement.executeQuery();
+            
+            while(resultSet.next()){
+                listaRegistroCursos.add(convertirResultSetToReporteCurso(resultSet));
+            }
+            
+            return listaRegistroCursos;
+     
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            DialogMensaje.Error(null,"No se puede obtener reporte");
+        }
+        
+        return null;
+        
+    }
 
 }

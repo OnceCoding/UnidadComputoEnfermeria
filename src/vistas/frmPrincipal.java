@@ -1,6 +1,5 @@
 package vistas;
 
-import PanelesAuxiliares.panel;
 import dao.DaoManager;
 import dao.mysql.MysqlDaoManager;
 import java.awt.BorderLayout;
@@ -533,7 +532,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBDActionPerformed
 
     private void btnHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistorialActionPerformed
-        panelHistorialInicio = new panel(panelContenido);
+        panelHistorialInicio = new panelHistorialInicio(panelContenido);
         cambiarPanel("HISTORIAL DE REGISTROS", panelHistorialInicio);
         pintarBoton(btnHistorial);
     }//GEN-LAST:event_btnHistorialActionPerformed
