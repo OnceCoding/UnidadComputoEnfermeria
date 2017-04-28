@@ -397,6 +397,7 @@ public class subPanelHistorialUsuario extends javax.swing.JPanel {
                         listaAux = null;
                     }
                     limpiarTabla();
+                    
                     mostrarReporte(listaReporte);
                 }
 
@@ -465,13 +466,13 @@ public class subPanelHistorialUsuario extends javax.swing.JPanel {
         List<ListaRegistroUsuario> listaRegistrosUsuarios = new ArrayList<>();
         lista.forEach((ReporteRegistroUsuario r)->{
             String codUsuario = r.getUsuario().getCodigo();
-            String nombreUsuario= r.getUsuario().getNombre();
+            String nombreUsuario= r.getUsuario().getNombre().toUpperCase();
             String apellidoUsuario = r.getUsuario().getApellido();
             String codPC = r.getRegistro().getCodPC();
-            Time horaInicio = r.getRegistro().getHoraInicio();
-            Time horaFin = r.getRegistro().getHoraFin();
-            Date fecha = r.getRegistro().getFecha();
-            listaRegistrosUsuarios.add(new ListaRegistroUsuario(codUsuario, nombreUsuario, apellidoUsuario, codPC, horaInicio, horaFin, (java.sql.Date) fecha));
+            String horaInicio = r.getRegistro().getHoraInicio() + "";
+            String horaFin = r.getRegistro().getHoraFin() + "";
+            String fecha = r.getRegistro().getFecha()+"";
+            listaRegistrosUsuarios.add(new ListaRegistroUsuario(codUsuario, nombreUsuario, apellidoUsuario, codPC, horaInicio, horaFin,fecha));
         });
         return listaRegistrosUsuarios;
     }
