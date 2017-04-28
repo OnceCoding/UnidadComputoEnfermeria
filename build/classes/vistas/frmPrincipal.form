@@ -286,6 +286,9 @@
             <Property name="text" type="java.lang.String" value="Nombre del Administrador"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="8"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel9">
           <Properties>

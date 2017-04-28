@@ -10,11 +10,11 @@ public class ListaRegistroUsuario {
     private String nombreUsuario;
     private String apellidoUsuario;
     private String codPC;
-    private Time horaInicio;
-    private Time horaFin;
-    private Date fecha;
+    private String horaInicio;
+    private String horaFin;
+    private String fecha;
 
-    public ListaRegistroUsuario(String codUsuario, String nombreUsuario, String apellidoUsuario, String codPC, Time horaInicio, Time horaFin, Date fecha) {
+    public ListaRegistroUsuario(String codUsuario, String nombreUsuario, String apellidoUsuario, String codPC, String horaInicio, String horaFin, String fecha) {
         this.codUsuario = codUsuario;
         this.nombreUsuario = nombreUsuario;
         this.apellidoUsuario = apellidoUsuario;
@@ -23,7 +23,7 @@ public class ListaRegistroUsuario {
         this.horaFin = horaFin;
         this.fecha = fecha;
     }
-    
+
     public String getCodUsuario() {
         return codUsuario;
     }
@@ -56,27 +56,27 @@ public class ListaRegistroUsuario {
         this.codPC = codPC;
     }
 
-    public Time getHoraInicio() {
+    public String getHoraInicio() {
         return horaInicio;
     }
 
-    public void setHoraInicio(Time horaInicio) {
+    public void setHoraInicio(String horaInicio) {
         this.horaInicio = horaInicio;
     }
 
-    public Time getHoraFin() {
+    public String getHoraFin() {
         return horaFin;
     }
 
-    public void setHoraFin(Time horaFin) {
+    public void setHoraFin(String horaFin) {
         this.horaFin = horaFin;
     }
 
-    public Date getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
     

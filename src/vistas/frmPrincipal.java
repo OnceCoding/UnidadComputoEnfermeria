@@ -564,7 +564,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JLabel lblNombreAdmin;
+    static javax.swing.JLabel lblNombreAdmin;
     private javax.swing.JLabel lblSeccion;
     private javax.swing.JPanel panelContenido;
     // End of variables declaration//GEN-END:variables

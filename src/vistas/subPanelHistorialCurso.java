@@ -16,14 +16,24 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import static javax.swing.SwingConstants.CENTER;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import modelo.Curso;
+import modelo.ListaRegistroCurso;
 import modelo.ReporteRegistroCurso;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 import static vistas.panelHistorialInicio.panelSesiones;
 
 public class subPanelHistorialCurso extends javax.swing.JPanel {
@@ -42,6 +52,7 @@ public class subPanelHistorialCurso extends javax.swing.JPanel {
     private DefaultTableCellRenderer renderer;
     
     private boolean nombreCursoSelected = false;
+    private boolean bandListoImprimir = false;
     
     private LocalDate dateDesde;
     private LocalDate dateHasta;
@@ -114,7 +125,7 @@ public class subPanelHistorialCurso extends javax.swing.JPanel {
         checkBoxNombre = new javax.swing.JCheckBox();
         cbxNombre = new javax.swing.JComboBox<>();
         btnConsultar2 = new javax.swing.JButton();
-        btnConsultar3 = new javax.swing.JButton();
+        btnImprimir = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(34, 34, 34));
         jPanel1.setDoubleBuffered(false);
@@ -169,9 +180,9 @@ public class subPanelHistorialCurso extends javax.swing.JPanel {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(checkBoxNombre)
-                    .addComponent(cbxNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cbxNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(checkBoxNombre))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -188,16 +199,16 @@ public class subPanelHistorialCurso extends javax.swing.JPanel {
             }
         });
 
-        btnConsultar3.setBackground(new java.awt.Color(34, 70, 135));
-        btnConsultar3.setFont(new java.awt.Font("Tempus Sans ITC", 0, 12)); // NOI18N
-        btnConsultar3.setForeground(new java.awt.Color(255, 255, 255));
-        btnConsultar3.setText("IMPRIMIR REPORTE");
-        btnConsultar3.setActionCommand("");
-        btnConsultar3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnConsultar3.setFocusable(false);
-        btnConsultar3.addActionListener(new java.awt.event.ActionListener() {
+        btnImprimir.setBackground(new java.awt.Color(34, 70, 135));
+        btnImprimir.setFont(new java.awt.Font("Tempus Sans ITC", 0, 12)); // NOI18N
+        btnImprimir.setForeground(new java.awt.Color(255, 255, 255));
+        btnImprimir.setText("IMPRIMIR REPORTE");
+        btnImprimir.setActionCommand("");
+        btnImprimir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnImprimir.setFocusable(false);
+        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConsultar3ActionPerformed(evt);
+                btnImprimirActionPerformed(evt);
             }
         });
 
@@ -231,7 +242,7 @@ public class subPanelHistorialCurso extends javax.swing.JPanel {
                         .addContainerGap()
                         .addComponent(btnConsultar2, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnConsultar3, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -251,7 +262,7 @@ public class subPanelHistorialCurso extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnConsultar2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnConsultar3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -302,7 +313,7 @@ public class subPanelHistorialCurso extends javax.swing.JPanel {
                 if(listaReporte.isEmpty()){
                     DialogMensaje.Informacion(null,"No se encontraron registros");
                 }else{
-
+                    bandListoImprimir = true;
                     listaAux = new ArrayList<>();
 
                     if(nombreCursoSelected){
@@ -332,10 +343,64 @@ public class subPanelHistorialCurso extends javax.swing.JPanel {
         cambiarPanel(new subPanelHistorialPrincipal());
     }//GEN-LAST:event_btnConsultar2ActionPerformed
 
-    private void btnConsultar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultar3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnConsultar3ActionPerformed
+    private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
+        
+        if(bandListoImprimir){
+            try {
+                JasperReport jr = (JasperReport) JRLoader.loadObject(frmPrincipal.class.getResource("/Reportes/reporteRegistrosCursos.jasper"));
 
+                Map parametros = new HashMap<>();
+                parametros.put("Titulo","REGISTRO DE SESIONES DE CURSOS DICTADOS");
+                parametros.put("fechaInicio",formatoFecha(dateDesde));
+                parametros.put("fechaFin",formatoFecha(dateHasta));
+                parametros.put("fechaActual",formatoFecha(LocalDate.now()));
+                parametros.put("admin",frmPrincipal.lblNombreAdmin.getText());
+
+                JRBeanCollectionDataSource coleccion = new JRBeanCollectionDataSource(obtenerDatosRegistros(listaReporte));
+
+                JasperPrint jp = JasperFillManager.fillReport(jr,parametros,coleccion);
+
+                JasperViewer jv = new JasperViewer(jp,false);
+                jv.setVisible(true);
+
+
+            } catch (JRException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }else{
+            DialogMensaje.Error(null,"Debe realizar una consulta.");
+        }
+        
+    }//GEN-LAST:event_btnImprimirActionPerformed
+
+    public String formatoFecha(LocalDate fechaDate){
+        String fecha  = "";
+        String dia = String.valueOf(fechaDate.getDayOfMonth());
+        String mes = String.valueOf(fechaDate.getMonthValue());
+        String año = String.valueOf(fechaDate.getYear());
+        
+        if(dia.trim().length() == 1){
+            dia = "0"+dia;
+        }
+        
+        if(mes.trim().length() == 1){
+            mes = "0"+mes;
+        }
+        
+        return dia + " - " + mes + " - "+ año; 
+    }
+    
+    public List obtenerDatosRegistros(List<ReporteRegistroCurso> lista){
+        List<ListaRegistroCurso> listaRegistrosCursos = new ArrayList<>();
+        lista.forEach((ReporteRegistroCurso r)->{
+            String nombreCurso = r.getCurso().getNombre();
+            String horaInicio = r.getRegistroCurso().getHoraInicio() + "";
+            String horaFin = r.getRegistroCurso().getHoraFin() + "";
+            String fecha = r.getRegistroCurso()+"";
+            listaRegistrosCursos.add(new ListaRegistroCurso(nombreCurso, horaInicio, horaFin, fecha));
+        });
+        return listaRegistrosCursos;
+    }
     
     public void mostrarReporte(List<ReporteRegistroCurso> lista){
         lista.forEach((ReporteRegistroCurso r)->{
@@ -415,7 +480,7 @@ public class subPanelHistorialCurso extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConsultar;
     private javax.swing.JButton btnConsultar2;
-    private javax.swing.JButton btnConsultar3;
+    private javax.swing.JButton btnImprimir;
     private javax.swing.JComboBox<String> cbxNombre;
     private javax.swing.JCheckBox checkBoxNombre;
     private com.toedter.calendar.JDateChooser chooserDesde;
