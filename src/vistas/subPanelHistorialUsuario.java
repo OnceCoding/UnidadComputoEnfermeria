@@ -425,6 +425,7 @@ public class subPanelHistorialUsuario extends javax.swing.JPanel {
                 parametros.put("fechaInicio",formatoFecha(dateDesde));
                 parametros.put("fechaFin",formatoFecha(dateHasta));
                 parametros.put("fechaActual",formatoFecha(LocalDate.now()));
+                parametros.put("admin",frmPrincipal.lblNombreAdmin.getText());
 
                 JRBeanCollectionDataSource coleccion = new JRBeanCollectionDataSource(obtenerDatosRegistros(listaReporte));
 
