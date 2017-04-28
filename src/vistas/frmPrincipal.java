@@ -59,7 +59,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         listaBotones.add(btnHistorial);
         listaBotones.add(btnReportes);
         listaBotones.add(btnConfiguraciones);
-        listaBotones.add(btnBD);
+   
     }
 
     @SuppressWarnings("unchecked")
@@ -86,7 +86,6 @@ public class frmPrincipal extends javax.swing.JFrame {
         btnCursos = new javax.swing.JButton();
         btnHistorial = new javax.swing.JButton();
         btnReportes = new javax.swing.JButton();
-        btnBD = new javax.swing.JButton();
         btnInicio = new javax.swing.JButton();
         btnConfiguraciones = new javax.swing.JButton();
         panelContenido = new javax.swing.JPanel();
@@ -313,18 +312,6 @@ public class frmPrincipal extends javax.swing.JFrame {
         btnReportes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnReportes.setFocusable(false);
 
-        btnBD.setBackground(new java.awt.Color(34, 70, 135));
-        btnBD.setFont(new java.awt.Font("Tempus Sans ITC", 0, 12)); // NOI18N
-        btnBD.setForeground(java.awt.Color.white);
-        btnBD.setText("BASE DE DATOS");
-        btnBD.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnBD.setFocusable(false);
-        btnBD.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBDActionPerformed(evt);
-            }
-        });
-
         btnInicio.setBackground(new java.awt.Color(184, 207, 229));
         btnInicio.setFont(new java.awt.Font("Tempus Sans ITC", 1, 12)); // NOI18N
         btnInicio.setForeground(java.awt.Color.white);
@@ -358,14 +345,13 @@ public class frmPrincipal extends javax.swing.JFrame {
             .addComponent(btnCursos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnHistorial, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
             .addComponent(btnReportes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnBD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnConfiguraciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(109, Short.MAX_VALUE)
                 .addComponent(btnInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -378,10 +364,8 @@ public class frmPrincipal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnBD, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnConfiguraciones, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(106, 106, 106))
+                .addGap(147, 147, 147))
         );
 
         panelContenido.setBackground(new java.awt.Color(34, 34, 34));
@@ -525,12 +509,6 @@ public class frmPrincipal extends javax.swing.JFrame {
         pintarBoton(btnConfiguraciones);
     }//GEN-LAST:event_btnConfiguracionesActionPerformed
 
-    private void btnBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBDActionPerformed
-        panelBD = new panelBaseDeDatos();
-        cambiarPanel("BASE DE DATOS", panelBD);
-        pintarBoton(btnBD);
-    }//GEN-LAST:event_btnBDActionPerformed
-
     private void btnHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistorialActionPerformed
         panelHistorialInicio = new panelHistorialInicio(panelContenido);
         cambiarPanel("HISTORIAL DE REGISTROS", panelHistorialInicio);
@@ -564,7 +542,6 @@ public class frmPrincipal extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel barra;
-    private javax.swing.JButton btnBD;
     private javax.swing.JButton btnConfiguracion;
     private javax.swing.JButton btnConfiguraciones;
     private javax.swing.JButton btnCursos;

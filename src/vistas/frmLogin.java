@@ -364,6 +364,7 @@ public class frmLogin extends javax.swing.JFrame {
             
         }catch(SQLException e){
             DialogMensaje.Error(null,"No se pudo conectar a la Base de Datos");
+            System.out.println(e.getMessage());
             //JOptionPane.showMessageDialog(null,"No se pudo Conectar a la Base de Datos","Error",JOptionPane.ERROR_MESSAGE);
         }
     }

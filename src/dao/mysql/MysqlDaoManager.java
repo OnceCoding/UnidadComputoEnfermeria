@@ -35,8 +35,9 @@ public class MysqlDaoManager implements DaoManager{
     
     public MysqlDaoManager() throws SQLException {
         //try {facenfUNT2017
-            //conexion = DriverManager.getConnection("jdbc:mysql://localhost/bdcomputo?useSSL=false","root","");
-            conexion = DriverManager.getConnection("jdbc:mysql://192.168.1.117/bdcomputo?useSSL=false","jose","jose");
+            //conexion = DriverManager.getConnection("jdbc:mysql://192.168.1.101/bdcomputo?useSSL=false","root","jose");
+            conexion = DriverManager.getConnection("jdbc:mysql://localhost/bdcomputo?useSSL=false","root","");
+            //conexion = DriverManager.getConnection("jdbc:mysql://192.168.1.186/bdcomputo?useSSL=false","enfermeria","enfermeria");
         //} catch (SQLException ex) {
             //JOptionPane.showMessageDialog(null,"Error al conectar con la Base de Satos");
           //  System.out.println(ex.getMessage());

@@ -2,6 +2,7 @@
 package vistas;
 
 import java.awt.BorderLayout;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class subPanelHistorialPrincipal extends javax.swing.JPanel {

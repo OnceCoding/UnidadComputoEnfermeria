@@ -1,12 +1,10 @@
 package dao.mysql;
 
 import dao.DaoAdministrador;
-import java.awt.Component;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javax.swing.JOptionPane;
 import modelo.Administrador;
 import vistas.DialogMensaje;
 
@@ -17,10 +15,10 @@ public class MysqlDaoAdministrador implements DaoAdministrador{
     private ResultSet resultSet;
     private Administrador administrador;
     
-    private final String actualizarUsuario = "update administrador set user = ? where codigo = 1";
-    private final String actualizarContraseña = "update administrador set pass = ? where codigo = 1";
+    private final String actualizarUsuario = "update administrador set user = ? where codigo = 2";
+    private final String actualizarContraseña = "update administrador set pass = ? where codigo = 2";
    
-    private final String obtener = "select user,pass from administrador where codigo = 1";
+    private final String obtener = "select user,pass from administrador where codigo = 2";
 
     public MysqlDaoAdministrador(Connection conexion) {
         this.conexion = conexion;

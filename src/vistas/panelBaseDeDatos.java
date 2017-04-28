@@ -226,7 +226,7 @@ public class panelBaseDeDatos extends javax.swing.JPanel {
         //C:\\Program Files\\MySQL\\MySQL Server 5.7\\bin\\
         if(!this.ruta.equals("")){
             String nombre = "\\BD-"+LocalDate.now()+".sql";
-            String backup = "mysqldump --opt --host=localhost -uroot -pfacenfUNT2017 -B bdcomputo -r "+ruta+nombre;
+            String backup = "C:\\Program Files\\MySQL Server 5.7\\bin\\mysqldump.exe -h 192.168.1.101 -u root -p jose -B bdcomputo -r "+ruta+nombre;
             System.out.println(ruta+nombre);
 
             try{

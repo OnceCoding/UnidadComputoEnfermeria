@@ -573,7 +573,7 @@ public class panelUser extends javax.swing.JPanel {
                             usuario = daoUsuario.obtenerPorCodigoUsuario(codigo);
                             if(usuario == null){
                                 daoUsuario.insertar(new Usuario(null,codigo,nombre,apellido,email,tipo,Date.valueOf(LocalDate.now()),Time.valueOf(LocalTime.now())));
-                                lblCantidadUsuarios.setText(manager.getContadorRegistro().obtenerContadorUsuario());
+                                //lblCantidadUsuarios.setText(manager.getContadorRegistro().obtenerContadorUsuario());
                                 limpiarTabla();
                                 mostrarUltimosUsuariosRegistrados();
                                 limpiarCamposGuardar();
@@ -591,7 +591,7 @@ public class panelUser extends javax.swing.JPanel {
                             usuario = daoUsuario.obtenerPorCodigoUsuario(codigo);
                             if(usuario == null){
                                 daoUsuario.insertar(new Usuario(null,codigo,nombre,apellido,email,tipo,Date.valueOf(LocalDate.now()),Time.valueOf(LocalTime.now())));
-                                lblCantidadUsuarios.setText(manager.getContadorRegistro().obtenerContadorUsuario());
+                                //lblCantidadUsuarios.setText(manager.getContadorRegistro().obtenerContadorUsuario());
                                 limpiarTabla();
                                 mostrarUltimosUsuariosRegistrados();
                                 limpiarCamposGuardar();

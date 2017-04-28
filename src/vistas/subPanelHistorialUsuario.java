@@ -8,20 +8,39 @@ import dao.DaoRegistro;
 import dao.mysql.MysqlDaoManager;
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Dialog;
 import java.awt.event.ActionEvent;
 import java.sql.SQLException;
+import java.sql.Time;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import static javax.swing.SwingConstants.CENTER;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import modelo.Computadora;
+import modelo.ListaRegistroUsuario;
 import modelo.ReporteRegistroUsuario;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.util.JRLoader;
+import static net.sf.jasperreports.engine.util.JRLoader.getResource;
+import net.sf.jasperreports.view.JasperViewer;
 import static vistas.panelHistorialInicio.panelSesiones;
 
 public class subPanelHistorialUsuario extends javax.swing.JPanel {
@@ -46,13 +65,18 @@ public class subPanelHistorialUsuario extends javax.swing.JPanel {
     private boolean equipoSelected = false;
     private boolean tipoSelected = false;
     private boolean codigoSelected = false;
+    private boolean bandListoImprimir = false;
     
     private LocalDate dateDesde;
     private LocalDate dateHasta;
     private SimpleDateFormat formato;
-    
+    private Date fechaDesde;
+    private Date fechaHasta;
+   
+   
     public subPanelHistorialUsuario() {
         initComponents();
+        
         try {
             manager = MysqlDaoManager.getMysqlDaoManager();
         } catch (SQLException ex) {
@@ -136,7 +160,7 @@ public class subPanelHistorialUsuario extends javax.swing.JPanel {
         checkBoxCodigo = new javax.swing.JCheckBox();
         txtCodigo = new javax.swing.JTextField();
         btnConsultar2 = new javax.swing.JButton();
-        btnConsultar3 = new javax.swing.JButton();
+        btnImprimir = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(34, 34, 34));
         setDoubleBuffered(false);
@@ -222,15 +246,15 @@ public class subPanelHistorialUsuario extends javax.swing.JPanel {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(checkBoxEquipo)
-                    .addComponent(cbxEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cbxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(checkBoxTipo)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(checkBoxCodigo)
-                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(checkBoxTipo)
-                            .addComponent(cbxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(checkBoxEquipo)
+                        .addComponent(cbxEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -247,16 +271,16 @@ public class subPanelHistorialUsuario extends javax.swing.JPanel {
             }
         });
 
-        btnConsultar3.setBackground(new java.awt.Color(34, 70, 135));
-        btnConsultar3.setFont(new java.awt.Font("Tempus Sans ITC", 0, 12)); // NOI18N
-        btnConsultar3.setForeground(new java.awt.Color(255, 255, 255));
-        btnConsultar3.setText("IMPRIMIR REPORTE");
-        btnConsultar3.setActionCommand("");
-        btnConsultar3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnConsultar3.setFocusable(false);
-        btnConsultar3.addActionListener(new java.awt.event.ActionListener() {
+        btnImprimir.setBackground(new java.awt.Color(34, 70, 135));
+        btnImprimir.setFont(new java.awt.Font("Tempus Sans ITC", 0, 12)); // NOI18N
+        btnImprimir.setForeground(new java.awt.Color(255, 255, 255));
+        btnImprimir.setText("IMPRIMIR REPORTE");
+        btnImprimir.setActionCommand("");
+        btnImprimir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnImprimir.setFocusable(false);
+        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConsultar3ActionPerformed(evt);
+                btnImprimirActionPerformed(evt);
             }
         });
 
@@ -290,7 +314,7 @@ public class subPanelHistorialUsuario extends javax.swing.JPanel {
                         .addContainerGap()
                         .addComponent(btnConsultar2, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnConsultar3, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -310,15 +334,15 @@ public class subPanelHistorialUsuario extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnConsultar2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnConsultar3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
 
-        Date fechaDesde = chooserDesde.getDate();
-        Date fechaHasta = chooserHasta.getDate();
+        fechaDesde = chooserDesde.getDate();
+        fechaHasta = chooserHasta.getDate();
 
         if(fechaDesde != null && fechaHasta != null){
             formato = new SimpleDateFormat("yyyy-MM-dd");
@@ -339,8 +363,9 @@ public class subPanelHistorialUsuario extends javax.swing.JPanel {
 
                 if(listaReporte.isEmpty()){
                     DialogMensaje.Informacion(null,"No se encontraron registros");
+                    bandListoImprimir = false;
                 }else{
-
+                    bandListoImprimir = true;
                     listaAux = new ArrayList<>();
 
                     if(equipoSelected){
@@ -389,10 +414,67 @@ public class subPanelHistorialUsuario extends javax.swing.JPanel {
         cambiarPanel(new subPanelHistorialPrincipal());
     }//GEN-LAST:event_btnConsultar2ActionPerformed
 
-    private void btnConsultar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultar3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnConsultar3ActionPerformed
+    private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
+        
+        if(bandListoImprimir){
+            try {
+                JasperReport jr = (JasperReport) JRLoader.loadObject(frmPrincipal.class.getResource("/Reportes/reporteRegistros.jasper"));
 
+                Map parametros = new HashMap<>();
+                parametros.put("Titulo","REGISTRO DE SESIONES DE USUARIOS");
+                parametros.put("fechaInicio",formatoFecha(dateDesde));
+                parametros.put("fechaFin",formatoFecha(dateHasta));
+                parametros.put("fechaActual",formatoFecha(LocalDate.now()));
+
+                JRBeanCollectionDataSource coleccion = new JRBeanCollectionDataSource(obtenerDatosRegistros(listaReporte));
+
+                JasperPrint jp = JasperFillManager.fillReport(jr,parametros,coleccion);
+
+                JasperViewer jv = new JasperViewer(jp,false);
+                jv.setVisible(true);
+
+
+            } catch (JRException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }else{
+            DialogMensaje.Error(null,"Debe realizar una consulta.");
+        }
+        
+    }//GEN-LAST:event_btnImprimirActionPerformed
+
+    public String formatoFecha(LocalDate fechaDate){
+        String fecha  = "";
+        String dia = String.valueOf(fechaDate.getDayOfMonth());
+        String mes = String.valueOf(fechaDate.getMonthValue());
+        String año = String.valueOf(fechaDate.getYear());
+        
+        if(dia.trim().length() == 1){
+            dia = "0"+dia;
+        }
+        
+        if(mes.trim().length() == 1){
+            mes = "0"+mes;
+        }
+        
+        return dia + " - " + mes + " - "+ año; 
+    }
+    
+    public List obtenerDatosRegistros(List<ReporteRegistroUsuario> lista){
+        List<ListaRegistroUsuario> listaRegistrosUsuarios = new ArrayList<>();
+        lista.forEach((ReporteRegistroUsuario r)->{
+            String codUsuario = r.getUsuario().getCodigo();
+            String nombreUsuario= r.getUsuario().getNombre();
+            String apellidoUsuario = r.getUsuario().getApellido();
+            String codPC = r.getRegistro().getCodPC();
+            Time horaInicio = r.getRegistro().getHoraInicio();
+            Time horaFin = r.getRegistro().getHoraFin();
+            Date fecha = r.getRegistro().getFecha();
+            listaRegistrosUsuarios.add(new ListaRegistroUsuario(codUsuario, nombreUsuario, apellidoUsuario, codPC, horaInicio, horaFin, (java.sql.Date) fecha));
+        });
+        return listaRegistrosUsuarios;
+    }
+    
     public void mostrarReporte(List<ReporteRegistroUsuario> lista){
         lista.forEach((ReporteRegistroUsuario r)->{
             model.addRow(new Object[]{
@@ -474,7 +556,7 @@ public class subPanelHistorialUsuario extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConsultar;
     private javax.swing.JButton btnConsultar2;
-    private javax.swing.JButton btnConsultar3;
+    private javax.swing.JButton btnImprimir;
     private javax.swing.JComboBox<String> cbxEquipo;
     private javax.swing.JComboBox<String> cbxTipo;
     private javax.swing.JCheckBox checkBoxCodigo;
