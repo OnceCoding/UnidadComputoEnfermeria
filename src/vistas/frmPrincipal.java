@@ -31,6 +31,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     private JPanel panelHistorial;
     private JPanel panelReportes;
     private JPanel panelHistorialInicio;
+    private JPanel panelSesionDirecta;
     
     private DaoManager manager;
     
@@ -63,6 +64,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         listaBotones.add(btnHistorial);
         listaBotones.add(btnReportes);
         listaBotones.add(btnBD);
+        listaBotones.add(btnSesionesDirectas);
    
     }
 
@@ -92,6 +94,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         btnReportes = new javax.swing.JButton();
         btnInicio = new javax.swing.JButton();
         btnBD = new javax.swing.JButton();
+        btnSesionesDirectas = new javax.swing.JButton();
         panelContenido = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
@@ -345,6 +348,18 @@ public class frmPrincipal extends javax.swing.JFrame {
             }
         });
 
+        btnSesionesDirectas.setBackground(new java.awt.Color(34, 70, 135));
+        btnSesionesDirectas.setFont(new java.awt.Font("Tempus Sans ITC", 0, 12)); // NOI18N
+        btnSesionesDirectas.setForeground(java.awt.Color.white);
+        btnSesionesDirectas.setText("SESIONES DIRECTAS");
+        btnSesionesDirectas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSesionesDirectas.setFocusable(false);
+        btnSesionesDirectas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSesionesDirectasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -356,12 +371,15 @@ public class frmPrincipal extends javax.swing.JFrame {
             .addComponent(btnReportes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnBD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnSesionesDirectas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(109, Short.MAX_VALUE)
                 .addComponent(btnInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnSesionesDirectas, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -374,7 +392,7 @@ public class frmPrincipal extends javax.swing.JFrame {
                 .addComponent(btnReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnBD, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(147, 147, 147))
+                .addGap(106, 106, 106))
         );
 
         panelContenido.setBackground(new java.awt.Color(34, 34, 34));
@@ -530,6 +548,12 @@ public class frmPrincipal extends javax.swing.JFrame {
         pintarBoton(btnReportes);
     }//GEN-LAST:event_btnReportesActionPerformed
 
+    private void btnSesionesDirectasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSesionesDirectasActionPerformed
+        panelSesionDirecta = new panelSesionDirecta();
+        cambiarPanel("SESION DIRECTA", panelSesionDirecta);
+        pintarBoton(btnSesionesDirectas);
+    }//GEN-LAST:event_btnSesionesDirectasActionPerformed
+
     public void cambiarPanel(String seccion, JPanel panelElegido){
         panelElegido.setSize(1272, 515);
         panelElegido.setLocation(1, 1);
@@ -566,6 +590,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnMinizar;
     private javax.swing.JButton btnReportes;
     private javax.swing.JButton btnSalir;
+    private javax.swing.JButton btnSesionesDirectas;
     private javax.swing.JButton btnUsuarios;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;

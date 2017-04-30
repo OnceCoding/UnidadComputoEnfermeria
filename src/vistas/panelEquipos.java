@@ -13,7 +13,6 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import modelo.Computadora;
-import modelo.RegistroTemporal;
 import modelo.SesionesActivas;
 
 public class panelEquipos extends javax.swing.JPanel {

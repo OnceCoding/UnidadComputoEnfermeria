@@ -222,9 +222,9 @@ public class subPanelCurso extends javax.swing.JPanel {
         int minutos = Integer.parseInt(spnMinuto.getValue().toString());
 
         if(cbxTiempo.getSelectedIndex() == 0){
-                if(hora == 12){
-                    hora = 0;
-                }
+            if(hora == 12){
+                hora = 0;
+            }
         }else{
             if(hora != 12){
                 hora = hora + 12;

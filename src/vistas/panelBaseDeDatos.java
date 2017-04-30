@@ -1,6 +1,7 @@
 
 package vistas;
 
+import Configuracion.ArchivoIni;
 import java.io.IOException;
 import java.time.LocalDate;
 import javax.swing.JFileChooser;
@@ -8,7 +9,10 @@ import javax.swing.JFileChooser;
 public class panelBaseDeDatos extends javax.swing.JPanel {
 
     private JFileChooser elegir;
-    String ruta = "";
+    private String ruta = "";
+    
+    private ArchivoIni ini;
+    private String host,bd,user,pass;
     
     public panelBaseDeDatos() {
         initComponents();
@@ -223,25 +227,28 @@ public class panelBaseDeDatos extends javax.swing.JPanel {
     }//GEN-LAST:event_btnElegirActionPerformed
 
     private void btnNuevaSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaSesionActionPerformed
-        //C:\\Program Files\\MySQL\\MySQL Server 5.7\\bin\\
+        
+        ini = ArchivoIni.getArchivoIni();
+        host = ini.leerPropiedad("host");
+        bd = ini.leerPropiedad("bd");
+        user = ini.leerPropiedad("user");
+        pass = ini.leerPropiedad("pass");
+        
         if(!this.ruta.equals("")){
             String nombre = "\\BD-"+LocalDate.now()+".sql";
-            String backup = "mysqldump --opt --host=localhost -uroot -pfacenfUNT2017 -B bdcomputo -r "+ruta+nombre;
-            System.out.println(ruta+nombre);
-
+            String backup = "mysqldump --opt --host="+host+" -u"+user+" -p"+pass+" -B "+bd+" -r "+ruta+nombre;
+            System.out.println(backup);
             try{
                 Process process = Runtime.getRuntime().exec(backup);
                 int processComplete = process.waitFor();
                 if(processComplete == 0){
                     DialogMensaje.Informacion(null,"Exportación de la Base de Datos Exitosa");
-                    //System.out.println("Backup taken successfully");
                 }else{
                     DialogMensaje.Error(null,"No se pudo exportar la Base de Datos");
-                    //System.out.println("Could not take mysql backup");
                 }
 
             }catch(IOException | InterruptedException e){
-                System.out.println(e.getMessage());
+                DialogMensaje.Error(null,"Error al exportar la Base de Datos");System.out.println(e.getMessage());
             }
         }else{
             DialogMensaje.Error(null,"Eliga la ruta de destino");

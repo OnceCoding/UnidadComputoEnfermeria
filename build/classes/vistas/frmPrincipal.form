@@ -358,6 +358,7 @@
                   <Component id="btnReportes" alignment="0" max="32767" attributes="0"/>
                   <Component id="btnInicio" alignment="0" max="32767" attributes="0"/>
                   <Component id="btnBD" alignment="0" max="32767" attributes="0"/>
+                  <Component id="btnSesionesDirectas" alignment="0" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -365,6 +366,8 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace pref="109" max="32767" attributes="0"/>
                       <Component id="btnInicio" min="-2" pref="35" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnSesionesDirectas" min="-2" pref="35" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnUsuarios" min="-2" pref="35" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -377,7 +380,7 @@
                       <Component id="btnReportes" min="-2" pref="35" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnBD" min="-2" pref="35" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="147" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="106" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -528,6 +531,27 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBDActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnSesionesDirectas">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="87" green="46" red="22" type="rgb"/>
+                </Property>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tempus Sans ITC" size="12" style="0"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="SESIONES DIRECTAS"/>
+                <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                  <Color id="Cursor de Mano"/>
+                </Property>
+                <Property name="focusable" type="boolean" value="false"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSesionesDirectasActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

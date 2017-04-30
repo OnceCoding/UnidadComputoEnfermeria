@@ -1,5 +1,6 @@
 package dao.mysql;
 
+import Configuracion.ArchivoIni;
 import dao.DaoAdministrador;
 import dao.DaoComputadora;
 import dao.DaoConfiguracion;
@@ -33,16 +34,24 @@ public class MysqlDaoManager implements DaoManager{
     private static DaoCursoRegistro daoCursoRegistro = null;
     private static DaoCursoRegistroTemporal daoCursoRegistroTemporal = null;
     
+    private ArchivoIni ini;
+    private String host,bd,user,pass;
+    
     public MysqlDaoManager() throws SQLException {
-        //try {facenfUNT2017
-            //conexion = DriverManager.getConnection("jdbc:mysql://192.168.1.101/bdcomputo?useSSL=false","root","jose");
-            conexion = DriverManager.getConnection("jdbc:mysql://localhost/bdcomputo?useSSL=false","root","");
-            //conexion = DriverManager.getConnection("jdbc:mysql://192.168.1.186/bdcomputo?useSSL=false","enfermeria","enfermeria");
-        //} catch (SQLException ex) {
-            //JOptionPane.showMessageDialog(null,"Error al conectar con la Base de Satos");
-          //  System.out.println(ex.getMessage());
-           // conexion = null;
-        //}
+        
+        /*ini = ArchivoIni.getArchivoIni();
+        host = ini.leerPropiedad("host");
+        bd = ini.leerPropiedad("bd");
+        user = ini.leerPropiedad("user");
+        pass = ini.leerPropiedad("pass");*/
+        
+        host = "localhost";
+        bd = "bdcomputo";
+        user = "root";
+        pass = "";
+        
+        conexion = DriverManager.getConnection("jdbc:mysql://"+host+"/"+bd+"?useSSL=false",user,pass);
+        
     }
     
     public static MysqlDaoManager getMysqlDaoManager() throws SQLException{
