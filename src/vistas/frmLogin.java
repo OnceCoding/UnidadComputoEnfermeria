@@ -5,8 +5,8 @@ import dao.DaoManager;
 import dao.mysql.MysqlDaoManager;
 import java.awt.Color;
 import java.sql.SQLException;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.plaf.ColorUIResource;
 import modelo.Administrador;
@@ -27,6 +27,8 @@ public class frmLogin extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         setResizable(false);
+        
+        setIconImage(new ImageIcon(getClass().getResource("/imagenes/iconoRegistro64.png")).getImage());
         
     }
 

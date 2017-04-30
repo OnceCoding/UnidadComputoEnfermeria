@@ -7,12 +7,12 @@ public class Registro {
     
     private Integer codigo;
     private Integer codUsuario;
-    private String codPC;
+    private Integer codPC;
     private Time horaInicio;
     private Time horaFin;
     private Date fecha;
 
-    public Registro(Integer codigo, Integer codUsuario, String codPC, Time horaInicio, Time horaFin, Date fecha) {
+    public Registro(Integer codigo, Integer codUsuario, Integer codPC, Time horaInicio, Time horaFin, Date fecha) {
         this.codigo = codigo;
         this.codUsuario = codUsuario;
         this.codPC = codPC;
@@ -37,11 +37,11 @@ public class Registro {
         this.codUsuario = codUsuario;
     }
 
-    public String getCodPC() {
+    public Integer getCodPC() {
         return codPC;
     }
 
-    public void setCodPC(String codPC) {
+    public void setCodPC(Integer codPC) {
         this.codPC = codPC;
     }
 

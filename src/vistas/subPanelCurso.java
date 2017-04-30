@@ -6,14 +6,18 @@ import dao.DaoCursoRegistro;
 import dao.DaoCursoRegistroTemporal;
 import dao.DaoManager;
 import dao.mysql.MysqlDaoManager;
+import java.awt.BorderLayout;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.time.LocalTime;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import modelo.CursoRegistro;
 import modelo.CursoRegistroTemporal;
+import static vistas.panelInicio.subPanelCursoPrincipal;
+import static vistas.panelInicio.subPanelUsuarioPrincipal;
 
 public class subPanelCurso extends javax.swing.JPanel {
 
@@ -197,39 +201,52 @@ public class subPanelCurso extends javax.swing.JPanel {
         
             daoCursoRegistroTemporal.cerrarSesionCursoActual();
         
-            frame.dispose();
-            new frmPrincipal().setVisible(true);
+            cambiarPanel(new subPanelCursoVacio(frame));
         }
         
         
     }//GEN-LAST:event_btnCerrarCursoActionPerformed
 
+    public void cambiarPanel(JPanel panelElegido){
+        panelElegido.setSize(449, 55);
+        panelElegido.setLocation(8, 15); 
+        subPanelCursoPrincipal.removeAll();
+        subPanelCursoPrincipal.add(panelElegido,BorderLayout.CENTER);
+        subPanelCursoPrincipal.revalidate();
+        subPanelCursoPrincipal.repaint();
+    }
+    
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         
-        //int aceptar = JOptionPane.showConfirmDialog(null, "Desea modificarlo ?", "Curso", JOptionPane.YES_NO_OPTION);
-        
-        int aceptar = DialogMensaje.Confirmacion(null,"¿ Seguro modificar la hora de inicio del curso?");
-        
-        if(aceptar == 0){
-            
-            int hora = Integer.parseInt(spnHora.getValue().toString());
-            int minutos = Integer.parseInt(spnMinuto.getValue().toString());
-            
-            if(cbxTiempo.getSelectedIndex() == 0){
+        int hora = Integer.parseInt(spnHora.getValue().toString());
+        int minutos = Integer.parseInt(spnMinuto.getValue().toString());
+
+        if(cbxTiempo.getSelectedIndex() == 0){
                 if(hora == 12){
                     hora = 0;
                 }
-            }else{
-                if(hora != 12){
-                    hora = hora + 12;
-                }
+        }else{
+            if(hora != 12){
+                hora = hora + 12;
             }
-            
-            daoCursoRegistroTemporal = manager.getDaoCursoRegistroTemporal();
-            daoCursoRegistroTemporal.modificarSesionCursoHoraInicio(Time.valueOf(LocalTime.of(hora, minutos)));
-   
         }
+
+        int horaActual = LocalTime.now().getHour();
+        int minutoActual = LocalTime.now().getMinute();
         
+        if((hora >= horaActual && minutos >= minutoActual) || (hora>horaActual && minutos < minutoActual) ){
+            DialogMensaje.Error(null,"La hora ingresada , no debe ser mayor que <br> la hora actual");
+        }else{
+
+            int aceptar = DialogMensaje.Confirmacion(null,"¿ Seguro modificar la hora de inicio del curso?");
+
+            if(aceptar == 0){
+
+                daoCursoRegistroTemporal = manager.getDaoCursoRegistroTemporal();
+                daoCursoRegistroTemporal.modificarSesionCursoHoraInicio(Time.valueOf(LocalTime.of(hora, minutos)));
+
+            }
+        }
         
     }//GEN-LAST:event_btnModificarActionPerformed
 

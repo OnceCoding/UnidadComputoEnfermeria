@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
+import javax.swing.ImageIcon;
 import static javax.swing.SwingConstants.CENTER;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -43,7 +43,7 @@ public class frmNuevaSesion extends javax.swing.JFrame {
     public frmNuevaSesion() {
         initComponents();
         setLocationRelativeTo(null);
-        
+        setIconImage(new ImageIcon(getClass().getResource("/imagenes/iconoRegistro64.png")).getImage());
         tablaEquipos.setRowHeight(25);
         model = new DefaultTableModel(){
             @Override
@@ -416,7 +416,7 @@ public class frmNuevaSesion extends javax.swing.JFrame {
                             if(!codigoPcSeleccionado.equals("")){
                                 daoRegistroTemporal = manager.getDaoRegistroTemporal();
                                 daoRegistroTemporal.insertar(
-                                new RegistroTemporal(null,usuario.getId(),codigoPcSeleccionado,
+                                new RegistroTemporal(null,usuario.getId(),Integer.parseInt(codigoPcSeleccionado),
                                     Time.valueOf(LocalTime.now()),null,Date.valueOf(LocalDate.now())));
                                 txtCodigo.setText("");
                             

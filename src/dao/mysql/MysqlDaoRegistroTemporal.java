@@ -34,7 +34,7 @@ public class MysqlDaoRegistroTemporal implements DaoRegistroTemporal{
     
     private final String obtenerNroEquiposDisponibles = 
             "select count(c.codigo) as cantidad from computadora c left join registrotemporal"
-            + " r on c.codigo = r.codpc where r.codpc is null and c.estado = 'Disponible' ";
+            + " r on c.codigo = r.codpc where r.codpc is null and c.estado = 'Disponible' order by c.codigo";
     
     private final String obtenerNroSesionesActivas = "select count(codigo) as cantidad from registroTemporal";
     
@@ -50,8 +50,8 @@ public class MysqlDaoRegistroTemporal implements DaoRegistroTemporal{
     
     private final String verificarUsuarioActivo = "select codUsuario from registroTemporal where codUsuario = ?";
     
-    private Integer codigo;
-    private String codPc,nombre,apellido;
+    private Integer codigo,codPc;
+    private String nombre,apellido;
     private String codUsuario;
     private Time horaInicio;
     private Date fecha;
@@ -71,7 +71,7 @@ public class MysqlDaoRegistroTemporal implements DaoRegistroTemporal{
             resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
                 listaEquiposDisponibles.add(new Computadora(
-                        resultSet.getString("codigo"),resultSet.getString("estado")));
+                        resultSet.getInt("codigo"),resultSet.getString("estado")));
             }
             
             return listaEquiposDisponibles;
@@ -90,7 +90,7 @@ public class MysqlDaoRegistroTemporal implements DaoRegistroTemporal{
         try {
             preparedStatement = conexion.prepareStatement(insertar);
             preparedStatement.setInt(1,registroTemporal.getCodUsuario());
-            preparedStatement.setString(2,registroTemporal.getCodPC());
+            preparedStatement.setInt(2,registroTemporal.getCodPC());
             preparedStatement.setTime(3,registroTemporal.getHoraInicio());
             preparedStatement.setTime(4,registroTemporal.getHoraFin());
             preparedStatement.setDate(5,registroTemporal.getFecha());
@@ -143,7 +143,7 @@ public class MysqlDaoRegistroTemporal implements DaoRegistroTemporal{
         try {
             codigo = rs.getInt("rcodigo");
             codUsuario = rs.getString("ucodigo");
-            codPc = rs.getString("codPc");
+            codPc = rs.getInt("codPc");
             horaInicio = rs.getTime("horaInicio");
             nombre = rs.getString("nombre");
             apellido = rs.getString("apellido");
@@ -183,7 +183,7 @@ public class MysqlDaoRegistroTemporal implements DaoRegistroTemporal{
         try {
             codigo = rs.getInt("codigo");
             Integer codigoUsuario = rs.getInt("codUsuario");
-            codPc = rs.getString("codPc");
+            codPc = rs.getInt("codPc");
             horaInicio = rs.getTime("horaInicio");
             fecha = rs.getDate("fecha");
             
@@ -234,7 +234,7 @@ public class MysqlDaoRegistroTemporal implements DaoRegistroTemporal{
     public void actualizarEquipo(RegistroTemporal registroTemporal) {
         try {
             preparedStatement = conexion.prepareStatement(actualizarEquipo);
-            preparedStatement.setString(1,registroTemporal.getCodPC());
+            preparedStatement.setInt(1,registroTemporal.getCodPC());
             preparedStatement.setInt(2,registroTemporal.getCodigo());
             
             if(preparedStatement.executeUpdate() != 0){
@@ -259,6 +259,7 @@ public class MysqlDaoRegistroTemporal implements DaoRegistroTemporal{
                 return true;
             }
         } catch (SQLException e) {
+            System.out.println("Error verificar usuario activo");
         }
         return false;
     }

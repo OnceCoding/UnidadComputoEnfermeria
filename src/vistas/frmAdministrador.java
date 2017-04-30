@@ -4,6 +4,7 @@ import dao.DaoAdministrador;
 import dao.DaoManager;
 import dao.mysql.MysqlDaoManager;
 import java.sql.SQLException;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import modelo.Administrador;
@@ -28,6 +29,9 @@ public class frmAdministrador extends javax.swing.JFrame {
     public frmAdministrador() {
         initComponents();
         setLocationRelativeTo(null);
+        
+        setIconImage(new ImageIcon(getClass().getResource("/imagenes/iconoRegistro64.png")).getImage());
+        
         btnListo.setVisible(false);
         txtNombreNuevo.setVisible(false);
         

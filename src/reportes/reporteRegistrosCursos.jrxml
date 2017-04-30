@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6fe4f083-d7e8-4157-8012-c7db2467cb96">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="Titulo" class="java.lang.String"/>
+	<parameter name="fechaInicio" class="java.lang.String"/>
+	<parameter name="fechaFin" class="java.lang.String"/>
+	<parameter name="fechaActual" class="java.lang.String"/>
+	<parameter name="admin" class="java.lang.String"/>
+	<field name="horaInicio" class="java.lang.String"/>
+	<field name="horaFin" class="java.lang.String"/>
+	<field name="fecha" class="java.lang.String"/>
+	<field name="nombreCurso" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="121" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="0" width="802" height="121" backcolor="#2DAAE1" uuid="e339827b-f9ca-4cef-a006-481d5583da23"/>
+				<frame>
+					<reportElement mode="Opaque" x="9" y="0" width="196" height="121" uuid="4008a12d-5921-4b60-b801-e5e5769b1633"/>
+				</frame>
+				<staticText>
+					<reportElement x="228" y="4" width="100" height="20" forecolor="#FFFFFF" uuid="2031a86e-7ed0-4b2a-92cb-f16f64cadb5f"/>
+					<textElement verticalAlignment="Bottom">
+						<font size="11"/>
+					</textElement>
+					<text><![CDATA[REPORTE DEL]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="229" y="52" width="442" height="20" forecolor="#FFFFFF" uuid="2477f850-3996-48a3-875e-a888a7471358"/>
+					<textElement verticalAlignment="Top">
+						<font fontName="Tahoma" size="12" isBold="true" isItalic="false"/>
+					</textElement>
+					<text><![CDATA[UNIDAD DE CÓMPUTO E INFORMÁTICA "OLGA YIKA DE TORRE"]]></text>
+				</staticText>
+				<image>
+					<reportElement x="25" y="36" width="160" height="53" uuid="77c1ecc5-d1bc-4813-a57b-9091d838fe9b"/>
+					<imageExpression><![CDATA["C:\\Users\\Jose sp\\Documents\\NetBeansProjects\\UnidadComputoEnfermeria\\src\\imagenes\\LogoMedium.png"]]></imageExpression>
+				</image>
+			</frame>
+			<textField>
+				<reportElement x="228" y="26" width="565" height="29" forecolor="#FFFFFF" uuid="25a1dffa-a128-4aa2-9828-7479c6939625"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial Narrow" size="22" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Titulo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="543" y="105" width="100" height="16" forecolor="#CCFFFF" backcolor="#84CDED" uuid="62da9afb-7c04-4096-b7c5-16c26ed8b7ef"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaInicio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="718" y="105" width="84" height="16" forecolor="#CCFFFF" backcolor="#84CDED" uuid="8e3f5b2f-2312-41a3-b280-edee2c52846d"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaFin}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="205" y="105" width="338" height="16" forecolor="#CCFFFF" backcolor="#84CDED" uuid="f3e6d88d-c15c-4133-b68f-7ee6b833f81b"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Tahoma" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ FECHA INICIAL: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="643" y="105" width="75" height="16" forecolor="#CCFFFF" backcolor="#84CDED" uuid="1442666f-4612-4e9a-983e-50a160d3641d"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Tahoma" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA FINAL: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="301" y="69" width="370" height="20" forecolor="#FFFFFF" uuid="ea9d246c-8b28-42fc-8c0f-9b591b8f0e37"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{admin}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="227" y="69" width="71" height="20" forecolor="#FFFFFF" uuid="cb83f707-9917-473a-8ff5-0f5046558604"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<text><![CDATA[ENCARGADO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="222" y="84" width="100" height="20" forecolor="#FFFFFF" uuid="e40c25e2-b27b-452a-ac0e-f3bacfa42cc0"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Tahoma"/>
+				</textElement>
+				<text><![CDATA[FECHA DE EMISIÓN:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="324" y="84" width="90" height="20" forecolor="#FFFFFF" uuid="29eaf170-ee06-4724-8d3e-47154dccf54d"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaActual}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="26" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="407" height="24" forecolor="#FFFFFF" backcolor="#2DAAE1" uuid="c8bd749c-99c3-437e-ae52-99518f1ed2d8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[NOMBRE DEL CURSO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="408" y="0" width="130" height="24" forecolor="#FFFFFF" backcolor="#2DAAE1" uuid="614a52c5-bfeb-4dc7-938b-91ee7ed65ea4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[HORA INICIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="539" y="0" width="137" height="24" forecolor="#FFFFFF" backcolor="#2DAAE1" uuid="f958bf9f-b8fa-40e4-b06c-f6a8f32bf446"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[HORA FIN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="677" y="0" width="126" height="24" forecolor="#FFFFFF" backcolor="#2DAAE1" uuid="2a0d5c7b-9f79-4eb0-bdbf-16345a2ebb81"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[FECHA]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="24" width="802" height="1" forecolor="#CCCCCC" uuid="5afc4721-9248-4573-b518-261e3193bf19"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="31" splitType="Stretch">
+			<textField>
+				<reportElement x="-1" y="1" width="407" height="20" uuid="a98ce617-ad16-43ec-a843-6664bbeae5f9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nombreCurso}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="407" y="0" width="131" height="20" uuid="59eb3978-51e2-452a-9b91-de851b3adf58"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{horaInicio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="538" y="0" width="138" height="20" uuid="36bad887-ddfd-4ce6-a776-f4f0d7373c2a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{horaFin}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="677" y="0" width="126" height="20" uuid="2c6687fe-9c32-465b-826b-33d82bfc730b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="25" width="802" height="1" forecolor="#CCCCCC" uuid="b7ec386f-886e-43e7-bd65-5604243cedb4"/>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="6" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="781" y="0" width="21" height="20" uuid="1b5f1ae5-1a67-4e58-bdb3-0a9bb6775dca"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="677" y="0" width="100" height="20" uuid="19f5be10-8c5e-43ad-acec-55fdf9d199d3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<text><![CDATA[Página]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="7" splitType="Stretch"/>
+	</summary>
+</jasperReport>

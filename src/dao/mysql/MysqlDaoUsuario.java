@@ -9,7 +9,6 @@ import java.sql.SQLException;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
 import modelo.Usuario;
 import vistas.DialogMensaje;
 
@@ -27,7 +26,7 @@ public class MysqlDaoUsuario implements DaoUsuario{
     private final String insertar = "insert into usuario(codigo,nombre,apellido,correo,tipo,fecha,hora) values(?,?,?,?,?,?,?)";
     private final String obtenerPorApellido = "select id,codigo,nombre,apellido,correo,tipo,fecha,hora from usuario where apellido like ?";
     private final String obtenerUltimosUsuariosRegistrados = "select id,codigo,nombre,apellido,correo,tipo,fecha,hora from usuario "
-            + "order by fecha desc, hora desc limit 15";
+            + "order by fecha desc, hora desc limit 20";
     
     
     private List<Usuario> listaUsuarios;

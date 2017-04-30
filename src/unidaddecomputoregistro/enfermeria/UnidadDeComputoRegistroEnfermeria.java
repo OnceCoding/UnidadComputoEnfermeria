@@ -1,29 +1,10 @@
 package unidaddecomputoregistro.enfermeria;
 
-import dao.DaoAdministrador;
-import dao.DaoComputadora;
-import dao.DaoCurso;
-import dao.DaoManager;
-import dao.DaoRegistro;
-import dao.DaoUsuario;
-import dao.mysql.MysqlDaoManager;
-import java.sql.Date;
-import java.sql.Time;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.List;
-import modelo.Administrador;
-import modelo.Computadora;
-import modelo.Curso;
-import modelo.Registro;
-import modelo.Usuario;
 import vistas.frmLogin;
-
 
 public class UnidadDeComputoRegistroEnfermeria {
 
     public static void main(String[] args) {
-          //new frmLogin().setVisible(true);
           /**
           DaoManager manager = new MysqlDaoManager();
           
@@ -63,7 +44,6 @@ public class UnidadDeComputoRegistroEnfermeria {
           */
           
           new frmLogin().setVisible(true);
-          
           
     }
     

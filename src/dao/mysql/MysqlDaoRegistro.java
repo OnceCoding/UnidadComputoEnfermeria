@@ -7,6 +7,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 import modelo.Curso;
@@ -14,6 +18,7 @@ import modelo.Registro;
 import modelo.RegistroCurso;
 import modelo.ReporteRegistroCurso;
 import modelo.ReporteRegistroUsuario;
+import modelo.SemestreUsuarioRegistroPorMes;
 import modelo.Usuario;
 import vistas.DialogMensaje;
 
@@ -37,9 +42,16 @@ public class MysqlDaoRegistro implements DaoRegistro{
             "select c.nombre, rc.horaInicio, rc.horaFin, rc.fecha from registrocurso rc inner join "
             + "curso c on rc.codCurso = c.codigo where rc.fecha between ? and ? ";
 
+   private final String obtenerTotalRegistrosPorMes = 
+            "select count(*) as cantidad from registro where MONTH(fecha) = ? ";
+    
+    private final String obtenerHorasRegistroPorMes = 
+            "select horaInicio,horaFin from registro where MONTH(fecha) = ?";
+    
     private List<Registro> listaUsuarios;
     private List<ReporteRegistroUsuario> listaRegistroUsuarios;
     private List<ReporteRegistroCurso> listaRegistroCursos;
+    private List<SemestreUsuarioRegistroPorMes> listaSemestre;
     
     public MysqlDaoRegistro(Connection conexion) {
         this.conexion = conexion;
@@ -50,7 +62,7 @@ public class MysqlDaoRegistro implements DaoRegistro{
         try {
             Integer codigo = rs.getInt("codigo");
             Integer codUsuario = rs.getInt("codUsuario");
-            String codPC = rs.getString("codPC");
+            Integer codPC = rs.getInt("codPC");
             Time horaInicio = rs.getTime("horaInicio");
             Time horaFin = rs.getTime("horaFin");
             Date fecha = rs.getDate("fecha");
@@ -87,7 +99,7 @@ public class MysqlDaoRegistro implements DaoRegistro{
         try {
             preparedStatement = conexion.prepareStatement(insertar);
             preparedStatement.setInt(1,registro.getCodUsuario());
-            preparedStatement.setString(2, registro.getCodPC());
+            preparedStatement.setInt(2, registro.getCodPC());
             preparedStatement.setTime(3, registro.getHoraInicio());
             preparedStatement.setTime(4, registro.getHoraFin());
             preparedStatement.setDate(5, registro.getFecha());
@@ -115,6 +127,8 @@ public class MysqlDaoRegistro implements DaoRegistro{
             }
         } catch (SQLException e) {
             System.out.println("error eliminando todos los registros");
+        } finally{
+            MysqlUtils.cerrarPreparedStatement(preparedStatement);
         }
     }
 
@@ -124,7 +138,7 @@ public class MysqlDaoRegistro implements DaoRegistro{
             String nombre = rs.getString("nombre");
             String apellido = rs.getString("apellido");
             String tipo = rs.getString("tipo");
-            String pc = rs.getString("codPc");
+            Integer pc = rs.getInt("codPc");
             Time horaInicio = rs.getTime("horaInicio");
             Time horaFin = rs.getTime("horaFin");
             Date fecha = rs.getDate("fecha");
@@ -179,6 +193,8 @@ public class MysqlDaoRegistro implements DaoRegistro{
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             DialogMensaje.Error(null,"No se puede obtener reporte");
+        } finally{
+            MysqlUtils.cerrarPreparedStatementAndResultSet(preparedStatement, resultSet);
         }
         
         return null;
@@ -206,6 +222,68 @@ public class MysqlDaoRegistro implements DaoRegistro{
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             DialogMensaje.Error(null,"No se puede obtener reporte");
+        }
+        
+        return null;
+        
+    }
+
+    @Override
+    public List<SemestreUsuarioRegistroPorMes> obtenerReporteSemestre(Integer año, Integer mesInicio, Integer mesFinal) {  
+        listaSemestre = new ArrayList<>();
+        Integer mes;
+        Integer nroVisitantes = 0;
+        
+        try {
+            int i = mesInicio;
+            while(i <= mesFinal){
+                long sumaTiempo = 0;
+                nroVisitantes = 0;
+                preparedStatement = conexion.prepareStatement(obtenerTotalRegistrosPorMes);
+                preparedStatement.setInt(1,i);
+                resultSet = preparedStatement.executeQuery();
+                if(resultSet.next()){
+                    nroVisitantes = resultSet.getInt("cantidad");
+                }
+                mes = i;
+                
+                preparedStatement = null;
+                preparedStatement = conexion.prepareStatement(obtenerHorasRegistroPorMes);
+                preparedStatement.setInt(1, i);
+                resultSet = preparedStatement.executeQuery();
+                
+                Time inicio  , fin;
+                LocalTime lInicio , lFin ;
+                Duration lResta;
+                
+                long hora,minutos,auxTiempo;
+                
+                while(resultSet.next()){
+                    inicio = resultSet.getTime("horaInicio");
+                    fin = resultSet.getTime("horaFin");
+                
+                    lInicio = inicio.toLocalTime();
+                    lFin = fin.toLocalTime();
+                    
+                    lResta = Duration.between(lInicio, lFin);
+                    
+                    sumaTiempo += lResta.toMinutes();    
+                }
+                
+                hora = sumaTiempo / 60;
+                minutos = sumaTiempo % 60;
+                listaSemestre.add(new SemestreUsuarioRegistroPorMes(mes-1, nroVisitantes, hora, minutos,0));
+                
+                i++;
+            }
+            
+            return listaSemestre;
+            
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally{
+            MysqlUtils.cerrarPreparedStatementAndResultSet(preparedStatement, resultSet);
         }
         
         return null;

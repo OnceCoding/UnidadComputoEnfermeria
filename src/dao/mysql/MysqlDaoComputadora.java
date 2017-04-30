@@ -2,12 +2,15 @@ package dao.mysql;
 
 import dao.DaoComputadora;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
 import modelo.Computadora;
 import vistas.DialogMensaje;
 
@@ -21,8 +24,8 @@ public class MysqlDaoComputadora implements DaoComputadora{
     private final String obtener = "select codigo,estado from computadora where codigo = ? ";
     private final String actualizar = "update computadora set estado = ? where codigo = ? ";
     private final String eliminar = "delete from computadora where codigo = ? ";
-    private final String insertar = "insert into computadora(codigo,estado) values(?,?) ";
-    private final String obtenerTodos = "select codigo,estado from computadora order by codigo asc";
+    private final String insertar = "insert into computadora(codigo,estado) values(?,?)";
+    private final String obtenerTodos = "select codigo,estado from computadora order by codigo";
     private final String contadorComputadoras = "select count(codigo) as cantidad from computadora";
     
     private List<Computadora> listaComputadoras;
@@ -77,7 +80,7 @@ public class MysqlDaoComputadora implements DaoComputadora{
     
     public Computadora convertirResultSetToComputadora(ResultSet rs){
         try {
-            String codigo = rs.getString("codigo");
+            Integer codigo = rs.getInt("codigo");
             String estado = rs.getString("estado");
             
             return new Computadora(codigo,estado);
@@ -95,7 +98,7 @@ public class MysqlDaoComputadora implements DaoComputadora{
         try {
             preparedStatement = conexion.prepareStatement(actualizar);
             preparedStatement.setString(1,computadora.getEstado());
-            preparedStatement.setString(2,computadora.getCodigo());
+            preparedStatement.setInt(2,computadora.getCodigo());
             
             if(preparedStatement.executeUpdate()!= 0){
                 DialogMensaje.Informacion(null,"Actualizado exitosamente");
@@ -116,7 +119,7 @@ public class MysqlDaoComputadora implements DaoComputadora{
     public void eliminar(Computadora computadora) {
         try {
             preparedStatement = conexion.prepareStatement(eliminar);
-            preparedStatement.setString(1,computadora.getCodigo());
+            preparedStatement.setInt(1,computadora.getCodigo());
             if(preparedStatement.executeUpdate()!= 0){
                 DialogMensaje.Informacion(null,"Eliminado exitosamente");
                 //JOptionPane.showMessageDialog(null,"Eliminado Exitosamente","Equipo",JOptionPane.WARNING_MESSAGE);
@@ -136,9 +139,8 @@ public class MysqlDaoComputadora implements DaoComputadora{
     public void insertar(Computadora computadora) {
         try {
             preparedStatement = conexion.prepareStatement(insertar);
-            preparedStatement.setString(1, computadora.getCodigo());
+            preparedStatement.setInt(1, computadora.getCodigo());
             preparedStatement.setString(2,computadora.getEstado());
-            
             if(preparedStatement.executeUpdate()!= 0){
                 DialogMensaje.Informacion(null,"Registrado exitosamente");
                 //JOptionPane.showMessageDialog(null,"Registrado Exitosamente","Equipo",JOptionPane.INFORMATION_MESSAGE);

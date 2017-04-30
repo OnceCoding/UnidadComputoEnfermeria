@@ -14,13 +14,13 @@ import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JTable;
-import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import modelo.Curso;
 import modelo.CursoRegistroTemporal;
-import sun.swing.table.DefaultTableCellHeaderRenderer;
+
 
 public class frmNuevaSesionCurso extends javax.swing.JFrame {
 
@@ -36,7 +36,7 @@ public class frmNuevaSesionCurso extends javax.swing.JFrame {
     public frmNuevaSesionCurso() {
         initComponents();
         setLocationRelativeTo(null);
-        
+        setIconImage(new ImageIcon(getClass().getResource("/imagenes/iconoRegistro64.png")).getImage());
         model = new DefaultTableModel(){
             @Override
             public boolean isCellEditable(int row,int column){

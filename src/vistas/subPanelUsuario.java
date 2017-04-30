@@ -5,6 +5,7 @@ import dao.DaoManager;
 import dao.DaoRegistro;
 import dao.DaoRegistroTemporal;
 import dao.mysql.MysqlDaoManager;
+import java.awt.BorderLayout;
 import java.awt.Component;
 import java.sql.SQLException;
 import java.sql.Time;
@@ -12,7 +13,8 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
 import javax.swing.JTable;
 import static javax.swing.SwingConstants.CENTER;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -20,6 +22,7 @@ import javax.swing.table.DefaultTableModel;
 import modelo.Registro;
 import modelo.RegistroTemporal;
 import modelo.SesionesActivas;
+import static vistas.panelInicio.subPanelUsuarioPrincipal;
 
 public class subPanelUsuario extends javax.swing.JPanel {
 
@@ -45,6 +48,7 @@ public class subPanelUsuario extends javax.swing.JPanel {
         try {
             manager = MysqlDaoManager.getMysqlDaoManager();
         } catch (SQLException e) {
+            System.out.println("Erro en el manager");
         }
         
         model = new DefaultTableModel(){ 
@@ -324,17 +328,19 @@ public class subPanelUsuario extends javax.swing.JPanel {
 
         int fila = tablaUsuariosActivos.getSelectedRow();
 
-        if(fila == -1){
-            JOptionPane.showMessageDialog(null,"Seleccione un registro de la Tabla");
+        if(fila < 0){
+            DialogMensaje.Error(null,"Seleccione un registro de la Tabla");
         }
         else{
             int codigo = Integer.parseInt(model.getValueAt(fila,0).toString());
-            int aceptar = JOptionPane.showConfirmDialog(null,"detener Sesion, seguro ? ","Sesion",JOptionPane.YES_NO_OPTION);
-
+            int aceptar = DialogMensaje.Confirmacion(null,"Se detendrá la Sesión ,esta seguro ? ");
+            
             if(aceptar == 0){  
+                System.out.println("11111");
                 daoRegistroTemporal = manager.getDaoRegistroTemporal();
+                System.out.println("holaaa");
                 registroTemporal = daoRegistroTemporal.obtenerRegistroTemporal(codigo);
-
+                        //System.out.println(registroTemporal.getCodigo());
                 daoRegistro = manager.getDaoRegistro();
                 daoRegistro.insertar(new Registro(null,registroTemporal.getCodUsuario(),
                         registroTemporal.getCodPC(),registroTemporal.getHoraInicio(),
@@ -348,10 +354,9 @@ public class subPanelUsuario extends javax.swing.JPanel {
                 actualizarNroSesionesActivas();
                 
                 int sesionesActivas = obtenerNroSesisonesActivas();
-                
+                System.out.println(sesionesActivas);
                 if(sesionesActivas == 0){
-                    frame.dispose();
-                    new frmPrincipal().setVisible(true);
+                    cambiarPanel(new subPanelUsuarioVacio(frame));
                 }
                 
             }
@@ -360,7 +365,7 @@ public class subPanelUsuario extends javax.swing.JPanel {
 
     private void btnDetenerTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetenerTodoActionPerformed
         
-    //int aceptar = JOptionPane.showConfirmDialog(null,"detener todas las Sesiones, seguro ? ","Sesion",JOptionPane.YES_NO_OPTION);
+    
     int aceptar = DialogMensaje.Confirmacion(null,"Detener todas la sesiones , ¿ Seguro ?");
     
         if(aceptar == 0){
@@ -390,21 +395,26 @@ public class subPanelUsuario extends javax.swing.JPanel {
             actualizarNroEquiposDisponibles();
             actualizarNroSesionesActivas();
         
-            int sesionesActivas = obtenerNroSesisonesActivas();
-                
-            if(sesionesActivas == 0){
-                frame.dispose();
-                new frmPrincipal().setVisible(true);
-            }
+            cambiarPanel(new subPanelUsuarioVacio(frame));
+            
             
         }
     }//GEN-LAST:event_btnDetenerTodoActionPerformed
 
+    public void cambiarPanel(JPanel panelElegido){
+        panelElegido.setSize(1209, 384);
+        panelElegido.setLocation(6, 15);
+        subPanelUsuarioPrincipal.removeAll();
+        subPanelUsuarioPrincipal.add(panelElegido,BorderLayout.CENTER);
+        subPanelUsuarioPrincipal.revalidate();
+        subPanelUsuarioPrincipal.repaint();
+    }
+    
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         
         int fila = tablaUsuariosActivos.getSelectedRow();
         if(fila != -1){
-            //int aceptar = JOptionPane.showConfirmDialog(null,"Seguro de Eliminar?","Sesion",JOptionPane.YES_NO_OPTION);
+            
             int aceptar = DialogMensaje.Confirmacion(null,"¿ Seguro de eliminarlo ?");
             if(aceptar == 0){
                 int codigo = Integer.valueOf(model.getValueAt(fila,0).toString());
@@ -427,7 +437,7 @@ public class subPanelUsuario extends javax.swing.JPanel {
             
         }else{
             DialogMensaje.Error(null,"Seleccione un registro de la tabla");
-            //JOptionPane.showMessageDialog(null,"Seleccione una sesion de la Tabla");
+            
         }
    
     }//GEN-LAST:event_btnEliminarActionPerformed
@@ -437,13 +447,13 @@ public class subPanelUsuario extends javax.swing.JPanel {
         int fila = tablaUsuariosActivos.getSelectedRow();
         
         if(fila != -1){
-            //int aceptar = JOptionPane.showConfirmDialog(null,"Seguro de modificar?","Sesion",JOptionPane.YES_NO_OPTION);
+            
             int aceptar = DialogMensaje.Confirmacion(null,"¿ Seguro de Modificarlo ?");
             if(aceptar == 0){
                 int codigo = Integer.valueOf(model.getValueAt(fila,0).toString());
                 String nroEquipo = txtNroPc.getText();
                 daoRegistroTemporal = manager.getDaoRegistroTemporal();
-                daoRegistroTemporal.actualizarEquipo(new RegistroTemporal(codigo, null, nroEquipo, null, null, null));
+                daoRegistroTemporal.actualizarEquipo(new RegistroTemporal(codigo, null, Integer.valueOf(nroEquipo), null, null, null));
             
                 actualizarNroEquiposDisponibles();
                 limpiarTabla();
@@ -452,7 +462,7 @@ public class subPanelUsuario extends javax.swing.JPanel {
             }
         }else{
             DialogMensaje.Error(null,"Seleccione un registro de la tabla");
-            //JOptionPane.showMessageDialog(null,"Seleccione un registro de la Tabla");
+            
         }
         
     }//GEN-LAST:event_btnModificarActionPerformed

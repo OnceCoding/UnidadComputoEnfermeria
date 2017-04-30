@@ -60,6 +60,9 @@ public class subPanelHistorialCurso extends javax.swing.JPanel {
     
     public subPanelHistorialCurso() {
         initComponents();
+        chooserDesde.setDate(new Date());
+        chooserHasta.setDate(new Date());
+        
         try {
             manager = MysqlDaoManager.getMysqlDaoManager();
         } catch (SQLException ex) {
@@ -396,7 +399,7 @@ public class subPanelHistorialCurso extends javax.swing.JPanel {
             String nombreCurso = r.getCurso().getNombre();
             String horaInicio = r.getRegistroCurso().getHoraInicio() + "";
             String horaFin = r.getRegistroCurso().getHoraFin() + "";
-            String fecha = r.getRegistroCurso()+"";
+            String fecha = r.getRegistroCurso().getFecha()+"";
             listaRegistrosCursos.add(new ListaRegistroCurso(nombreCurso, horaInicio, horaFin, fecha));
         });
         return listaRegistrosCursos;
@@ -469,8 +472,8 @@ public class subPanelHistorialCurso extends javax.swing.JPanel {
     }
     
     public void cambiarPanel(JPanel panelElegido){
-        panelElegido.setSize(911, 474);
-        panelElegido.setLocation(1, 2);
+        panelElegido.setSize(1209, 384);
+        panelElegido.setLocation(6, 15);
         panelSesiones.removeAll();
         panelSesiones.add(panelElegido,BorderLayout.CENTER);
         panelSesiones.revalidate();

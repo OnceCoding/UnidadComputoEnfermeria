@@ -204,7 +204,7 @@ public class panelInicio extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     static javax.swing.JLabel lblCantidadEquiposDisponibles;
     static javax.swing.JLabel lblCantidadSesiones;
-    private javax.swing.JPanel subPanelCursoPrincipal;
-    private javax.swing.JPanel subPanelUsuarioPrincipal;
+    static javax.swing.JPanel subPanelCursoPrincipal;
+    static javax.swing.JPanel subPanelUsuarioPrincipal;
     // End of variables declaration//GEN-END:variables
 }

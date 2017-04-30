@@ -2,19 +2,19 @@ package vistas;
 
 import dao.DaoComputadora;
 import dao.DaoManager;
+import dao.DaoRegistroTemporal;
 import dao.mysql.MysqlDaoManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableModel;
 import modelo.Computadora;
+import modelo.RegistroTemporal;
+import modelo.SesionesActivas;
 
 public class panelEquipos extends javax.swing.JPanel {
 
@@ -27,6 +27,7 @@ public class panelEquipos extends javax.swing.JPanel {
     
     private DaoComputadora daoComputadora;
     private DaoManager manager;
+    private DaoRegistroTemporal daoRegistroTemporal;
     
     private DefaultTableModel model;
     private DefaultTableCellRenderer cellRenderer;
@@ -66,15 +67,19 @@ public class panelEquipos extends javax.swing.JPanel {
         tablaEquipos.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
             @Override
             public void valueChanged(ListSelectionEvent event) {
-                
-                try{
-                    int fila = tablaEquipos.getSelectedRow();
+                int fila = tablaEquipos.getSelectedRow();
+                if(fila > -1){
                     codigo = model.getValueAt(fila,0).toString();
+                    estado = model.getValueAt(fila, 1).toString();
                     lblNroCompuradoraSeleccionado.setText(codigo);
-                }catch(Exception e){
+                    
+                    if(estado.equals("Disponible")){
+                        cbxEstadoSeleccionado.setSelectedIndex(0);
+                    }else{
+                        cbxEstadoSeleccionado.setSelectedIndex(1);
+                    }
                     
                 }
-                
             }
         });
         
@@ -283,12 +288,12 @@ public class panelEquipos extends javax.swing.JPanel {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel8)
                                     .addComponent(jLabel3)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(64, 64, 64)
-                                        .addComponent(txtNroEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(btnGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
                                     .addComponent(cbxEstado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(148, 148, 148)))))
+                                .addGap(148, 148, 148))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(txtNroEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(191, 191, 191)))))
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -371,62 +376,62 @@ public class panelEquipos extends javax.swing.JPanel {
                 computadora = daoComputadora.obtener(codigo);
                 
                 if(computadora == null){
-                    daoComputadora.insertar(new Computadora(codigo, estado));
+                    daoComputadora.insertar(new Computadora(Integer.valueOf(codigo), estado));
                     txtNroEquipo.setText("");
                     eliminarDatosTabla();
                     mostrarEquiposTabla();
                     actualizarCantidadcomputadoras();
                 }else{
                     DialogMensaje.Error(null,"Codigo ya existe");
-                    //JOptionPane.showMessageDialog(null,"Codigo Ya Existe","Codigo",JOptionPane.WARNING_MESSAGE);
                 }
                 
                 
             }else{
-                DialogMensaje.Error(null,"Solo se acepta numeros");
-                //JOptionPane.showMessageDialog(null,"Solo Se Acepta Numeros","Codigo",JOptionPane.WARNING_MESSAGE);
+                DialogMensaje.Error(null,"Solo se acepta numeros Positivos");
             }
             
         }else{
             DialogMensaje.Error(null,"El codigo no debe posser espacios es blanco");
-            //JOptionPane.showMessageDialog(null,"El codigo no debe posser espacios es blanco","Codigo",JOptionPane.WARNING_MESSAGE);
         }
         
         
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnEliminar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminar2ActionPerformed
-        if(!"##".equals(lblNroCompuradoraSeleccionado.getText())){
-            /*Object[] opciones = {"Eliminar","Cancelar"};
-            int aceptar = JOptionPane.showOptionDialog
-                (null,"¿Seguro que desea Eliminarlo?","Eliminar Equipo",
-                        JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE,null, opciones,opciones[0]);
-            */
-            
-            int aceptar = DialogMensaje.Confirmacion(null,"¿ Seguro que desea eliminarlo ?");
-            
-            if(aceptar == 0){
-                codigo = lblNroCompuradoraSeleccionado.getText();
-                daoComputadora = manager.getDaoComputadora();
-                daoComputadora.eliminar(new Computadora(codigo, null));
-                eliminarDatosTabla();
-                mostrarEquiposTabla();
-                actualizarCantidadcomputadoras();
-            }
         
+        int fila = tablaEquipos.getSelectedRow();
+        
+        if(fila > -1){
+            boolean band = verificarPcEnUso(model.getValueAt(fila, 0).toString());
+        
+            if(!band){
+                    int aceptar = DialogMensaje.Confirmacion(null,"¿ Seguro que desea eliminarlo ?");
+
+                    if(aceptar == 0){
+                        codigo = lblNroCompuradoraSeleccionado.getText();
+                        daoComputadora = manager.getDaoComputadora();
+                        daoComputadora.eliminar(new Computadora(Integer.valueOf(codigo),null));
+                        eliminarDatosTabla();
+                        mostrarEquiposTabla();
+                        actualizarCantidadcomputadoras();
+                    }
+
+            }else{
+                DialogMensaje.Error(null,"El equipo se encuentra en uso actualmente");
+            }
         }else{
-            DialogMensaje.Error(null,"Seleccione un Equipo de la Tabla");
-            //JOptionPane.showMessageDialog(null,"Seleccione un Equipo de la Tabla","Equipo",JOptionPane.WARNING_MESSAGE);
+            DialogMensaje.Error(null, "Seleccione un equipo de la tabla");
         }
+        
+        
+
     }//GEN-LAST:event_btnEliminar2ActionPerformed
 
     private void btnModificar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificar2ActionPerformed
-        if(!"##".equals(lblNroCompuradoraSeleccionado.getText())){
-            /*Object[] opciones = {"Modificar","Cancelar"};
-            int aceptar = JOptionPane.showOptionDialog
-                (null,"¿Seguro que desea Modificarlo?","Eliminar Equipo",
-                        JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE,null, opciones,opciones[0]);
-            */
+        
+        int fila = tablaEquipos.getSelectedRow();
+        
+        if(fila > -1){
             
             int aceptar = DialogMensaje.Confirmacion(null,"¿ Seguro que desea modifiarlo ?");
             
@@ -440,7 +445,7 @@ public class panelEquipos extends javax.swing.JPanel {
                 
                 codigo = lblNroCompuradoraSeleccionado.getText();
                 daoComputadora = manager.getDaoComputadora();
-                daoComputadora.actualizar(new Computadora(codigo,estado));
+                daoComputadora.actualizar(new Computadora(Integer.valueOf(codigo),estado));
                 eliminarDatosTabla();
                 mostrarEquiposTabla();
                 actualizarCantidadcomputadoras();
@@ -448,10 +453,24 @@ public class panelEquipos extends javax.swing.JPanel {
         
         }else{
             DialogMensaje.Error(null,"Seleccione un Equipo de la Tabla");
-            //JOptionPane.showMessageDialog(null,"Seleccione un Equipo de la Tabla","Equipo",JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnModificar2ActionPerformed
 
+    public boolean verificarPcEnUso(String codigo){
+        daoRegistroTemporal = manager.getDaoRegistroTemporal();
+        List<SesionesActivas> listaSesionesActivas = daoRegistroTemporal.obtenerSesionesActivas();
+        
+        for(SesionesActivas pc : listaSesionesActivas){
+            if(pc.getRegistroTemporal().getCodPC() == Integer.parseInt(codigo)){
+                return true;
+            }
+        }
+        
+        return false;
+        
+    }
+    
+    
     public boolean validarCodigoSinEspacios(String codigo){
         int i;
         for(i=0; i< codigo.length(); i++){

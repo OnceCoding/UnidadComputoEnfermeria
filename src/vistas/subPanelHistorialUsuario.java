@@ -1,6 +1,5 @@
 package vistas;
 
-import vistas.*;
 import com.toedter.calendar.JTextFieldDateEditor;
 import dao.DaoComputadora;
 import dao.DaoManager;
@@ -8,23 +7,15 @@ import dao.DaoRegistro;
 import dao.mysql.MysqlDaoManager;
 import java.awt.BorderLayout;
 import java.awt.Component;
-import java.awt.Dialog;
 import java.awt.event.ActionEvent;
 import java.sql.SQLException;
-import java.sql.Time;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import static javax.swing.SwingConstants.CENTER;
@@ -39,7 +30,6 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.util.JRLoader;
-import static net.sf.jasperreports.engine.util.JRLoader.getResource;
 import net.sf.jasperreports.view.JasperViewer;
 import static vistas.panelHistorialInicio.panelSesiones;
 
@@ -76,6 +66,9 @@ public class subPanelHistorialUsuario extends javax.swing.JPanel {
    
     public subPanelHistorialUsuario() {
         initComponents();
+        
+        chooserDesde.setDate(new Date());
+        chooserHasta.setDate(new Date());
         
         try {
             manager = MysqlDaoManager.getMysqlDaoManager();
@@ -419,13 +412,13 @@ public class subPanelHistorialUsuario extends javax.swing.JPanel {
         
         if(bandListoImprimir){
             try {
-                JasperReport jr = (JasperReport) JRLoader.loadObject(frmPrincipal.class.getResource("/Reportes/reporteRegistros.jasper"));
+                JasperReport jr = (JasperReport) JRLoader.loadObject(frmPrincipal.class.getResource("/reportes/reporteRegistros.jasper"));
 
                 Map parametros = new HashMap<>();
                 parametros.put("Titulo","REGISTRO DE SESIONES DE USUARIOS");
-                parametros.put("fechaInicio",formatoFecha(dateDesde));
-                parametros.put("fechaFin",formatoFecha(dateHasta));
-                parametros.put("fechaActual",formatoFecha(LocalDate.now()));
+                parametros.put("fechaInicio",formatoFecha(dateDesde,1));
+                parametros.put("fechaFin",formatoFecha(dateHasta,1));
+                parametros.put("fechaActual",formatoFecha(LocalDate.now(),1));
                 parametros.put("admin",frmPrincipal.lblNombreAdmin.getText());
 
                 JRBeanCollectionDataSource coleccion = new JRBeanCollectionDataSource(obtenerDatosRegistros(listaReporte));
@@ -445,8 +438,10 @@ public class subPanelHistorialUsuario extends javax.swing.JPanel {
         
     }//GEN-LAST:event_btnImprimirActionPerformed
 
-    public String formatoFecha(LocalDate fechaDate){
+    public String formatoFecha(LocalDate fechaDate, int tipo){
         String fecha  = "";
+        String delimitador = "";
+        
         String dia = String.valueOf(fechaDate.getDayOfMonth());
         String mes = String.valueOf(fechaDate.getMonthValue());
         String año = String.valueOf(fechaDate.getYear());
@@ -459,7 +454,13 @@ public class subPanelHistorialUsuario extends javax.swing.JPanel {
             mes = "0"+mes;
         }
         
-        return dia + " - " + mes + " - "+ año; 
+        if(tipo == 1){
+            delimitador = "-";
+        }else{
+            delimitador = "/";
+        }
+        
+        return dia + delimitador + mes + delimitador+ año; 
     }
     
     public List obtenerDatosRegistros(List<ReporteRegistroUsuario> lista){
@@ -467,12 +468,12 @@ public class subPanelHistorialUsuario extends javax.swing.JPanel {
         lista.forEach((ReporteRegistroUsuario r)->{
             String codUsuario = r.getUsuario().getCodigo();
             String nombreUsuario= r.getUsuario().getNombre().toUpperCase();
-            String apellidoUsuario = r.getUsuario().getApellido();
-            String codPC = r.getRegistro().getCodPC();
+            String apellidoUsuario = r.getUsuario().getApellido().toUpperCase();
+            Integer codPC = r.getRegistro().getCodPC();
             String horaInicio = r.getRegistro().getHoraInicio() + "";
             String horaFin = r.getRegistro().getHoraFin() + "";
             String fecha = r.getRegistro().getFecha()+"";
-            listaRegistrosUsuarios.add(new ListaRegistroUsuario(codUsuario, nombreUsuario, apellidoUsuario, codPC, horaInicio, horaFin,fecha));
+            listaRegistrosUsuarios.add(new ListaRegistroUsuario(codUsuario, nombreUsuario, apellidoUsuario,String.valueOf(codPC), horaInicio, horaFin,fecha));
         });
         return listaRegistrosUsuarios;
     }
@@ -541,7 +542,7 @@ public class subPanelHistorialUsuario extends javax.swing.JPanel {
         listaComputadoras = daoComputadora.obtenerTodos();
         
         listaComputadoras.forEach((pc)->{
-            cbxEquipo.addItem(pc.getCodigo());
+            cbxEquipo.addItem(String.valueOf(pc.getCodigo()));
         });
         
     }
