@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteSemestre1_subreport1" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="9bfbe2d4-26bf-41ba-9d84-abc6ba0c1baf">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="nombreCurso" class="java.lang.String"/>
+	<field name="codigoCurso" class="java.lang.Integer"/>
+	<field name="nroSesiones" class="java.lang.Long"/>
+	<field name="horas" class="java.lang.Long"/>
+	<field name="minutos" class="java.lang.Long"/>
+	<field name="segundos" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="33" splitType="Stretch">
+			<staticText>
+				<reportElement x="59" y="13" width="139" height="20" forecolor="#666666" uuid="05aa84a7-1006-4808-9fff-95ccf8aa10d3"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[> SECCIÓN CURSOS]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="31" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="58" y="7" width="152" height="24" forecolor="#FFFFFF" backcolor="#2DAAE1" uuid="10fef0a8-0bdf-44db-b92c-a090453b5c04"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[CURSO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="211" y="7" width="122" height="24" forecolor="#FFFFFF" backcolor="#2DAAE1" uuid="68c47c36-7dbc-4ecc-a639-cee467ce1401"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[NRO DE SESIONES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="334" y="7" width="162" height="24" forecolor="#FFFFFF" backcolor="#2DAAE1" uuid="8e559f22-9d58-4214-92f7-c2b2feb9fb0c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[TIEMPO]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="34" splitType="Stretch">
+			<textField>
+				<reportElement x="58" y="5" width="152" height="20" uuid="84576550-dda2-4c6a-a110-010a8c339d43"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nombreCurso}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="211" y="5" width="122" height="20" uuid="ae663bea-7828-4ac5-b009-89bc53f97efa"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nroSesiones}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="369" y="5" width="23" height="20" uuid="35af8527-72ef-4199-9b4c-8c45c4bcd571"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{horas}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="393" y="5" width="11" height="20" uuid="c7944e23-d070-4af9-8bb7-900898a6f92a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="405" y="5" width="23" height="20" uuid="4e382ddb-2857-41b0-9104-4eb01c77bccd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{minutos}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="442" y="5" width="23" height="20" uuid="9cc9a18e-a68e-45c4-b639-60f6141c82fd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{segundos}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="429" y="5" width="11" height="20" uuid="61704785-c3e6-4b66-a0a4-91bdb937319a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="59" y="29" width="437" height="1" forecolor="#CCCCCC" uuid="f27caa26-b02d-4e14-85c3-a151f4476b19"/>
+			</line>
+		</band>
+	</detail>
+</jasperReport>

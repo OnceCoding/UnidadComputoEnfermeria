@@ -36,10 +36,6 @@
 					</textElement>
 					<text><![CDATA[UNIDAD DE CÓMPUTO E INFORMÁTICA "OLGA YIKA DE TORRE"]]></text>
 				</staticText>
-				<image>
-					<reportElement x="25" y="36" width="160" height="53" uuid="77c1ecc5-d1bc-4813-a57b-9091d838fe9b"/>
-					<imageExpression><![CDATA["C:\\Users\\Jose sp\\Documents\\NetBeansProjects\\UnidadComputoEnfermeria\\src\\imagenes\\LogoMedium.png"]]></imageExpression>
-				</image>
 			</frame>
 			<textField>
 				<reportElement x="228" y="26" width="565" height="29" forecolor="#FFFFFF" uuid="25a1dffa-a128-4aa2-9828-7479c6939625"/>

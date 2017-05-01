@@ -17,6 +17,7 @@ import modelo.Registro;
 import modelo.RegistroCurso;
 import modelo.ReporteRegistroCurso;
 import modelo.ReporteRegistroUsuario;
+import modelo.SemestreCursoRegistroPorMes;
 import modelo.SemestreUsuarioRegistroPorMes;
 import modelo.Usuario;
 import vistas.DialogMensaje;
@@ -47,10 +48,18 @@ public class MysqlDaoRegistro implements DaoRegistro{
     private final String obtenerHorasRegistroPorMes = 
             "select horaInicio,horaFin from registro where MONTH(fecha) = ?";
     
+    private final String obtenerTotalRegistrosCursosPorMes = 
+            "select count(*) as cantidad, c.nombre, c.codigo from registrocurso r inner join curso c on r.codCurso = c.codigo "
+            + "where MONTH(fecha) between ? and ? group by codCurso";
+    
+    private final String obtenerHorasRegistroCursoPorMes = 
+            "select horaInicio, horaFin from registrocurso where codCurso = ? and MONTH(fecha) between ? and ?";
+    
     private List<Registro> listaUsuarios;
     private List<ReporteRegistroUsuario> listaRegistroUsuarios;
     private List<ReporteRegistroCurso> listaRegistroCursos;
     private List<SemestreUsuarioRegistroPorMes> listaSemestre;
+    private List<SemestreCursoRegistroPorMes> listaSemestreCurso;
     
     public MysqlDaoRegistro(Connection conexion) {
         this.conexion = conexion;
@@ -287,6 +296,71 @@ public class MysqlDaoRegistro implements DaoRegistro{
         
         return null;
         
+    }
+
+    @Override
+    public List<SemestreCursoRegistroPorMes> obtenerReporteCursoSemestre(Integer año, Integer mesInicio, Integer mesFinal) {
+        listaSemestreCurso = new ArrayList<>();
+        Object[][] registroAux = new Object[10][3]; 
+        int cantidad = 0, codCurso, i=0;
+        String nombreCurso;
+        try{
+            preparedStatement = conexion.prepareStatement(obtenerTotalRegistrosCursosPorMes);
+            preparedStatement.setInt(1, mesInicio);
+            preparedStatement.setInt(2, mesFinal);
+            resultSet = preparedStatement.executeQuery();
+            
+            while(resultSet.next()){
+                cantidad = resultSet.getInt("cantidad");
+                nombreCurso = resultSet.getString("nombre");
+                codCurso = resultSet.getInt("codigo");
+                listaSemestreCurso.add(new SemestreCursoRegistroPorMes(nombreCurso, codCurso, cantidad));
+            }
+            
+            while(i<listaSemestreCurso.size()){
+                
+                preparedStatement = null;
+                preparedStatement = conexion.prepareStatement(obtenerHorasRegistroCursoPorMes);
+                preparedStatement.setInt(1, listaSemestreCurso.get(i).getCodigoCurso());
+                preparedStatement.setInt(2, mesInicio);
+                preparedStatement.setInt(3, mesFinal);
+                resultSet = preparedStatement.executeQuery();
+                
+                Time inicio  , fin;
+                LocalTime lInicio , lFin ;
+                Duration lResta;
+                long sumaTiempo = 0;
+                
+                long hora,minutos,auxTiempo;
+                
+                while(resultSet.next()){
+                    inicio = resultSet.getTime("horaInicio");
+                    fin = resultSet.getTime("horaFin");
+                    lInicio = inicio.toLocalTime();
+                    lFin = fin.toLocalTime();
+                    lResta = Duration.between(lInicio, lFin);
+                    sumaTiempo += lResta.toMinutes();    
+                }
+                
+                hora = sumaTiempo / 60;
+                minutos = sumaTiempo % 60;
+                
+                listaSemestreCurso.get(i).setHoras(hora);
+                listaSemestreCurso.get(i).setMinutos(minutos);
+                
+                i++;
+            }
+            
+            for (SemestreCursoRegistroPorMes reg : listaSemestreCurso){
+                System.out.println("-------------");
+                System.out.println(reg.toString());
+            }
+        }catch(Exception e){ 
+            System.out.println(e.getMessage());
+        }finally{
+            MysqlUtils.cerrarPreparedStatementAndResultSet(preparedStatement, resultSet);
+        }
+        return listaSemestreCurso;
     }
 
 }
