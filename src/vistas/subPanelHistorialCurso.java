@@ -205,7 +205,7 @@ public class subPanelHistorialCurso extends javax.swing.JPanel {
         btnImprimir.setBackground(new java.awt.Color(34, 70, 135));
         btnImprimir.setFont(new java.awt.Font("Tempus Sans ITC", 0, 12)); // NOI18N
         btnImprimir.setForeground(new java.awt.Color(255, 255, 255));
-        btnImprimir.setText("IMPRIMIR REPORTE");
+        btnImprimir.setText("VER REPORTE");
         btnImprimir.setActionCommand("");
         btnImprimir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnImprimir.setFocusable(false);

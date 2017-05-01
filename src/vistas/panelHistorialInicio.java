@@ -47,6 +47,7 @@ public class panelHistorialInicio extends javax.swing.JPanel {
         btnRegistroSesionCurso.setForeground(new java.awt.Color(255, 255, 255));
         btnRegistroSesionCurso.setText("CURSOS");
         btnRegistroSesionCurso.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRegistroSesionCurso.setFocusable(false);
         btnRegistroSesionCurso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegistroSesionCursoActionPerformed(evt);
@@ -63,6 +64,7 @@ public class panelHistorialInicio extends javax.swing.JPanel {
         btnUsuarios.setForeground(new java.awt.Color(255, 255, 255));
         btnUsuarios.setText("USUARIOS");
         btnUsuarios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnUsuarios.setFocusable(false);
         btnUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUsuariosActionPerformed(evt);
@@ -91,7 +93,7 @@ public class panelHistorialInicio extends javax.swing.JPanel {
         panelSesionesLayout.setVerticalGroup(
             panelSesionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSesionesLayout.createSequentialGroup()
-                .addContainerGap(206, Short.MAX_VALUE)
+                .addContainerGap(181, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(11, 11, 11)
                 .addComponent(jLabel10)
@@ -99,7 +101,7 @@ public class panelHistorialInicio extends javax.swing.JPanel {
                 .addGroup(panelSesionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRegistroSesionCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(114, 114, 114))
+                .addGap(139, 139, 139))
         );
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
