@@ -346,9 +346,16 @@ public class subPanelHistorialUsuario extends javax.swing.JPanel {
             a = formato.format(fechaHasta);
             dateHasta = LocalDate.parse(a);
 
-            if((dateHasta.getYear() >= dateDesde.getYear())
-                && (dateHasta.getMonthValue() >= dateDesde.getMonthValue())
-                && (dateHasta.getDayOfMonth() >= dateDesde.getDayOfMonth())){
+            int añoDesde = dateDesde.getYear();
+            int mesDesde = dateDesde.getMonthValue();
+            int diaDesde = dateDesde.getDayOfMonth();
+            
+            int añoHasta = dateHasta.getYear();
+            int mesHasta = dateHasta.getMonthValue();
+            int diaHasta = dateHasta.getDayOfMonth();
+            
+            
+            if((añoHasta > añoDesde) || (añoHasta == añoDesde && mesHasta > mesDesde) || (añoHasta == añoDesde && mesHasta == mesDesde && diaHasta >= diaDesde)){
 
                 listaReporte = null;
                 daoRegistro = manager.getDaoRegistro();

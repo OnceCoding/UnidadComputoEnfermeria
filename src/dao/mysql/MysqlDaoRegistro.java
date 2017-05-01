@@ -11,7 +11,6 @@ import java.time.Duration;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
 import modelo.Curso;
 import modelo.Registro;
 import modelo.RegistroCurso;

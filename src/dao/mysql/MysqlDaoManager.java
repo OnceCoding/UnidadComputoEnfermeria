@@ -39,16 +39,16 @@ public class MysqlDaoManager implements DaoManager{
     
     public MysqlDaoManager() throws SQLException {
         
-        /*ini = ArchivoIni.getArchivoIni();
+        ini = ArchivoIni.getArchivoIni();
         host = ini.leerPropiedad("host");
         bd = ini.leerPropiedad("bd");
         user = ini.leerPropiedad("user");
-        pass = ini.leerPropiedad("pass");*/
+        pass = ini.leerPropiedad("pass");
         
-        host = "localhost";
+        /*host = "localhost";
         bd = "bdcomputo";
         user = "root";
-        pass = "";
+        pass = "";*/
         
         conexion = DriverManager.getConnection("jdbc:mysql://"+host+"/"+bd+"?useSSL=false",user,pass);
         
