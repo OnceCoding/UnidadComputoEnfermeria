@@ -19,6 +19,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import static javax.swing.SwingConstants.CENTER;
@@ -357,7 +358,7 @@ public class subPanelHistorialCurso extends javax.swing.JPanel {
         
         if(bandListoImprimir){
             try {
-                JasperReport jr = (JasperReport) JRLoader.loadObject(frmPrincipal.class.getResource("/Reportes/reporteRegistrosCursos.jasper"));
+                JasperReport jr = (JasperReport) JRLoader.loadObject(frmPrincipal.class.getResource("/reportes/reporteRegistrosCursos.jasper"));
 
                 Map parametros = new HashMap<>();
                 parametros.put("Titulo","REGISTRO DE SESIONES DE CURSOS DICTADOS");
@@ -376,7 +377,10 @@ public class subPanelHistorialCurso extends javax.swing.JPanel {
 
 
             } catch (JRException ex) {
+                DialogMensaje.Error(null,"error");
                 System.out.println(ex.getMessage());
+                JOptionPane.showMessageDialog(null,ex.getMessage());
+                
             }
         }else{
             DialogMensaje.Error(null,"Debe realizar una consulta.");

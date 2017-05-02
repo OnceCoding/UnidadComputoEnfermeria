@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import modelo.ConfiguracionSemestre;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -479,6 +480,7 @@ public class panelReportes extends javax.swing.JPanel {
             
         } catch (JRException ex) {
             System.out.println(ex.getMessage());
+            JOptionPane.showMessageDialog(null,ex.getMessage());
         }
     }//GEN-LAST:event_btnVerSemestre1ActionPerformed
 
@@ -531,6 +533,7 @@ public class panelReportes extends javax.swing.JPanel {
                 
             } catch (IOException | JRException ex) {
                 DialogMensaje.Error(null,"Error al descargar los reportes");
+                JOptionPane.showMessageDialog(null,ex.getMessage());
             }
         }else{
             DialogMensaje.Error(null,"Elija la ruta de destino.");

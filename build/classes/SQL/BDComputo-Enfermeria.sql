@@ -24,12 +24,28 @@ create table usuario(
     unique key codigoUsuario(codigo)
 )ENGINE=innoDB;
 
+create table usuarioEliminado(
+	id int auto_increment primary key,
+	codigo varchar(11),	
+	nombre varchar(30) not null,
+    apellido varchar(50) not null,
+    correo varchar(70),
+    tipo varchar(12),
+    fecha date,
+    hora time
+)ENGINE=innoDB;
+
 create table computadora(
 	codigo int primary key, 
     estado varchar(30)
 )ENGINE=innoDB;
 
 create table curso(
+	codigo int auto_increment primary key,
+    nombre varchar(50) not null
+)ENGINE=innoDB;
+
+create table cursoEliminado(
 	codigo int auto_increment primary key,
     nombre varchar(50) not null
 )ENGINE=innoDB;
@@ -42,7 +58,17 @@ create table registro(
     horaFin time,
     fecha date ,
     index indexFecha(fecha),
+    index indexCodUsuario(codUsuario),
     foreign key(codUsuario) references usuario(id)
+)ENGINE=innoDB;
+
+create table registroEliminado(
+	codigo int auto_increment primary key,
+    codUsuario int,
+    codPC int,
+    horaInicio time,
+    horaFin time,
+    fecha date 
 )ENGINE=innoDB;
 
 create table registroTemporal(
@@ -62,6 +88,15 @@ create table registroCurso(
     codCurso int,
     horaInicio time,
     horaFin time,
+    fecha date,
+    foreign key(codCurso) references curso(codigo)
+)ENGINE=innoDB;
+
+create table registroCursoEliminado(
+	codigo int auto_increment primary key,
+    codCurso int,
+    horaInicio time,
+    horaFin time,
     fecha date
 )ENGINE=innoDB;
 
@@ -71,7 +106,6 @@ create table registroCursoTemporal(
     horaInicio time,
     fecha date
 )ENGINE=innoDB;
-
 
 
 create table contadorRegistro(
@@ -147,6 +181,39 @@ delimiter ;
 
 
 
+/*Trigger para cuando se elimina los registros de los usuarios*/
+ delimiter $
+ create trigger registrosEliminados before delete on registro for each row
+	begin
+		insert into registroEliminado values(old.codigo,old.codUsuario,old.codPC,old.horaInicio,old.horaFin,old.fecha);
+    end$
+delimiter ;
+ 
+ 
+ /*Trigger para cuando se elimina los usuarios*/
+ delimiter $
+ create trigger usuariosEliminados before delete on usuario for each row
+	begin
+		insert into usuarioEliminado values(old.id,old.codigo,old.nombre,old.apellido,old.correo,old.tipo,old.fecha,old.hora);
+    end$
+delimiter ;
+ 
+ 
+/*Trigger para cuando se elimina los registros de los cursos*/
+ delimiter $
+ create trigger registroCursosEliminados before delete on registrocurso for each row
+	begin
+		insert into registroCursoEliminado values(old.codigo,old.codCurso,old.horaInicio,old.horaFin,old.fecha);
+    end$
+delimiter ;
+ 
 
+ /*Trigger para cuando se elimina los cursos*/
+ delimiter $
+ create trigger cursosEliminados before delete on curso for each row
+	begin
+		insert into cursoEliminado values(old.codigo,old.nombre);
+    end$
+delimiter ;
  
 

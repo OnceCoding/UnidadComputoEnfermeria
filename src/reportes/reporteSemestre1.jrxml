@@ -9,7 +9,7 @@
 	<parameter name="fechaActual" class="java.lang.String"/>
 	<parameter name="cursos" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["reportes\\"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["reportes/"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="imagen" class="java.lang.String"/>
 	<field name="mes" class="java.lang.String"/>
@@ -168,7 +168,7 @@
 			<subreport>
 				<reportElement x="0" y="0" width="555" height="100" uuid="63ef5ed8-2894-4f0e-9e55-4170e089a987"/>
 				<dataSourceExpression><![CDATA[$P{cursos}]]></dataSourceExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "\\reporteSemestre1_subreport1.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} +"reporteSemestre1_subreport1.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 	</summary>
