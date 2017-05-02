@@ -28,7 +28,7 @@ public class frmLogin extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
         
-        setIconImage(new ImageIcon(getClass().getResource("/imagenes/iconoRegistro64.png")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource("/imagenes/iconBar.png")).getImage());
         
     }
 

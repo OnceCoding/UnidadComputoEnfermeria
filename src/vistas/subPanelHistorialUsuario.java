@@ -427,7 +427,8 @@ public class subPanelHistorialUsuario extends javax.swing.JPanel {
                 parametros.put("fechaFin",formatoFecha(dateHasta,1));
                 parametros.put("fechaActual",formatoFecha(LocalDate.now(),1));
                 parametros.put("admin",frmPrincipal.lblNombreAdmin.getText());
-
+                parametros.put("imagen",frmPrincipal.class.getResource("/imagenes/LogoLarge.png").toString());
+                
                 JRBeanCollectionDataSource coleccion = new JRBeanCollectionDataSource(obtenerDatosRegistros(listaReporte));
 
                 JasperPrint jp = JasperFillManager.fillReport(jr,parametros,coleccion);

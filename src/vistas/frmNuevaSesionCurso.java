@@ -36,7 +36,7 @@ public class frmNuevaSesionCurso extends javax.swing.JFrame {
     public frmNuevaSesionCurso() {
         initComponents();
         setLocationRelativeTo(null);
-        setIconImage(new ImageIcon(getClass().getResource("/imagenes/iconoRegistro64.png")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource("/imagenes/iconBar.png")).getImage());
         model = new DefaultTableModel(){
             @Override
             public boolean isCellEditable(int row,int column){

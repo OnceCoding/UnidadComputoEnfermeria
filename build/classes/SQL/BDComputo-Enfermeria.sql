@@ -6,7 +6,8 @@ use BdComputo;
 create table administrador(
 	codigo tinyint primary key,
     user varchar(30) not null,
-	pass varchar(20) not null
+	pass varchar(20) not null,
+    tipo varchar(20) not null
 
 )ENGINE=innoDB;
 
@@ -24,7 +25,7 @@ create table usuario(
 )ENGINE=innoDB;
 
 create table computadora(
-	codigo varchar(10) primary key, 
+	codigo int primary key, 
     estado varchar(30)
 )ENGINE=innoDB;
 
@@ -36,24 +37,22 @@ create table curso(
 create table registro(
 	codigo int auto_increment primary key,
     codUsuario int,
-    codPC varchar(10),
+    codPC int,
     horaInicio time,
     horaFin time,
     fecha date ,
     index indexFecha(fecha),
-    foreign key(codUsuario) references usuario(id),
-    foreign key(codPC) references computadora(codigo)
+    foreign key(codUsuario) references usuario(id)
 )ENGINE=innoDB;
 
 create table registroTemporal(
 	codigo int auto_increment primary key,
     codUsuario int,
-    codPC varchar(10),
+    codPC int,
     horaInicio time,
     horaFin time,
     fecha date,
-    foreign key(codUsuario) references usuario(id),
-    foreign key(codPC) references computadora(codigo)
+    foreign key(codUsuario) references usuario(id)
 
 )ENGINE=innoDB;
 
@@ -63,25 +62,17 @@ create table registroCurso(
     codCurso int,
     horaInicio time,
     horaFin time,
-    fecha date,
-    foreign key(codCurso) references curso(codigo)
+    fecha date
 )ENGINE=innoDB;
 
 create table registroCursoTemporal(
 	codigo int auto_increment primary key,
     codCurso int,
     horaInicio time,
-    fecha date,
-    foreign key(codCurso) references curso(codigo)
+    fecha date
 )ENGINE=innoDB;
 
-create table configuracionSemestre(
-	codigo tinyint primary key,
-    mesInicio varchar(3),
-    mesFin varchar(3),
-    año varchar(5)
 
-)ENGINE=innoDB;
 
 create table contadorRegistro(
 	codigo tinyint primary key,
@@ -90,14 +81,15 @@ create table contadorRegistro(
 )ENGINE=innoDB;
 
 
-insert into administrador values(1,'admin','admin');
+insert into administrador values(1,'admin','admin','registro');
+insert into administrador values(2,'admin','admin','computo');
+insert into administrador values(3,'admin','admin','simulacion');
+insert into administrador values(4,'admin','admin','biblioteca');
+
 
 insert into contadorRegistro values(1,'usuario',0);
 insert into contadorRegistro values(2,'historial',0);
-
-insert into configuracionSemestre values(1,'1','6','2017');
-insert into configuracionSemestre values(2,'7','12','2017');
-
+	
 /* Trigger :  aumenta en 1 la tabal de contadoreREgistros cuando se inserta  a la tabla USUARIOS */
 delimiter $
 create trigger aumentarContadorUsuarioRegistro after insert on usuario for each row
@@ -152,3 +144,9 @@ create trigger disminuirContadorHistorialRegistro after delete on registro for e
     end$
 
 delimiter ;
+
+
+
+
+ 
+

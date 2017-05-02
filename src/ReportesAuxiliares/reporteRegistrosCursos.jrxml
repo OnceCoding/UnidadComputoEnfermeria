@@ -8,7 +8,6 @@
 	<parameter name="fechaFin" class="java.lang.String"/>
 	<parameter name="fechaActual" class="java.lang.String"/>
 	<parameter name="admin" class="java.lang.String"/>
-	<parameter name="imagen" class="java.lang.String"/>
 	<field name="horaInicio" class="java.lang.String"/>
 	<field name="horaFin" class="java.lang.String"/>
 	<field name="fecha" class="java.lang.String"/>
@@ -24,7 +23,7 @@
 					<reportElement mode="Opaque" x="9" y="0" width="213" height="121" uuid="4008a12d-5921-4b60-b801-e5e5769b1633"/>
 					<image>
 						<reportElement x="0" y="26" width="213" height="70" uuid="e7588b3b-f0e1-4c2c-a4ab-87e6bd81f635"/>
-						<imageExpression><![CDATA[$P{imagen}]]></imageExpression>
+						<imageExpression><![CDATA["C:\\ProgramData\\Enfermeria\\LogoReporte.png"]]></imageExpression>
 					</image>
 				</frame>
 				<staticText>
@@ -64,7 +63,7 @@
 				<textFieldExpression><![CDATA[$P{fechaFin}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="223" y="105" width="320" height="16" forecolor="#CCFFFF" backcolor="#84CDED" uuid="f3e6d88d-c15c-4133-b68f-7ee6b833f81b"/>
+				<reportElement mode="Opaque" x="233" y="105" width="310" height="16" forecolor="#CCFFFF" backcolor="#84CDED" uuid="f3e6d88d-c15c-4133-b68f-7ee6b833f81b"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Tahoma" isBold="true"/>
 				</textElement>

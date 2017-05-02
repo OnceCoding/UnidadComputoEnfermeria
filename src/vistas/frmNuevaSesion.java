@@ -43,7 +43,7 @@ public class frmNuevaSesion extends javax.swing.JFrame {
     public frmNuevaSesion() {
         initComponents();
         setLocationRelativeTo(null);
-        setIconImage(new ImageIcon(getClass().getResource("/imagenes/iconoRegistro64.png")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource("/imagenes/iconBar.png")).getImage());
         tablaEquipos.setRowHeight(25);
         model = new DefaultTableModel(){
             @Override

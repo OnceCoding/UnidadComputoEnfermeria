@@ -39,7 +39,7 @@ public class panelCursos extends javax.swing.JPanel {
     
     public panelCursos() {
         initComponents();
-        
+            
         model = new DefaultTableModel(){
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -47,8 +47,8 @@ public class panelCursos extends javax.swing.JPanel {
             }
             
         };
-        model.addColumn("codigo");
-        model.addColumn("Nombre del Curso");
+        model.addColumn("CODIGO");
+        model.addColumn("NOMBRE DEL CURSO");
         
         tablaCursos.setRowHeight(25);
         tablaCursos.setModel(model);
@@ -339,8 +339,8 @@ public class panelCursos extends javax.swing.JPanel {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         
-        nombreCurso = txtNombreCurso.getText();
-        
+        nombreCurso = txtNombreCurso.getText().toUpperCase();
+
         if(validar(nombreCurso)){
             
             daoCurso = manager.getDaoCurso();
@@ -428,17 +428,13 @@ public class panelCursos extends javax.swing.JPanel {
         
         if(validar(txtNombreCursoSeleccionado.getText())){
             if(validar(txtNombreCursoModificacion.getText())){
-                Object[] options = {"Modificar","Cancelar"};
-                /*int n = JOptionPane.showOptionDialog(null,"Seguro que desea Modificar el curso "+txtNombreCursoSeleccionado.getText()
-                    ,"Modificar Curso",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE,null, options,null);
-                */
-                
+
                 int n = DialogMensaje.Confirmacion(null,"¿ Seguro que desea modificar el nombre del curso ?");
                 
                 if(n == 0){
                     daoCurso = manager.getDaoCurso();
                     int fila = tablaCursos.getSelectedRow();
-                    daoCurso.actualizar(new Curso(Integer.parseInt(model.getValueAt(fila, 0).toString()),txtNombreCursoModificacion.getText()));
+                    daoCurso.actualizar(new Curso(Integer.parseInt(model.getValueAt(fila, 0).toString()),txtNombreCursoModificacion.getText().toUpperCase()));
                     limpiarTabla();
                     mostrarTodosLosCursos();
                     actualizarLabelCantidadCursos();
@@ -446,11 +442,9 @@ public class panelCursos extends javax.swing.JPanel {
                 }
             }else{
                 DialogMensaje.Error(null, "Solo se acepta letras y numeros");
-                //JOptionPane.showMessageDialog(null,"Solo se acepta letras y numeros");
             }
         }else{
             DialogMensaje.Error(null, "Seleccione un curso de la tabla");
-            //JOptionPane.showMessageDialog(null,"Seleccione un curso de la Tabla");
         }
         
     }//GEN-LAST:event_btnModificarActionPerformed

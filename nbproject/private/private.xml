@@ -3,12 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Angy'QR/Documents/NetBeansProjects/UnidadComputoEnfermeria/src/modelo/SemestreCursoRegistroPorMes.java</file>
-            <file>file:/C:/Users/Angy'QR/Documents/NetBeansProjects/UnidadComputoEnfermeria/src/dao/mysql/MysqlDaoRegistro.java</file>
-            <file>file:/C:/Users/Angy'QR/Documents/NetBeansProjects/UnidadComputoEnfermeria/src/vistas/panelReportes.java</file>
-            <file>file:/C:/Users/Angy'QR/Documents/NetBeansProjects/UnidadComputoEnfermeria/src/modelo/ListaRegistroCurso.java</file>
-            <file>file:/C:/Users/Angy'QR/Documents/NetBeansProjects/UnidadComputoEnfermeria/src/reportes/reporteSemestre1_subreport1.jrxml</file>
-            <file>file:/C:/Users/Angy'QR/Documents/NetBeansProjects/UnidadComputoEnfermeria/src/reportes/reporteSemestre1.jrxml</file>
+            <file>file:/C:/Users/Jose%20sp/Documents/NetBeansProjects/UnidadComputoEnfermeria/src/reportes/reporteRegistros.jrxml</file>
+            <file>file:/C:/Users/Jose%20sp/Documents/NetBeansProjects/UnidadComputoEnfermeria/src/vistas/panelReportes.java</file>
+            <file>file:/C:/Users/Jose%20sp/Documents/NetBeansProjects/UnidadComputoEnfermeria/src/reportes/reporteSemestre1.jrxml</file>
+            <file>file:/C:/Users/Jose%20sp/Documents/NetBeansProjects/UnidadComputoEnfermeria/src/reportes/reporteRegistrosCursos.jrxml</file>
+            <file>file:/C:/Users/Jose%20sp/Documents/NetBeansProjects/UnidadComputoEnfermeria/src/reportes/reporteSemestre1_subreport1.jrxml</file>
+            <file>file:/C:/Users/Jose%20sp/Documents/NetBeansProjects/UnidadComputoEnfermeria/src/vistas/subPanelHistorialUsuario.java</file>
         </group>
     </open-files>
 </project-private>

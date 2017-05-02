@@ -217,7 +217,7 @@ public class panelSesionDirecta extends javax.swing.JPanel {
                                             .addComponent(spinUsuarioMinutosInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addGap(18, 18, 18)
                                             .addComponent(cbxHoraInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(btnRegistrarSesionUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                                        .addComponent(btnRegistrarSesionUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
                 .addContainerGap(53, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -358,7 +358,7 @@ public class panelSesionDirecta extends javax.swing.JPanel {
                 .addComponent(dateFechaCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnRegistrarSesionCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43))
+                .addGap(31, 31, 31))
         );
 
         jLabel29.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N

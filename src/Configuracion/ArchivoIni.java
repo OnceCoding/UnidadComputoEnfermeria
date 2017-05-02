@@ -7,7 +7,7 @@ import vistas.DialogMensaje;
 
 public class ArchivoIni {
     
-    private String ruta = "C:\\ProgramData\\Enfermeria\\config.ini";
+    private String ruta = "C:\\ProgramData\\EnfermeriaUnidadComputo\\config.ini";
     private Properties propiedad;
 
     public static ArchivoIni ini = null;

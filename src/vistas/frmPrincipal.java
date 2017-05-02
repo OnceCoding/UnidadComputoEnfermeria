@@ -41,7 +41,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         
-        setIconImage(new ImageIcon(getClass().getResource("/imagenes/iconoRegistro64.png")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource("/imagenes/iconBar.png")).getImage());
         
         cambiarPanel("Inicio", panelInicio);
         /*  

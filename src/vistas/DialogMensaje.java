@@ -52,20 +52,20 @@ public class DialogMensaje extends javax.swing.JDialog {
             case 1:
                 btnAceptar.setVisible(true);
                 btnCancelar.setVisible(true);
-                lblIcon.setIcon(new ImageIcon("src//imagenes//iconos//question.png"));
+                lblIcon.setIcon(new ImageIcon(getClass().getResource("/imagenes/iconos/question.png")));
                 break;
             case 2:
                 btnAceptar2.setVisible(true);
-                lblIcon.setIcon(new ImageIcon("src//imagenes//iconos//information.png"));
+                lblIcon.setIcon(new ImageIcon(getClass().getResource("/imagenes/iconos/information.png")));
                 break;
             case 3:
                 btnAceptar.setVisible(true);
                 btnCancelar.setVisible(true);
-                lblIcon.setIcon(new ImageIcon("src//imagenes//iconos//warning.png"));
+                lblIcon.setIcon(new ImageIcon(getClass().getResource("/imagenes/iconos/warning.png")));
                 break;
             case 4:
                 btnAceptar2.setVisible(true);
-                lblIcon.setIcon(new ImageIcon("src//imagenes//iconos//error.png"));
+                lblIcon.setIcon(new ImageIcon(getClass().getResource("/imagenes/iconos/error.png")));
             default:
                 break;
         }

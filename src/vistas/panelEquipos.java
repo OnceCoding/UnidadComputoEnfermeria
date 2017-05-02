@@ -55,8 +55,8 @@ public class panelEquipos extends javax.swing.JPanel {
                 return false;
             }
         };
-        model.addColumn("codigo");
-        model.addColumn("Estado");
+        model.addColumn("CODIGO");
+        model.addColumn("ESTADO");
         
         mostrarEquiposTabla();
         

@@ -11,7 +11,6 @@
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["reportes\\"]]></defaultValueExpression>
 	</parameter>
-	<parameter name="imagen" class="java.lang.String"/>
 	<field name="mes" class="java.lang.String"/>
 	<field name="nroTotalVisitantes" class="java.lang.Integer"/>
 	<field name="horas" class="java.lang.Long"/>
@@ -55,8 +54,8 @@
 				<frame>
 					<reportElement mode="Opaque" x="9" y="0" width="81" height="121" uuid="062fe2e4-37ca-4c4f-aa98-7365306a9a6d"/>
 					<image>
-						<reportElement x="6" y="28" width="71" height="68" uuid="23b43ded-77f5-4eb9-9903-9ead17a34600"/>
-						<imageExpression><![CDATA[$P{imagen}]]></imageExpression>
+						<reportElement x="1" y="28" width="77" height="68" uuid="23b43ded-77f5-4eb9-9903-9ead17a34600"/>
+						<imageExpression><![CDATA["imagenes\\icono.png"]]></imageExpression>
 					</image>
 				</frame>
 			</frame>
@@ -168,7 +167,7 @@
 			<subreport>
 				<reportElement x="0" y="0" width="555" height="100" uuid="63ef5ed8-2894-4f0e-9e55-4170e089a987"/>
 				<dataSourceExpression><![CDATA[$P{cursos}]]></dataSourceExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "\\reporteSemestre1_subreport1.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reporteSemestre1_subreport1.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 	</summary>

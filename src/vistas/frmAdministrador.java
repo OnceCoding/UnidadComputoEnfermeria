@@ -30,7 +30,7 @@ public class frmAdministrador extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         
-        setIconImage(new ImageIcon(getClass().getResource("/imagenes/iconoRegistro64.png")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource("/imagenes/iconBar.png")).getImage());
         
         btnListo.setVisible(false);
         txtNombreNuevo.setVisible(false);

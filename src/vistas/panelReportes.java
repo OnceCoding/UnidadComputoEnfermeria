@@ -6,6 +6,7 @@ import dao.DaoRegistro;
 import dao.mysql.MysqlDaoManager;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -440,6 +441,7 @@ public class panelReportes extends javax.swing.JPanel {
             parametros.put("mesFin",convertirMes(mesFinal-1).toUpperCase());
             parametros.put("fechaActual",formatoFecha(LocalDate.now(),1));
             parametros.put("cursos",new JRBeanCollectionDataSource(daoRegistro.obtenerReporteCursoSemestre(año, mesInicio, mesFinal)));
+            parametros.put("imagen",frmPrincipal.class.getResource("/imagenes/icono4.png").toString());
             
             JRBeanCollectionDataSource coleccion = new JRBeanCollectionDataSource(daoRegistro.obtenerReporteSemestre(año, mesInicio, mesFinal));
             JasperPrint jp = JasperFillManager.fillReport(jr,parametros,coleccion);
@@ -466,6 +468,7 @@ public class panelReportes extends javax.swing.JPanel {
             parametros.put("mesFin",convertirMes(mesFinal).toUpperCase());
             parametros.put("fechaActual",formatoFecha(LocalDate.now(),1));
             parametros.put("cursos",new JRBeanCollectionDataSource(daoRegistro.obtenerReporteCursoSemestre(año, mesInicio, mesFinal)));
+            parametros.put("imagen",frmPrincipal.class.getResource("/imagenes/icono4.png").toString());
             
             JRBeanCollectionDataSource coleccion = new JRBeanCollectionDataSource(daoRegistro.obtenerReporteSemestre(año, mesInicio, mesFinal));
             JasperPrint jp = JasperFillManager.fillReport(jr,parametros,coleccion);
@@ -498,7 +501,8 @@ public class panelReportes extends javax.swing.JPanel {
                 parametros.put("mesFin",convertirMes(mesFinal).toUpperCase());
                 parametros.put("fechaActual",formatoFecha(LocalDate.now(),1));
                 parametros.put("cursos",new JRBeanCollectionDataSource(daoRegistro.obtenerReporteCursoSemestre(año, mesInicio, mesFinal)));
-
+                parametros.put("imagen",frmPrincipal.class.getResource("/imagenes/icono4.png").toString());
+                
                 JRBeanCollectionDataSource coleccion = new JRBeanCollectionDataSource(daoRegistro.obtenerReporteSemestre(año, mesInicio, mesFinal));
                 JasperPrint jp = JasperFillManager.fillReport(jr,parametros,coleccion);
 
@@ -512,7 +516,8 @@ public class panelReportes extends javax.swing.JPanel {
                 parametros2.put("mesFin",convertirMes(mesFinal2-1).toUpperCase());
                 parametros2.put("fechaActual",formatoFecha(LocalDate.now(),1));
                 parametros2.put("cursos",new JRBeanCollectionDataSource(daoRegistro.obtenerReporteCursoSemestre(año2, mesInicio2, mesFinal2)));
-
+                parametros2.put("imagen",frmPrincipal.class.getResource("/imagenes/icono4.png").toString());
+                
                 JRBeanCollectionDataSource coleccion2 = new JRBeanCollectionDataSource(daoRegistro.obtenerReporteSemestre(año2, mesInicio2, mesFinal2));
                 JasperPrint jp2 = JasperFillManager.fillReport(jr2,parametros2,coleccion2);
 
@@ -522,8 +527,10 @@ public class panelReportes extends javax.swing.JPanel {
                 out2.close();
                 out.close();
                 
-            } catch (Exception ex) {
-                System.out.println(ex.getMessage());
+                DialogMensaje.Informacion(null,"Se descargaron los reportes con éxito");
+                
+            } catch (IOException | JRException ex) {
+                DialogMensaje.Error(null,"Error al descargar los reportes");
             }
         }else{
             DialogMensaje.Error(null,"Elija la ruta de destino.");

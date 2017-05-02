@@ -210,7 +210,7 @@
                                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                                   <Component id="cbxHoraInicio" min="-2" pref="57" max="-2" attributes="0"/>
                                               </Group>
-                                              <Component id="btnRegistrarSesionUsuario" alignment="1" min="-2" pref="210" max="-2" attributes="0"/>
+                                              <Component id="btnRegistrarSesionUsuario" alignment="1" min="-2" pref="211" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
@@ -500,7 +500,7 @@
                       <Component id="dateFechaCurso" min="-2" pref="28" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="btnRegistrarSesionCurso" min="-2" pref="34" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
