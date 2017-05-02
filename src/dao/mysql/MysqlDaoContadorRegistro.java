@@ -6,7 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javax.swing.JOptionPane;
+import vistas.DialogMensaje;
 
 public class MysqlDaoContadorRegistro implements DaoContadorRegistro{
 
@@ -30,7 +30,9 @@ public class MysqlDaoContadorRegistro implements DaoContadorRegistro{
                 return String.valueOf(resultSet.getInt("cantidad"));
             }
         } catch (SQLException e) {
-            //JOptionPane.showMessageDialog(null,"Error Inesperado","Error",JOptionPane.WARNING_MESSAGE);
+            System.out.println(e.getMessage());
+            DialogMensaje.Error(null,"Error en la conexión con la base de datos");
+            System.exit(0);
         }finally{
             MysqlUtils.cerrarPreparedStatementAndResultSet(preparedStatement, resultSet);
         }
@@ -47,7 +49,8 @@ public class MysqlDaoContadorRegistro implements DaoContadorRegistro{
                 return String.valueOf(resultSet.getInt("cantidad"));
             }
         } catch (SQLException e) {
-            //JOptionPane.showMessageDialog(null,"Error Inesperado","Error",JOptionPane.WARNING_MESSAGE);
+            DialogMensaje.Error(null,"Error en la conexión con la base de datos");
+            System.exit(0);
         }finally{
             MysqlUtils.cerrarPreparedStatementAndResultSet(preparedStatement, resultSet);
         }

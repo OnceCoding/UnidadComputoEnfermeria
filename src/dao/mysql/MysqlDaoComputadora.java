@@ -2,13 +2,9 @@ package dao.mysql;
 
 import dao.DaoComputadora;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Time;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import modelo.Computadora;
@@ -47,7 +43,8 @@ public class MysqlDaoComputadora implements DaoComputadora{
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            //JOptionPane.showMessageDialog(null,"Ocurrio una accion inesperada");
+            DialogMensaje.Error(null,"Error en la conexion con la base de datos");
+            System.exit(0);
         } finally{
             MysqlUtils.cerrarPreparedStatementAndResultSet(preparedStatement, resultSet);
         }
@@ -70,7 +67,8 @@ public class MysqlDaoComputadora implements DaoComputadora{
             
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
-            //JOptionPane.showMessageDialog(null,"Ocurrio una accion inesperada");
+            DialogMensaje.Error(null,"Error en la conexion con la base de datos");
+            System.exit(0);
         } finally{
             MysqlUtils.cerrarPreparedStatementAndResultSet(preparedStatement, resultSet);
         }
@@ -86,8 +84,9 @@ public class MysqlDaoComputadora implements DaoComputadora{
             return new Computadora(codigo,estado);
             
         } catch (SQLException ex) {
-            System.out.println("Error al convertir");
             System.out.println(ex.getMessage());
+            DialogMensaje.Error(null,"Error en la conexion con la base de datos");
+            System.exit(0);
         }
         
         return null;
@@ -109,7 +108,8 @@ public class MysqlDaoComputadora implements DaoComputadora{
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            //JOptionPane.showMessageDialog(null,"Ocurrio una accion inesperada");
+            DialogMensaje.Error(null,"Error en la conexion con la base de datos");
+            System.exit(0);
         } finally{
             MysqlUtils.cerrarPreparedStatement(preparedStatement);
         }
@@ -129,7 +129,8 @@ public class MysqlDaoComputadora implements DaoComputadora{
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            //JOptionPane.showMessageDialog(null,"Ocurrio una accion inesperada");
+            DialogMensaje.Error(null,"Error en la conexion con la base de datos");
+            System.exit(0);
         } finally{
             MysqlUtils.cerrarPreparedStatement(preparedStatement);
         }
@@ -151,7 +152,8 @@ public class MysqlDaoComputadora implements DaoComputadora{
             
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
-            //JOptionPane.showMessageDialog(null,"Ocurrio una accion inesperada","Equipo",JOptionPane.WARNING_MESSAGE);
+            DialogMensaje.Error(null,"Error en la conexion con la base de datos");
+            System.exit(0);
         } finally{
             MysqlUtils.cerrarPreparedStatement(preparedStatement);
         }

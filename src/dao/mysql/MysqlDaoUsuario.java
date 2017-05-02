@@ -50,7 +50,8 @@ public class MysqlDaoUsuario implements DaoUsuario{
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            //JOptionPane.showMessageDialog(null,"Ocurrio una Accion Inesperada","Usuario",JOptionPane.ERROR_MESSAGE);
+            DialogMensaje.Error(null,"Error en la conexión con la base de datos");
+            System.exit(0);
         } finally{
             MysqlUtils.cerrarPreparedStatementAndResultSet(preparedStatement, resultSet);
         }
@@ -97,7 +98,8 @@ public class MysqlDaoUsuario implements DaoUsuario{
             
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
-            //JOptionPane.showMessageDialog(null,"Error al Actualizar");
+            DialogMensaje.Error(null,"Error en la conexión con la base de datos");
+            System.exit(0);
         } finally{
             MysqlUtils.cerrarPreparedStatement(preparedStatement);
         }
@@ -118,7 +120,8 @@ public class MysqlDaoUsuario implements DaoUsuario{
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            //JOptionPane.showMessageDialog(null,"Error al Eliminar");
+            DialogMensaje.Error(null,"Error en la conexión con la base de datos");
+            System.exit(0);
         } finally{
             MysqlUtils.cerrarPreparedStatement(preparedStatement);
         }
@@ -145,7 +148,8 @@ public class MysqlDaoUsuario implements DaoUsuario{
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            //JOptionPane.showMessageDialog(null,"Ocurrio un error al registrar","Usuario",JOptionPane.WARNING_MESSAGE);
+            DialogMensaje.Error(null,"Error en la conexión con la base de datos");
+            System.exit(0);
         } finally{
             MysqlUtils.cerrarPreparedStatement(preparedStatement);
         }
@@ -164,8 +168,9 @@ public class MysqlDaoUsuario implements DaoUsuario{
                 listaUsuarios.add(usuario);
             }
         } catch (SQLException e) {
-            //JOptionPane.showMessageDialog(null,"Ocurrio un Error");
             System.out.println(e.getMessage());
+            DialogMensaje.Error(null,"Error en la conexión con la base de datos");
+            System.exit(0);
         } finally{
             MysqlUtils.cerrarPreparedStatementAndResultSet(preparedStatement, resultSet);
         }
@@ -188,7 +193,8 @@ public class MysqlDaoUsuario implements DaoUsuario{
             return listaUsuarios;
             
         } catch (SQLException ex) {
-            //JOptionPane.showMessageDialog(null,"Error");
+            DialogMensaje.Error(null,"Error en la conexión con la base de datos");
+            System.exit(0);
         } finally{
             MysqlUtils.cerrarPreparedStatementAndResultSet(preparedStatement, resultSet);
         }
@@ -209,7 +215,8 @@ public class MysqlDaoUsuario implements DaoUsuario{
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            //JOptionPane.showMessageDialog(null,"Ocurrio una Accion Inesperada","Usuario",JOptionPane.ERROR_MESSAGE);
+            DialogMensaje.Error(null,"Error en la conexión con la base de datos");
+            System.exit(0);
         } finally{
             MysqlUtils.cerrarPreparedStatementAndResultSet(preparedStatement, resultSet);
         }

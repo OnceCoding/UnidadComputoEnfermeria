@@ -10,7 +10,6 @@ import java.sql.SQLException;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
 import modelo.Computadora;
 import modelo.RegistroTemporal;
 import modelo.SesionesActivas;
@@ -77,8 +76,9 @@ public class MysqlDaoRegistroTemporal implements DaoRegistroTemporal{
             return listaEquiposDisponibles;
             
         } catch (SQLException e) {
-            System.out.println("Erro lista");
             System.out.println(e.getMessage());
+            DialogMensaje.Error(null,"Error en la conexión con la base de datos");
+            System.exit(0);
         }finally{
             MysqlUtils.cerrarPreparedStatementAndResultSet(preparedStatement, resultSet);
         }
@@ -102,6 +102,8 @@ public class MysqlDaoRegistroTemporal implements DaoRegistroTemporal{
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+            DialogMensaje.Error(null,"Error en la conexión con la base de datos");
+            System.exit(0);
         }finally{
             MysqlUtils.cerrarPreparedStatement(preparedStatement);
         }
@@ -117,6 +119,8 @@ public class MysqlDaoRegistroTemporal implements DaoRegistroTemporal{
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+            DialogMensaje.Error(null,"Error en la conexión con la base de datos");
+            System.exit(0);
         }finally{
             MysqlUtils.cerrarPreparedStatementAndResultSet(preparedStatement, resultSet);
         }
@@ -133,6 +137,8 @@ public class MysqlDaoRegistroTemporal implements DaoRegistroTemporal{
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+            DialogMensaje.Error(null,"Error en la conexión con la base de datos");
+            System.exit(0);
         }finally{
             MysqlUtils.cerrarPreparedStatementAndResultSet(preparedStatement, resultSet);
         }
@@ -172,7 +178,8 @@ public class MysqlDaoRegistroTemporal implements DaoRegistroTemporal{
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            System.out.println("****");
+            DialogMensaje.Error(null,"Error en la conexión con la base de datos");
+            System.exit(0);
         }finally{
             MysqlUtils.cerrarPreparedStatementAndResultSet(preparedStatement, resultSet);
         }
@@ -209,6 +216,8 @@ public class MysqlDaoRegistroTemporal implements DaoRegistroTemporal{
             
         } catch (SQLException e) {
             System.out.println("Error al obtener Registro temoral");
+            DialogMensaje.Error(null,"Error en la conexión con la base de datos");
+            System.exit(0);
         } finally{
             MysqlUtils.cerrarPreparedStatementAndResultSet(preparedStatement, resultSet);
         }
@@ -225,6 +234,8 @@ public class MysqlDaoRegistroTemporal implements DaoRegistroTemporal{
             }
         } catch (SQLException e) {
             System.out.println("No se pudo eliminar");
+            DialogMensaje.Error(null,"Error en la conexión con la base de datos");
+            System.exit(0);
         } finally{
             MysqlUtils.cerrarPreparedStatement(preparedStatement);
         }
@@ -244,6 +255,8 @@ public class MysqlDaoRegistroTemporal implements DaoRegistroTemporal{
             
         } catch (HeadlessException | SQLException e) {
             System.out.println(e.getMessage());
+            DialogMensaje.Error(null,"Error en la conexión con la base de datos");
+            System.exit(0);
         } finally{
             MysqlUtils.cerrarPreparedStatement(preparedStatement);
         }
@@ -260,6 +273,8 @@ public class MysqlDaoRegistroTemporal implements DaoRegistroTemporal{
             }
         } catch (SQLException e) {
             System.out.println("Error verificar usuario activo");
+            DialogMensaje.Error(null,"Error en la conexión con la base de datos");
+            System.exit(0);
         }
         return false;
     }

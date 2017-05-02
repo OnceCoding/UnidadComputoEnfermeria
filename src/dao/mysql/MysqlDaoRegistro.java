@@ -117,8 +117,9 @@ public class MysqlDaoRegistro implements DaoRegistro{
             
             
         } catch (SQLException e) {
-            //JOptionPane.showMessageDialog(null,"No se pudo registrar");
             System.out.println(e.getMessage());
+            DialogMensaje.Error(null,"Error en la conexión con la base de datos");
+            System.exit(0);
         } finally{
             MysqlUtils.cerrarPreparedStatement(preparedStatement);
         }
@@ -134,6 +135,8 @@ public class MysqlDaoRegistro implements DaoRegistro{
             }
         } catch (SQLException e) {
             System.out.println("error eliminando todos los registros");
+            DialogMensaje.Error(null,"Error en la conexión con la base de datos");
+            System.exit(0);
         } finally{
             MysqlUtils.cerrarPreparedStatement(preparedStatement);
         }
@@ -199,7 +202,8 @@ public class MysqlDaoRegistro implements DaoRegistro{
      
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            DialogMensaje.Error(null,"No se puede obtener reporte");
+            DialogMensaje.Error(null,"Error en la conexión con la base de datos");
+            System.exit(0);
         } finally{
             MysqlUtils.cerrarPreparedStatementAndResultSet(preparedStatement, resultSet);
         }
@@ -228,7 +232,8 @@ public class MysqlDaoRegistro implements DaoRegistro{
      
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            DialogMensaje.Error(null,"No se puede obtener reporte");
+            DialogMensaje.Error(null,"Error en la conexión con la base de datos");
+            System.exit(0);
         }
         
         return null;
@@ -289,6 +294,8 @@ public class MysqlDaoRegistro implements DaoRegistro{
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+            DialogMensaje.Error(null,"Error en la conexión con la base de datos");
+            System.exit(0);
         } finally{
             MysqlUtils.cerrarPreparedStatementAndResultSet(preparedStatement, resultSet);
         }
@@ -350,12 +357,10 @@ public class MysqlDaoRegistro implements DaoRegistro{
                 i++;
             }
             
-            for (SemestreCursoRegistroPorMes reg : listaSemestreCurso){
-                System.out.println("-------------");
-                System.out.println(reg.toString());
-            }
-        }catch(Exception e){ 
+        }catch(SQLException e){ 
             System.out.println(e.getMessage());
+            DialogMensaje.Error(null,"Error en la conexión con la base de datos");
+            System.exit(0);
         }finally{
             MysqlUtils.cerrarPreparedStatementAndResultSet(preparedStatement, resultSet);
         }

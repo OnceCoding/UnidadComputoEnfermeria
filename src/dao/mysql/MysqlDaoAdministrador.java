@@ -34,7 +34,7 @@ public class MysqlDaoAdministrador implements DaoAdministrador{
                 return administrador;
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            DialogMensaje.Error(null,"Error en la conexion con la base de datos");
             System.exit(0);
         } finally{
             MysqlUtils.cerrarPreparedStatementAndResultSet(preparedStatement, resultSet);
@@ -51,6 +51,8 @@ public class MysqlDaoAdministrador implements DaoAdministrador{
             return administrador;
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
+            DialogMensaje.Error(null,"Error en la conexion con la base de datos");
+            System.exit(0);
         }
         return null;
     }
@@ -66,7 +68,7 @@ public class MysqlDaoAdministrador implements DaoAdministrador{
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
-            //JOptionPane.showMessageDialog(null,"Ocurrio una Accion inesperada");
+            DialogMensaje.Error(null,"Error en la conexion con la base de datos");
             System.exit(0);
         }finally{
             MysqlUtils.cerrarPreparedStatement(preparedStatement);
@@ -88,8 +90,8 @@ public class MysqlDaoAdministrador implements DaoAdministrador{
             
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
+            DialogMensaje.Error(null,"Error en la conexion con la base de datos");
             System.exit(0);
-            //JOptionPane.showMessageDialog(null,"Ocurrio una Accion inesperada");
         }finally{
             MysqlUtils.cerrarPreparedStatement(preparedStatement);
         }

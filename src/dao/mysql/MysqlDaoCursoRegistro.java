@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import modelo.CursoRegistro;
+import vistas.DialogMensaje;
 
 public class MysqlDaoCursoRegistro implements DaoCursoRegistro{
 
@@ -36,8 +37,9 @@ public class MysqlDaoCursoRegistro implements DaoCursoRegistro{
             }
             
         } catch (HeadlessException | SQLException e) {
-            System.out.println("error al guardar sesion de curso en registro");
             System.out.println(e.getMessage());
+            DialogMensaje.Error(null,"Error en la conexión con la base de datos");
+            System.exit(0);
         }
     }
 
@@ -53,6 +55,8 @@ public class MysqlDaoCursoRegistro implements DaoCursoRegistro{
             
         } catch (HeadlessException | SQLException e) {
             System.out.println(e.getMessage());
+            DialogMensaje.Error(null,"Error en la conexión con la base de datos");
+            System.exit(0);
         }
     }
     

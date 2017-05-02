@@ -7,7 +7,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
-import javax.swing.JOptionPane;
 import modelo.CursoRegistroTemporal;
 import vistas.DialogMensaje;
 
@@ -43,6 +42,10 @@ public class MysqlDaoCursoRegistroTemporal implements DaoCursoRegistroTemporal{
             }
         } catch (SQLException e) {
             System.out.println("Error obteniendo curso actual");
+            DialogMensaje.Error(null,"Error en la conexión con la base de datos");
+            System.exit(0);
+        } finally{
+            MysqlUtils.cerrarPreparedStatementAndResultSet(preparedStatement, resultSet);
         }
         return null;
     }
@@ -57,6 +60,10 @@ public class MysqlDaoCursoRegistroTemporal implements DaoCursoRegistroTemporal{
             }
         } catch (HeadlessException | SQLException e) {
             System.out.println("Error cerrando curso");
+            DialogMensaje.Error(null,"Error en la conexión con la base de datos");
+            System.exit(0);
+        }finally{
+            MysqlUtils.cerrarPreparedStatement(preparedStatement);
         }
     }
 
@@ -74,6 +81,10 @@ public class MysqlDaoCursoRegistroTemporal implements DaoCursoRegistroTemporal{
             
         } catch (SQLException e) {
             System.out.println("error inciar sesion curso");
+            DialogMensaje.Error(null,"Error en la conexión con la base de datos");
+            System.exit(0);
+        } finally{
+            MysqlUtils.cerrarPreparedStatement(preparedStatement);
         }
     }
 
@@ -89,6 +100,10 @@ public class MysqlDaoCursoRegistroTemporal implements DaoCursoRegistroTemporal{
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+            DialogMensaje.Error(null,"Error en la conexión con la base de datos");
+            System.exit(0);
+        } finally{
+            MysqlUtils.cerrarPreparedStatementAndResultSet(preparedStatement, resultSet);
         }
         return 0;
     }
@@ -106,6 +121,10 @@ public class MysqlDaoCursoRegistroTemporal implements DaoCursoRegistroTemporal{
             
         } catch (HeadlessException | SQLException e) {
             System.out.println(e.getMessage());
+            DialogMensaje.Error(null,"Error en la conexión con la base de datos");
+            System.exit(0);
+        } finally{
+            MysqlUtils.cerrarPreparedStatement(preparedStatement);
         }
     }
 

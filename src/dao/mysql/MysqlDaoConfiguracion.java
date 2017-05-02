@@ -5,8 +5,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javax.swing.JOptionPane;
 import modelo.ConfiguracionSemestre;
+import vistas.DialogMensaje;
 
 public class MysqlDaoConfiguracion implements DaoConfiguracion{
 
@@ -33,6 +33,8 @@ public class MysqlDaoConfiguracion implements DaoConfiguracion{
             }
         } catch (SQLException e) {
             System.out.println("Error obteniendo datos semestre 1");
+            DialogMensaje.Error(null,"Error en la conexión con la base de datos");
+            System.exit(0);
         }
         return null;
     }
@@ -51,6 +53,8 @@ public class MysqlDaoConfiguracion implements DaoConfiguracion{
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+            DialogMensaje.Error(null,"Error en la conexión con la base de datos");
+            System.exit(0);
         }
     }
 
@@ -64,6 +68,8 @@ public class MysqlDaoConfiguracion implements DaoConfiguracion{
             }
         } catch (SQLException e) {
             System.out.println("Error obteniendo datos semestre 1");
+            DialogMensaje.Error(null,"Error en la conexión con la base de datos");
+            System.exit(0);
         }
         return null;
     }
@@ -82,6 +88,8 @@ public class MysqlDaoConfiguracion implements DaoConfiguracion{
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+            DialogMensaje.Error(null,"Error en la conexión con la base de datos");
+            System.exit(0);
         }
     }
     

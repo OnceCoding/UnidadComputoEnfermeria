@@ -8,7 +8,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
 import modelo.Curso;
 import vistas.DialogMensaje;
 
@@ -45,7 +44,8 @@ public class MysqlDaoCurso implements DaoCurso{
             }
             
         } catch (HeadlessException | SQLException e) {
-            //JOptionPane.showMessageDialog(null,"Error al Registrar");
+            DialogMensaje.Error(null,"Error en la conexión con la base de datos");
+            System.exit(0);
         }finally{
             MysqlUtils.cerrarPreparedStatement(preparedStatement);
         }
@@ -62,7 +62,10 @@ public class MysqlDaoCurso implements DaoCurso{
             }
             
         } catch (HeadlessException | SQLException e) {
-            //JOptionPane.showMessageDialog(null,"Error al Eliminar");
+           DialogMensaje.Error(null,"Error en la conexión con la base de datos");
+            System.exit(0);
+        } finally{
+            MysqlUtils.cerrarPreparedStatement(preparedStatement);
         }
     }
 
@@ -78,7 +81,10 @@ public class MysqlDaoCurso implements DaoCurso{
             
         } catch (HeadlessException | SQLException e) {
             System.out.println(e.getMessage());
-            //JOptionPane.showMessageDialog(null,"Error al Modificar");
+            DialogMensaje.Error(null,"Error en la conexión con la base de datos");
+            System.exit(0);
+        } finally{
+            MysqlUtils.cerrarPreparedStatement(preparedStatement);
         }
     }
 
@@ -95,7 +101,10 @@ public class MysqlDaoCurso implements DaoCurso{
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            //JOptionPane.showMessageDialog(null,"error al obtener curso");
+            DialogMensaje.Error(null,"Error en la conexión con la base de datos");
+            System.exit(0);
+        } finally{
+            MysqlUtils.cerrarPreparedStatementAndResultSet(preparedStatement, resulSet);
         }
         
         return null;
@@ -111,6 +120,8 @@ public class MysqlDaoCurso implements DaoCurso{
             
         } catch (SQLException e) {
             System.out.println("Error al convertir");
+            DialogMensaje.Error(null,"Error en la conexión con la base de datos");
+            System.exit(0);
         }
         
         return null;
@@ -132,7 +143,8 @@ public class MysqlDaoCurso implements DaoCurso{
             return listacursos;
             
         } catch (SQLException e) {
-            //JOptionPane.showMessageDialog(null,"Error al obtener Todos");
+            DialogMensaje.Error(null,"Error en la conexión con la base de datos");
+            System.exit(0);
         }
     
         return null;
@@ -149,7 +161,8 @@ public class MysqlDaoCurso implements DaoCurso{
             }
             
         } catch (SQLException e) {
-            //JOptionPane.showMessageDialog(null,"Error al contar Cursos");
+            DialogMensaje.Error(null,"Error en la conexión con la base de datos");
+            System.exit(0);
         }
         
         return null;
@@ -168,7 +181,8 @@ public class MysqlDaoCurso implements DaoCurso{
             
         } catch (SQLException e) {
             System.out.println("Error al obtener Curso");
-            //JOptionPane.showMessageDialog(null,"error al obtener curso");
+            DialogMensaje.Error(null,"Error en la conexión con la base de datos");
+            System.exit(0);
         }
         
         return null;
