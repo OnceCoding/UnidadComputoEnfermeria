@@ -7,7 +7,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javax.swing.JOptionPane;
 import modelo.CursoRegistro;
 
 public class MysqlDaoCursoRegistro implements DaoCursoRegistro{
@@ -38,6 +37,7 @@ public class MysqlDaoCursoRegistro implements DaoCursoRegistro{
             
         } catch (HeadlessException | SQLException e) {
             System.out.println("error al guardar sesion de curso en registro");
+            System.out.println(e.getMessage());
         }
     }
 

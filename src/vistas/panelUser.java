@@ -42,7 +42,7 @@ public class panelUser extends javax.swing.JPanel {
     private Usuario usuario;
     private List<Usuario> listaUsuarios;
     
-    private String caracterValidos = "abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMÑOPQRSTUVWXYZ1234567890_@";
+    private String caracterValidos = "abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMÑOPQRSTUVWXYZ1234567890_@.-";
     private String numerosValidos = "1234567890";
     
     private DefaultTableModel model;
@@ -718,8 +718,8 @@ public class panelUser extends javax.swing.JPanel {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
 
         codigo = txtCodigo.getText();
-        nombre = txtNombre.getText();
-        apellido = txtApellido.getText();
+        nombre = txtNombre.getText().toUpperCase();
+        apellido = txtApellido.getText().toUpperCase();
         email = txtEmail.getText();
 
         if(rbEstudiante.isSelected()){
@@ -795,8 +795,8 @@ public class panelUser extends javax.swing.JPanel {
   
     public Usuario obtenerDatosSeleccioandos(){
         codigo = txtCodigoSeleccionado.getText();
-        nombre = txtNombreSeleccionado.getText();
-        apellido = txtApellidoSeleccionado.getText();
+        nombre = txtNombreSeleccionado.getText().toUpperCase();
+        apellido = txtApellidoSeleccionado.getText().toUpperCase();
         email = txtEmailSeleccionado.getText();
         return new Usuario(id,codigo, nombre, apellido,email,null,null,null);
     }

@@ -407,7 +407,7 @@ public class subPanelHistorialCurso extends javax.swing.JPanel {
             String nombreCurso = r.getCurso().getNombre();
             String horaInicio = r.getRegistroCurso().getHoraInicio() + "";
             String horaFin = r.getRegistroCurso().getHoraFin() + "";
-            String fecha = r.getRegistroCurso().getFecha()+"";
+            String fecha = formatoFecha(r.getRegistroCurso().getFecha().toLocalDate())+"";
             listaRegistrosCursos.add(new ListaRegistroCurso(nombreCurso, horaInicio, horaFin, fecha));
         });
         return listaRegistrosCursos;

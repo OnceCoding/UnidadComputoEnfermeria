@@ -399,57 +399,44 @@ public class frmNuevaSesion extends javax.swing.JFrame {
             if(validarCodigoEspaciosVacios(this.codigo)){
 
                 if(validarPurosNumeros(codigo)){
-                    daoUsuario = manager.getDaoUsuario();
-                    usuario = daoUsuario.obtenerPorCodigoUsuario(codigo);
+                    
+                    if(!codigoPcSeleccionado.equals("")){
+                        daoUsuario = manager.getDaoUsuario();
+                        usuario = daoUsuario.obtenerPorCodigoUsuario(codigo);
 
-                    if(usuario != null){
+                        if(usuario != null){
 
-                        /*int aceptar = JOptionPane.showConfirmDialog(null,
-                            usuario.getNombre()+" "+usuario.getApellido()+ "  iniciará Sesion, Seguro?",
-                            "Confirmar",JOptionPane.YES_NO_OPTION);
-                        */
-                        
-                        int aceptar = DialogMensaje.Confirmacion(null,usuario.getNombre()+" "+usuario.getApellido()+ "  iniciará Sesion <br> ¿ Seguro ?");
-                        
-                        if(aceptar == 0){
-                            
-                            if(!codigoPcSeleccionado.equals("")){
+                            int aceptar = DialogMensaje.Confirmacion(null,usuario.getNombre()+" "+usuario.getApellido()+ " <br> iniciará Sesion  ¿ Seguro ?");
+
+                            if(aceptar == 0){
                                 daoRegistroTemporal = manager.getDaoRegistroTemporal();
                                 daoRegistroTemporal.insertar(
                                 new RegistroTemporal(null,usuario.getId(),Integer.parseInt(codigoPcSeleccionado),
                                     Time.valueOf(LocalTime.now()),null,Date.valueOf(LocalDate.now())));
                                 txtCodigo.setText("");
-                            
+
                                 limpiarTabla();
                                 mostrarEquiposDisponibles();
-                            }else{
-                                DialogMensaje.Error(null,"Seleccione una Pc de la tabla");
                             }
-                            
 
+                        }else{
+                            DialogMensaje.Error(null,"El código no esta registrado");
                         }
-
                     }else{
-                        DialogMensaje.Error(null,"El codigo no esta registrado");
-                        //JOptionPane.showMessageDialog(null,"El codigo no esta registrado");
+                        DialogMensaje.Error(null,"Seleccione un equipo de la tabla");
                     }
 
                 }else{
-                    DialogMensaje.Confirmacion(null,"Codigo debe poseer solo dígitos");
-                    //JOptionPane.showMessageDialog(null,"Codigo debe poseer solo dígitos","Codigo",JOptionPane.WARNING_MESSAGE);
+                    DialogMensaje.Confirmacion(null,"Código debe poseer solo dígitos");
                 }
 
             }else{
                 
-                DialogMensaje.Error(null,"Codigo no debe poseer espacios en blanco");
-                /*JOptionPane.showMessageDialog(null,"Codigo no debe poseer espacios en blanco","Codigo",
-                    JOptionPane.WARNING_MESSAGE);*/
+                DialogMensaje.Error(null,"Código no debe poseer espacios en blanco");
             }
 
         }else{
-            DialogMensaje.Error(null,"Ingrese Codigo");
-            /*JOptionPane.showMessageDialog(null,"Ingrese Codigo","Codigo",
-                JOptionPane.WARNING_MESSAGE);*/
+            DialogMensaje.Error(null,"Ingrese Código");
         }
 
     }//GEN-LAST:event_btnIniciarActionPerformed

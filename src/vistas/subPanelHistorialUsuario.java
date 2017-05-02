@@ -62,7 +62,7 @@ public class subPanelHistorialUsuario extends javax.swing.JPanel {
     private SimpleDateFormat formato;
     private Date fechaDesde;
     private Date fechaHasta;
-   
+    private LocalDate fechaAux;
    
     public subPanelHistorialUsuario() {
         initComponents();
@@ -369,7 +369,7 @@ public class subPanelHistorialUsuario extends javax.swing.JPanel {
                     listaAux = new ArrayList<>();
 
                     if(equipoSelected){
-                        String pc = cbxEquipo.getSelectedItem().toString();
+                        Integer pc = Integer.parseInt(cbxEquipo.getSelectedItem().toString());
                         listaReporte.stream().filter((r) -> (r.getRegistro().getCodPC().equals(pc))).forEachOrdered((r) -> {
                             listaAux.add(r);
                         });
@@ -463,9 +463,9 @@ public class subPanelHistorialUsuario extends javax.swing.JPanel {
         }
         
         if(tipo == 1){
-            delimitador = "-";
+            delimitador = " - ";
         }else{
-            delimitador = "/";
+            delimitador = " / ";
         }
         
         return dia + delimitador + mes + delimitador+ año; 
@@ -480,7 +480,7 @@ public class subPanelHistorialUsuario extends javax.swing.JPanel {
             Integer codPC = r.getRegistro().getCodPC();
             String horaInicio = r.getRegistro().getHoraInicio() + "";
             String horaFin = r.getRegistro().getHoraFin() + "";
-            String fecha = r.getRegistro().getFecha()+"";
+            String fecha = formatoFecha(r.getRegistro().getFecha().toLocalDate(),1)+"";
             listaRegistrosUsuarios.add(new ListaRegistroUsuario(codUsuario, nombreUsuario, apellidoUsuario,String.valueOf(codPC), horaInicio, horaFin,fecha));
         });
         return listaRegistrosUsuarios;

@@ -367,13 +367,8 @@ public class panelCursos extends javax.swing.JPanel {
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         
         if(validar(txtNombreCursoSeleccionado.getText())){
-            
-            /*Object[] options = {"Eliminar","Cancelar"};
-            int n = JOptionPane.showOptionDialog(null,"Seguro que desea eliminar el curso , se  eliminaran tambine todos su registros "+txtNombreCursoSeleccionado.getText()
-                    ,"Eliminar Curso",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE,null, options,null);
-            */
-            
-            int n = DialogMensaje.Confirmacion(null,"¿ Seguro que desea eliminar el Curso ? <br> Se eliminara tambien todos los registros de Sesiones. ");
+           
+            int n = DialogMensaje.Confirmacion(null,"¿ Seguro que desea eliminar el Curso ? <br> Se eliminará tambien todos los registros de Sesiones. ");
             
             if(n == 0){
                 
