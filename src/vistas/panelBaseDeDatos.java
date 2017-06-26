@@ -4,7 +4,11 @@ package vistas;
 import Configuracion.ArchivoIni;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 public class panelBaseDeDatos extends javax.swing.JPanel {
 
@@ -16,6 +20,7 @@ public class panelBaseDeDatos extends javax.swing.JPanel {
     
     public panelBaseDeDatos() {
         initComponents();
+
     }
 
     @SuppressWarnings("unchecked")

@@ -44,14 +44,14 @@ public class MysqlDaoManager implements DaoManager{
         bd = ini.leerPropiedad("bd");
         user = ini.leerPropiedad("user");
         pass = ini.leerPropiedad("pass");
-        
-        /*host = "localhost";
+        /*
+        host = "localhost";
         bd = "bdcomputo";
         user = "root";
-        pass = "";*/
+        pass = "facenfUNT2017";*/
         
         conexion = DriverManager.getConnection("jdbc:mysql://"+host+"/"+bd+"?useSSL=false",user,pass);
-        
+        System.out.println(conexion);
     }
     
     public static MysqlDaoManager getMysqlDaoManager() throws SQLException{

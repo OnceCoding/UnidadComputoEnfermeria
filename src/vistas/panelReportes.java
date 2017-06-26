@@ -12,8 +12,12 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import modelo.ConfiguracionSemestre;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -35,15 +39,16 @@ public class panelReportes extends javax.swing.JPanel {
     private String ruta = "";
     
     public panelReportes() {
-        initComponents();
         
+        initComponents();
+
         try {
             manager = MysqlDaoManager.getMysqlDaoManager();
         } catch (SQLException e) {
         }
-        
         daoRegistro = manager.getDaoRegistro();
         mostrarDatosConfiguracionPorDefecto();
+        
         
     }
 
@@ -381,7 +386,7 @@ public class panelReportes extends javax.swing.JPanel {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 24, Short.MAX_VALUE)
+                .addGap(24, 24, 24)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22))
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -465,8 +470,8 @@ public class panelReportes extends javax.swing.JPanel {
             JasperReport jr = (JasperReport) JRLoader.loadObject(frmPrincipal.class.getResource("/reportes/reporteSemestre1.jasper"));
             Map parametros = new HashMap<>();
             parametros.put("Titulo","USO DE COMPUTADORAS - SEMESTRE I");
-            parametros.put("mesInicio",convertirMes(mesInicio).toUpperCase());
-            parametros.put("mesFin",convertirMes(mesFinal).toUpperCase());
+            parametros.put("mesInicio",convertirMes(mesInicio-1).toUpperCase());
+            parametros.put("mesFin",convertirMes(mesFinal-1).toUpperCase());
             parametros.put("fechaActual",formatoFecha(LocalDate.now(),1));
             parametros.put("cursos",new JRBeanCollectionDataSource(daoRegistro.obtenerReporteCursoSemestre(año, mesInicio, mesFinal)));
             parametros.put("imagen",frmPrincipal.class.getResource("/imagenes/icono4.png").toString());
@@ -499,8 +504,8 @@ public class panelReportes extends javax.swing.JPanel {
                 JasperReport jr = (JasperReport) JRLoader.loadObject(frmPrincipal.class.getResource("/reportes/reporteSemestre1.jasper"));
                 Map parametros = new HashMap<>();
                 parametros.put("Titulo","USO DE COMPUTADORAS - SEMESTRE I");
-                parametros.put("mesInicio",convertirMes(mesInicio).toUpperCase());
-                parametros.put("mesFin",convertirMes(mesFinal).toUpperCase());
+                parametros.put("mesInicio",convertirMes(mesInicio-1).toUpperCase());
+                parametros.put("mesFin",convertirMes(mesFinal-1).toUpperCase());
                 parametros.put("fechaActual",formatoFecha(LocalDate.now(),1));
                 parametros.put("cursos",new JRBeanCollectionDataSource(daoRegistro.obtenerReporteCursoSemestre(año, mesInicio, mesFinal)));
                 parametros.put("imagen",frmPrincipal.class.getResource("/imagenes/icono4.png").toString());

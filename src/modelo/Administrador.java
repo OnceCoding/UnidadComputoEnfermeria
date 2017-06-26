@@ -5,11 +5,13 @@ public class Administrador {
     private Integer codigo;
     private String user;
     private String pass;    
+    private String nombreCompleto;
     
-    public Administrador(Integer codigo,String user,String pass) {
+    public Administrador(Integer codigo,String user,String pass,String nombreCompleto) {
         this.codigo = codigo;
         this.user = user;
         this.pass = pass;
+        this.nombreCompleto = nombreCompleto;
     }
 
     public Integer getCodigo() {
@@ -36,6 +38,14 @@ public class Administrador {
         this.pass = pass;
     }
 
+    public String getNombreCompleto() {
+        return nombreCompleto;
+    }
+
+    public void setNombreCompleto(String nombreCompleto) {
+        this.nombreCompleto = nombreCompleto;
+    }
+    
     @Override
     public String toString() {
         return "Administrador{" + "codigo=" + codigo + ", user=" + user + ", pass=" + pass + '}';

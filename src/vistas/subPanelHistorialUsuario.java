@@ -426,7 +426,7 @@ public class subPanelHistorialUsuario extends javax.swing.JPanel {
                 parametros.put("fechaInicio",formatoFecha(dateDesde,1));
                 parametros.put("fechaFin",formatoFecha(dateHasta,1));
                 parametros.put("fechaActual",formatoFecha(LocalDate.now(),1));
-                parametros.put("admin",frmPrincipal.lblNombreAdmin.getText());
+                parametros.put("admin",frmPrincipal.lblNombreCompletoAdmin.getText());
                 parametros.put("imagen",frmPrincipal.class.getResource("/imagenes/LogoLarge.png").toString());
                 
                 JRBeanCollectionDataSource coleccion = new JRBeanCollectionDataSource(obtenerDatosRegistros(listaReporte));
@@ -434,6 +434,7 @@ public class subPanelHistorialUsuario extends javax.swing.JPanel {
                 JasperPrint jp = JasperFillManager.fillReport(jr,parametros,coleccion);
 
                 JasperViewer jv = new JasperViewer(jp,false);
+                jv.setTitle("REGISTRO DE SESIONES DE USUARIOS");
                 jv.setVisible(true);
 
 

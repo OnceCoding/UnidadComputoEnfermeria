@@ -6,6 +6,7 @@ public interface DaoAdministrador{
 
     public Administrador obtener();
     public void actualizarUsuario(Administrador administrador);
+    public void actualizarNombre(Administrador administrador);
     public void actualizarContraseña(Administrador administrador);
 
 }

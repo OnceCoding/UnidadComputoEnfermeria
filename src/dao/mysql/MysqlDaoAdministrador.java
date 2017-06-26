@@ -17,8 +17,9 @@ public class MysqlDaoAdministrador implements DaoAdministrador{
     
     private final String actualizarUsuario = "update administrador set user = ? where codigo = 2";
     private final String actualizarContraseña = "update administrador set pass = ? where codigo = 2";
+    private final String actualizarNombre = "update administrador set nombreCompleto = ? where codigo = 2";
    
-    private final String obtener = "select user,pass from administrador where codigo = 2";
+    private final String obtener = "select user,pass, nombreCompleto from administrador where codigo = 2";
 
     public MysqlDaoAdministrador(Connection conexion) {
         this.conexion = conexion;
@@ -47,7 +48,8 @@ public class MysqlDaoAdministrador implements DaoAdministrador{
         try {
             String user = rs.getString("user");
             String pass = rs.getString("pass");
-            administrador = new Administrador(1, user, pass);
+            String nombreCompleto = rs.getString("nombreCompleto");
+            administrador = new Administrador(1, user, pass, nombreCompleto);
             return administrador;
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -88,6 +90,24 @@ public class MysqlDaoAdministrador implements DaoAdministrador{
                 //JOptionPane.showMessageDialog(null,"No se pudo Actualizar");
             }
             
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            DialogMensaje.Error(null,"Error en la conexion con la base de datos");
+            System.exit(0);
+        }finally{
+            MysqlUtils.cerrarPreparedStatement(preparedStatement);
+        }
+    }
+
+    @Override
+    public void actualizarNombre(Administrador administrador) {
+        try {
+            preparedStatement = conexion.prepareStatement(actualizarNombre);
+            preparedStatement.setString(1,administrador.getNombreCompleto());
+            
+            if(preparedStatement.executeUpdate()!= 0){
+                DialogMensaje.Informacion(null,"Nombre de Administrador Actualizado Exitosamente");
+            }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
             DialogMensaje.Error(null,"Error en la conexion con la base de datos");

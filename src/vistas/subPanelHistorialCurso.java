@@ -365,7 +365,7 @@ public class subPanelHistorialCurso extends javax.swing.JPanel {
                 parametros.put("fechaInicio",formatoFecha(dateDesde));
                 parametros.put("fechaFin",formatoFecha(dateHasta));
                 parametros.put("fechaActual",formatoFecha(LocalDate.now()));
-                parametros.put("admin",frmPrincipal.lblNombreAdmin.getText());
+                parametros.put("admin",frmPrincipal.lblNombreCompletoAdmin.getText());
                 parametros.put("imagen",frmPrincipal.class.getResource("/imagenes/LogoLarge.png").toString());
                 
                 JRBeanCollectionDataSource coleccion = new JRBeanCollectionDataSource(obtenerDatosRegistros(listaReporte));
@@ -373,6 +373,7 @@ public class subPanelHistorialCurso extends javax.swing.JPanel {
                 JasperPrint jp = JasperFillManager.fillReport(jr,parametros,coleccion);
 
                 JasperViewer jv = new JasperViewer(jp,false);
+                jv.setTitle("REGISTRO DE SESIONES DE CURSOS DICTADOS");
                 jv.setVisible(true);
 
 

@@ -30,10 +30,12 @@ public class frmAdministrador extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         
-        setIconImage(new ImageIcon(getClass().getResource("/imagenes/iconBar.png")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource("/imagenes/logolamparaenfermeria2.png")).getImage());
         
-        btnListo.setVisible(false);
-        txtNombreNuevo.setVisible(false);
+        btnListo1.setVisible(false);
+        txtNombreNuevo1.setVisible(false);
+        btnListo2.setVisible(false);
+        txtNombreNuevo2.setVisible(false);
         
         try {
             manager = MysqlDaoManager.getMysqlDaoManager();
@@ -42,7 +44,8 @@ public class frmAdministrador extends javax.swing.JFrame {
         }
         
         daoAdmin = manager.getDaoAdministrador();
-        lblNombreAdmin.setText(daoAdmin.obtener().getUser()); 
+        lblNombreCompletoAdmin.setText(daoAdmin.obtener().getNombreCompleto()); 
+        lblUserAdmin.setText(daoAdmin.obtener().getUser()); 
     }
 
     @SuppressWarnings("unchecked")
@@ -59,14 +62,20 @@ public class frmAdministrador extends javax.swing.JFrame {
         btnCambiarClave = new javax.swing.JButton();
         txtClaveActual = new javax.swing.JTextField();
         txtClaveNueva = new javax.swing.JTextField();
-        lblNombreAdmin = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        btnEditar = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
-        btnListo = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
-        txtNombreNuevo = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        lblNombreCompletoAdmin = new javax.swing.JLabel();
+        btnEditar1 = new javax.swing.JButton();
+        txtNombreNuevo1 = new javax.swing.JTextField();
+        btnListo1 = new javax.swing.JButton();
+        jLabel15 = new javax.swing.JLabel();
+        lblUserAdmin = new javax.swing.JLabel();
+        btnEditar2 = new javax.swing.JButton();
+        txtNombreNuevo2 = new javax.swing.JTextField();
+        btnListo2 = new javax.swing.JButton();
+        jLabel16 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         btnSalir = new javax.swing.JButton();
@@ -172,7 +181,7 @@ public class frmAdministrador extends javax.swing.JFrame {
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
+                .addContainerGap()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtClaveActual, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -182,30 +191,8 @@ public class frmAdministrador extends javax.swing.JFrame {
                 .addComponent(txtClaveNueva, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addComponent(btnCambiarClave, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        lblNombreAdmin.setFont(new java.awt.Font("Tempus Sans ITC", 0, 22)); // NOI18N
-        lblNombreAdmin.setForeground(new java.awt.Color(255, 255, 255));
-        lblNombreAdmin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblNombreAdmin.setText("Nombre del Administrador");
-        lblNombreAdmin.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(184, 207, 229));
-        jLabel10.setText("ADMINISTRADOR ");
-
-        btnEditar.setBackground(new java.awt.Color(184, 207, 229));
-        btnEditar.setFont(new java.awt.Font("Tempus Sans ITC", 0, 11)); // NOI18N
-        btnEditar.setForeground(java.awt.Color.white);
-        btnEditar.setText("EDITAR");
-        btnEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnEditar.setFocusable(false);
-        btnEditar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarActionPerformed(evt);
-            }
-        });
 
         jLabel11.setBackground(new java.awt.Color(184, 207, 229));
         jLabel11.setForeground(java.awt.Color.white);
@@ -214,81 +201,184 @@ public class frmAdministrador extends javax.swing.JFrame {
         jLabel11.setOpaque(true);
         jLabel11.setPreferredSize(new java.awt.Dimension(0, 10));
 
-        btnListo.setBackground(new java.awt.Color(34, 70, 135));
-        btnListo.setFont(new java.awt.Font("Tempus Sans ITC", 0, 11)); // NOI18N
-        btnListo.setForeground(java.awt.Color.white);
-        btnListo.setText("LISTO");
-        btnListo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnListo.setFocusable(false);
-        btnListo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnListoActionPerformed(evt);
-            }
-        });
-
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(34, 34, 34));
         jLabel12.setText("ngy");
 
-        txtNombreNuevo.setBackground(new java.awt.Color(34, 34, 34));
-        txtNombreNuevo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        txtNombreNuevo.setForeground(java.awt.Color.white);
-        txtNombreNuevo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtNombreNuevo.setBorder(javax.swing.BorderFactory.createLineBorder(java.awt.Color.white));
-
         jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(34, 34, 34));
-        jLabel13.setText("HolaAngyQ");
+        jLabel13.setText("WR");
+
+        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(184, 207, 229));
+        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel14.setText("ADMINISTRADOR ");
+
+        lblNombreCompletoAdmin.setFont(new java.awt.Font("Tempus Sans ITC", 0, 22)); // NOI18N
+        lblNombreCompletoAdmin.setForeground(new java.awt.Color(255, 255, 255));
+        lblNombreCompletoAdmin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblNombreCompletoAdmin.setText("Nombre del Administrador");
+        lblNombreCompletoAdmin.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        btnEditar1.setBackground(new java.awt.Color(184, 207, 229));
+        btnEditar1.setFont(new java.awt.Font("Tempus Sans ITC", 0, 11)); // NOI18N
+        btnEditar1.setForeground(java.awt.Color.white);
+        btnEditar1.setText("EDITAR");
+        btnEditar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEditar1.setFocusable(false);
+        btnEditar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditar1ActionPerformed(evt);
+            }
+        });
+
+        txtNombreNuevo1.setBackground(new java.awt.Color(34, 34, 34));
+        txtNombreNuevo1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        txtNombreNuevo1.setForeground(java.awt.Color.white);
+        txtNombreNuevo1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtNombreNuevo1.setBorder(javax.swing.BorderFactory.createLineBorder(java.awt.Color.white));
+        txtNombreNuevo1.setCaretColor(new java.awt.Color(255, 255, 255));
+
+        btnListo1.setBackground(new java.awt.Color(34, 70, 135));
+        btnListo1.setFont(new java.awt.Font("Tempus Sans ITC", 0, 11)); // NOI18N
+        btnListo1.setForeground(java.awt.Color.white);
+        btnListo1.setText("LISTO");
+        btnListo1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnListo1.setFocusable(false);
+        btnListo1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListo1ActionPerformed(evt);
+            }
+        });
+
+        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(184, 207, 229));
+        jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel15.setText("USUARIO");
+
+        lblUserAdmin.setFont(new java.awt.Font("Tempus Sans ITC", 0, 22)); // NOI18N
+        lblUserAdmin.setForeground(new java.awt.Color(255, 255, 255));
+        lblUserAdmin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblUserAdmin.setText("Nombre del Administrador");
+        lblUserAdmin.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        btnEditar2.setBackground(new java.awt.Color(184, 207, 229));
+        btnEditar2.setFont(new java.awt.Font("Tempus Sans ITC", 0, 11)); // NOI18N
+        btnEditar2.setForeground(java.awt.Color.white);
+        btnEditar2.setText("EDITAR");
+        btnEditar2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEditar2.setFocusable(false);
+        btnEditar2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditar2ActionPerformed(evt);
+            }
+        });
+
+        txtNombreNuevo2.setBackground(new java.awt.Color(34, 34, 34));
+        txtNombreNuevo2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        txtNombreNuevo2.setForeground(java.awt.Color.white);
+        txtNombreNuevo2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtNombreNuevo2.setBorder(javax.swing.BorderFactory.createLineBorder(java.awt.Color.white));
+        txtNombreNuevo2.setCaretColor(new java.awt.Color(255, 255, 255));
+        txtNombreNuevo2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombreNuevo2ActionPerformed(evt);
+            }
+        });
+
+        btnListo2.setBackground(new java.awt.Color(34, 70, 135));
+        btnListo2.setFont(new java.awt.Font("Tempus Sans ITC", 0, 11)); // NOI18N
+        btnListo2.setForeground(java.awt.Color.white);
+        btnListo2.setText("LISTO");
+        btnListo2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnListo2.setFocusable(false);
+        btnListo2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListo2ActionPerformed(evt);
+            }
+        });
+
+        jLabel16.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(34, 34, 34));
+        jLabel16.setText("WR");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(27, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblNombreAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(129, 129, 129)
-                        .addComponent(jLabel10))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel12)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtNombreNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnListo, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27))
+                        .addComponent(txtNombreNuevo1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnListo1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(82, 82, 82))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblNombreCompletoAdmin, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtNombreNuevo2, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnListo2, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addGap(78, 78, 78)
+                                        .addComponent(btnEditar2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel12))
+                            .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblUserAdmin, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(145, 145, 145)
+                .addComponent(btnEditar1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
-                .addComponent(jLabel10)
+                .addGap(20, 20, 20)
+                .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblNombreAdmin)
+                .addComponent(lblNombreCompletoAdmin)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnEditar1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnListo1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNombreNuevo1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel15)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblUserAdmin)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(24, 24, 24)
+                        .addComponent(btnEditar2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnListo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNombreNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33)
+                            .addComponent(btnListo2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNombreNuevo2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(10, 10, 10)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41)
+                .addGap(16, 16, 16)
                 .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -339,7 +429,7 @@ public class frmAdministrador extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(bttMinizar)
                 .addGap(5, 5, 5)
                 .addComponent(btnSalir)
@@ -382,7 +472,7 @@ public class frmAdministrador extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(72, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel6)
@@ -414,15 +504,18 @@ public class frmAdministrador extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0))
         );
 
         pack();
@@ -437,34 +530,9 @@ public class frmAdministrador extends javax.swing.JFrame {
         setExtendedState(JFrame.ICONIFIED);
     }//GEN-LAST:event_bttMinizarActionPerformed
 
-    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        txtNombreNuevo.setVisible(true);
-        btnListo.setVisible(true);
-    }//GEN-LAST:event_btnEditarActionPerformed
-
-    private void btnListoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListoActionPerformed
-        this.nombreNuevo = txtNombreNuevo.getText();
-        if(revisar(nombreNuevo)){
-            usuario = nombreNuevo;
-            daoAdmin.actualizarUsuario(new Administrador(null,usuario,null));
-            
-            lblNombreAdmin.setText(usuario);
-            btnListo.setVisible(false);
-            txtNombreNuevo.setVisible(false);
-            
-        }else{
-            
-            DialogMensaje.Error(null,"Solo se acepta letras o numeros");
-            
-            /*JOptionPane.showMessageDialog(rootPane,"Usuario No Valido \n"
-                    + "Solo se acepta letras o numeros","Invalido",JOptionPane.WARNING_MESSAGE);*/
-        }
-
-    }//GEN-LAST:event_btnListoActionPerformed
-
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
         this.dispose();
-        new frmPrincipal().setVisible(true);;
+        new frmPrincipal().setVisible(true);
     }//GEN-LAST:event_btnAtrasActionPerformed
 
     private void btnCambiarClaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarClaveActionPerformed
@@ -484,11 +552,10 @@ public class frmAdministrador extends javax.swing.JFrame {
         
         if(bandClaveOriginal){
             if(revisar(claveNueva)){
-                daoAdmin.actualizarContraseña(new Administrador(null, null,claveNueva));   
+                daoAdmin.actualizarContraseña(new Administrador(null, null,claveNueva, null));   
             }else{
                 DialogMensaje.Error(null,"Solo se acepta letras o numeros");
-                /*JOptionPane.showMessageDialog(rootPane,"Contraseña Nueva No Valida \n"
-                        + "Solo se acepta letras o numeros","Contraseña Nueva",JOptionPane.WARNING_MESSAGE);*/
+               
             }
         }
        
@@ -502,6 +569,46 @@ public class frmAdministrador extends javax.swing.JFrame {
     private void jPanel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseDragged
         this.setLocation(this.getLocation().x + evt.getX() - this.x, this.getLocation().y + evt.getY() - this.y);
     }//GEN-LAST:event_jPanel1MouseDragged
+
+    private void btnEditar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditar1ActionPerformed
+        btnListo1.setVisible(true);
+        txtNombreNuevo1.setVisible(true);
+    }//GEN-LAST:event_btnEditar1ActionPerformed
+
+    private void btnListo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListo1ActionPerformed
+        String nombreCompleto = txtNombreNuevo1.getText();
+        if(!"".equals(nombreCompleto)){
+            daoAdmin.actualizarNombre(new Administrador(null, null, null, nombreCompleto));
+            
+            lblNombreCompletoAdmin.setText(nombreCompleto);
+        }else{
+            DialogMensaje.Error(null,"Datos a actualizar incorrectos, verifique." );
+        }
+        btnListo1.setVisible(false);
+        txtNombreNuevo1.setVisible(false);
+    }//GEN-LAST:event_btnListo1ActionPerformed
+
+    private void btnEditar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditar2ActionPerformed
+        btnListo2.setVisible(true);
+        txtNombreNuevo2.setVisible(true);
+    }//GEN-LAST:event_btnEditar2ActionPerformed
+
+    private void btnListo2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListo2ActionPerformed
+        String user = txtNombreNuevo2.getText();
+        if(revisar(user)){
+            daoAdmin.actualizarUsuario(new Administrador(null, user, null, null));
+            
+            lblUserAdmin.setText(user);
+        }else{
+            DialogMensaje.Error(null,"Datos a actualizar incorrectos, verifique." );
+        }
+        btnListo2.setVisible(false);
+        txtNombreNuevo2.setVisible(false);
+    }//GEN-LAST:event_btnListo2ActionPerformed
+
+    private void txtNombreNuevo2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreNuevo2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreNuevo2ActionPerformed
 
     /*
         true = valido
@@ -531,15 +638,19 @@ public class frmAdministrador extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtras;
     private javax.swing.JButton btnCambiarClave;
-    private javax.swing.JButton btnEditar;
-    private javax.swing.JButton btnListo;
+    private javax.swing.JButton btnEditar1;
+    private javax.swing.JButton btnEditar2;
+    private javax.swing.JButton btnListo1;
+    private javax.swing.JButton btnListo2;
     private javax.swing.JButton btnSalir;
     private javax.swing.JButton bttMinizar;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -553,9 +664,11 @@ public class frmAdministrador extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JLabel lblNombreAdmin;
+    private javax.swing.JLabel lblNombreCompletoAdmin;
+    private javax.swing.JLabel lblUserAdmin;
     private javax.swing.JTextField txtClaveActual;
     private javax.swing.JTextField txtClaveNueva;
-    private javax.swing.JTextField txtNombreNuevo;
+    private javax.swing.JTextField txtNombreNuevo1;
+    private javax.swing.JTextField txtNombreNuevo2;
     // End of variables declaration//GEN-END:variables
 }

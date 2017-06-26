@@ -28,7 +28,7 @@ public class frmLogin extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
         
-        setIconImage(new ImageIcon(getClass().getResource("/imagenes/iconBar.png")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource("/imagenes/logolamparaenfermeria2.png")).getImage());
         
     }
 
@@ -349,16 +349,13 @@ public class frmLogin extends javax.swing.JFrame {
             this.manager = MysqlDaoManager.getMysqlDaoManager();
             this.daoAdmin = manager.getDaoAdministrador();
             this.administrador = this.daoAdmin.obtener();
-            
             this.usuario = this.txtUsuario.getText();
             this.caracteresContraseña = this.txtContraseña.getPassword();
             this.contraseña = new String(this.caracteresContraseña);
-            
             if(this.usuario.equals(this.administrador.getUser()) && this.contraseña.equals(this.administrador.getPass())){
                 this.dispose();
                 frmPrincipal fp = new frmPrincipal();
                 fp.setVisible(true);
-                
             }else{
                 DialogMensaje.Error(null, "Datos Incorrectos");
                 //JOptionPane.showMessageDialog(null,"Datos Incorrectos","Conexion",JOptionPane.WARNING_MESSAGE);
@@ -367,6 +364,7 @@ public class frmLogin extends javax.swing.JFrame {
         }catch(SQLException e){
             DialogMensaje.Error(null,"No se pudo conectar a la Base de Datos");
             System.out.println(e.getMessage());
+            manager = null;
             //JOptionPane.showMessageDialog(null,"No se pudo Conectar a la Base de Datos","Error",JOptionPane.ERROR_MESSAGE);
         }
     }
