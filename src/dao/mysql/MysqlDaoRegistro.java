@@ -42,10 +42,10 @@ public class MysqlDaoRegistro implements DaoRegistro{
             + "curso c on rc.codCurso = c.codigo where rc.fecha between ? and ? ";
 
    private final String obtenerTotalRegistrosPorMes = 
-            "select count(*) as cantidad from registro where MONTH(fecha) = ? ";
+            "select count(*) as cantidad from registro where MONTH(fecha) = ? and YEAR(fecha) = ?";
     
     private final String obtenerHorasRegistroPorMes = 
-            "select horaInicio,horaFin from registro where MONTH(fecha) = ?";
+            "select horaInicio,horaFin from registro where MONTH(fecha) = ? and YEAR(fecha) = ?";
     
     private final String obtenerTotalRegistrosCursosPorMes = 
             "select count(*) as cantidad, c.nombre, c.codigo from registrocurso r inner join curso c on r.codCurso = c.codigo "
@@ -253,6 +253,7 @@ public class MysqlDaoRegistro implements DaoRegistro{
                 nroVisitantes = 0;
                 preparedStatement = conexion.prepareStatement(obtenerTotalRegistrosPorMes);
                 preparedStatement.setInt(1,i);
+                preparedStatement.setInt(2, año);
                 resultSet = preparedStatement.executeQuery();
                 if(resultSet.next()){
                     nroVisitantes = resultSet.getInt("cantidad");
@@ -262,6 +263,7 @@ public class MysqlDaoRegistro implements DaoRegistro{
                 preparedStatement = null;
                 preparedStatement = conexion.prepareStatement(obtenerHorasRegistroPorMes);
                 preparedStatement.setInt(1, i);
+                preparedStatement.setInt(2, año);
                 resultSet = preparedStatement.executeQuery();
                 
                 Time inicio  , fin;
