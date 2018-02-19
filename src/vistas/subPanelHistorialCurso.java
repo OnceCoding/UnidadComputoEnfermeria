@@ -294,6 +294,8 @@ public class subPanelHistorialCurso extends javax.swing.JPanel {
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
 
+        eliminarDatosTabla();
+        
         Date fechaDesde = chooserDesde.getDate();
         Date fechaHasta = chooserHasta.getDate();
 
